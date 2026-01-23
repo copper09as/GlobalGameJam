@@ -91,6 +91,9 @@ namespace GameFramework
         [Tooltip("最大堆叠层数")]
         [Min(1)]
         public int MaxStacks = 1;
+        [Header("事件触发")]
+        [Tooltip("效果触发的事件名，比如 OnTurnStart、OnDeath 等")]
+        public string[] EventTriggers;  // 支持多个事件
 
         [Tooltip("每层堆叠的效果倍率")]
         public float StackMultiplier = 1f;

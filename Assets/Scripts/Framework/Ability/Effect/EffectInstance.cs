@@ -100,7 +100,17 @@ namespace GameFramework
 
             ApplyModifiers();
             ApplyGrantedTags();
+            TrigEffect();
         }
+
+        private void TrigEffect()
+        {
+            foreach (var eventName in Effect.EventTriggers)
+            {
+                
+            }
+        }
+
 
         /// <summary>
         /// 停用效果 - 移除修改器和标签
@@ -141,7 +151,6 @@ namespace GameFramework
                     PeriodTimer = Effect.Period;
                 }
             }
-
             return !IsExpired;
         }
 

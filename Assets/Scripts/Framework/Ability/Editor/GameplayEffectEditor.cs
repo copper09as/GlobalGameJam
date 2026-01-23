@@ -25,6 +25,7 @@ namespace GameFramework.Editor
         SerializedProperty blockedTagsProp;
         SerializedProperty removeEffectsWithTagsProp;
         SerializedProperty iconProp;
+        SerializedProperty eventTriggersProp;
         SerializedProperty vfxPrefabProp;
 
         bool showBasicInfo = true;
@@ -33,6 +34,7 @@ namespace GameFramework.Editor
         bool showModifiers = true;
         bool showTags = true;
         bool showVisual = false;
+        bool showEvents = true;
 
         void OnEnable()
         {
@@ -51,6 +53,7 @@ namespace GameFramework.Editor
             blockedTagsProp = serializedObject.FindProperty("BlockedTags");
             removeEffectsWithTagsProp = serializedObject.FindProperty("RemoveEffectsWithTags");
             iconProp = serializedObject.FindProperty("Icon");
+            eventTriggersProp = serializedObject.FindProperty("EventTriggers");
             vfxPrefabProp = serializedObject.FindProperty("VfxPrefab");
         }
 
@@ -81,7 +84,34 @@ namespace GameFramework.Editor
             // 视觉效果
             showVisual = DrawFoldoutSection("Visual", showVisual, DrawVisual);
 
+            showEvents = DrawFoldoutSection("Events & Scripted Effects", showEvents, DrawEvents);
+
+
             serializedObject.ApplyModifiedProperties();
+        }
+        void DrawEvents()
+        {
+            EditorGUILayout.LabelField("Event Triggers", EditorStyles.boldLabel);
+            EditorGUI.indentLevel++;
+
+            for (int i = 0; i < eventTriggersProp.arraySize; i++)
+            {
+                EditorGUILayout.PropertyField(eventTriggersProp.GetArrayElementAtIndex(i), new GUIContent($"Event {i}"));
+            }
+
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("+", GUILayout.Width(30)))
+            {
+                eventTriggersProp.InsertArrayElementAtIndex(eventTriggersProp.arraySize);
+            }
+            if (eventTriggersProp.arraySize > 0 && GUILayout.Button("-", GUILayout.Width(30)))
+            {
+                eventTriggersProp.DeleteArrayElementAtIndex(eventTriggersProp.arraySize - 1);
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUI.indentLevel--;
         }
 
         void DrawHeader()
@@ -186,67 +216,67 @@ namespace GameFramework.Editor
             }
         }
 
-void DrawModifiers()
-{
-    // 标题（不要让 PropertyField 生成 Foldout）
-    EditorGUILayout.LabelField("Attribute Modifiers", EditorStyles.boldLabel);
+        void DrawModifiers()
+        {
+            // 标题（不要让 PropertyField 生成 Foldout）
+            EditorGUILayout.LabelField("Attribute Modifiers", EditorStyles.boldLabel);
 
-    EditorGUI.indentLevel++;
+            EditorGUI.indentLevel++;
 
-    // 手动画数组内容，避免嵌套 Foldout
-    for (int i = 0; i < modifiersProp.arraySize; i++)
-    {
-        var element = modifiersProp.GetArrayElementAtIndex(i);
-        EditorGUILayout.PropertyField(element, new GUIContent($"Modifier {i}"), true);
-    }
+            // 手动画数组内容，避免嵌套 Foldout
+            for (int i = 0; i < modifiersProp.arraySize; i++)
+            {
+                var element = modifiersProp.GetArrayElementAtIndex(i);
+                EditorGUILayout.PropertyField(element, new GUIContent($"Modifier {i}"), true);
+            }
 
-    EditorGUI.indentLevel--;
+            EditorGUI.indentLevel--;
 
-    EditorGUILayout.Space(4);
+            EditorGUILayout.Space(4);
 
-    // 添加 / 删除按钮
-    EditorGUILayout.BeginHorizontal();
-    GUILayout.FlexibleSpace();
+            // 添加 / 删除按钮
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
 
-    if (GUILayout.Button("+ Add Modifier", GUILayout.Width(120)))
-    {
-        modifiersProp.InsertArrayElementAtIndex(modifiersProp.arraySize);
-    }
+            if (GUILayout.Button("+ Add Modifier", GUILayout.Width(120)))
+            {
+                modifiersProp.InsertArrayElementAtIndex(modifiersProp.arraySize);
+            }
 
-    EditorGUILayout.EndHorizontal();
-}
+            EditorGUILayout.EndHorizontal();
+        }
 
 
-void DrawTags()
-{
-    DrawTagList(grantedTagsProp, "Granted Tags");
-    DrawTagList(requiredTagsProp, "Required Tags");
-    DrawTagList(blockedTagsProp, "Blocked Tags");
-    DrawTagList(removeEffectsWithTagsProp, "Remove Effects With");
-}
+        void DrawTags()
+        {
+            DrawTagList(grantedTagsProp, "Granted Tags");
+            DrawTagList(requiredTagsProp, "Required Tags");
+            DrawTagList(blockedTagsProp, "Blocked Tags");
+            DrawTagList(removeEffectsWithTagsProp, "Remove Effects With");
+        }
 
-void DrawTagList(SerializedProperty listProp, string label)
-{
-    EditorGUILayout.LabelField(label, EditorStyles.boldLabel);
-    EditorGUI.indentLevel++;
+        void DrawTagList(SerializedProperty listProp, string label)
+        {
+            EditorGUILayout.LabelField(label, EditorStyles.boldLabel);
+            EditorGUI.indentLevel++;
 
-    for (int i = 0; i < listProp.arraySize; i++)
-    {
-        EditorGUILayout.PropertyField(listProp.GetArrayElementAtIndex(i), GUIContent.none);
-    }
+            for (int i = 0; i < listProp.arraySize; i++)
+            {
+                EditorGUILayout.PropertyField(listProp.GetArrayElementAtIndex(i), GUIContent.none);
+            }
 
-    // 添加按钮
-    EditorGUILayout.BeginHorizontal();
-    GUILayout.FlexibleSpace();
-    if (GUILayout.Button("+", GUILayout.Width(30)))
-    {
-        listProp.InsertArrayElementAtIndex(listProp.arraySize);
-    }
-    EditorGUILayout.EndHorizontal();
+            // 添加按钮
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("+", GUILayout.Width(30)))
+            {
+                listProp.InsertArrayElementAtIndex(listProp.arraySize);
+            }
+            EditorGUILayout.EndHorizontal();
 
-    EditorGUI.indentLevel--;
-    EditorGUILayout.Space(6);
-}
+            EditorGUI.indentLevel--;
+            EditorGUILayout.Space(6);
+        }
 
         void DrawVisual()
         {
