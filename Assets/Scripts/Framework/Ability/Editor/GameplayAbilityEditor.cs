@@ -179,20 +179,44 @@ namespace GameFramework.Editor
 
         void DrawTags()
         {
-            EditorGUILayout.PropertyField(abilityTagsProp, new GUIContent("Ability Tags"), true);
+            DrawTagList(abilityTagsProp, "Ability Tags");
 
-            EditorGUILayout.Space(4);
+            EditorGUILayout.Space(6);
             EditorGUILayout.LabelField("Owner Requirements", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(requiredOwnerTagsProp, new GUIContent("Required"), true);
-            EditorGUILayout.PropertyField(blockedOwnerTagsProp, new GUIContent("Blocked"), true);
+            DrawTagList(requiredOwnerTagsProp, "Required");
+            DrawTagList(blockedOwnerTagsProp, "Blocked");
 
-            EditorGUILayout.Space(4);
+            EditorGUILayout.Space(6);
             EditorGUILayout.LabelField("Target Requirements", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(requiredTargetTagsProp, new GUIContent("Required"), true);
-            EditorGUILayout.PropertyField(blockedTargetTagsProp, new GUIContent("Blocked"), true);
+            DrawTagList(requiredTargetTagsProp, "Required");
+            DrawTagList(blockedTargetTagsProp, "Blocked");
 
-            EditorGUILayout.Space(4);
-            EditorGUILayout.PropertyField(activationGrantedTagsProp, new GUIContent("Activation Granted"), true);
+            EditorGUILayout.Space(6);
+            DrawTagList(activationGrantedTagsProp, "Activation Granted");
+        }
+
+        void DrawTagList(SerializedProperty listProp, string label)
+        {
+            EditorGUILayout.LabelField(label, EditorStyles.label);
+            EditorGUI.indentLevel++;
+
+            for (int i = 0; i < listProp.arraySize; i++)
+            {
+                EditorGUILayout.PropertyField(
+                    listProp.GetArrayElementAtIndex(i),
+                    GUIContent.none
+                );
+            }
+
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("+", GUILayout.Width(30)))
+            {
+                listProp.InsertArrayElementAtIndex(listProp.arraySize);
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUI.indentLevel--;
         }
 
         void DrawEffects()
@@ -201,7 +225,7 @@ namespace GameFramework.Editor
 
             if (abilityType == AbilityType.Passive)
             {
-                EditorGUILayout.PropertyField(passiveEffectsProp, new GUIContent("Passive Effects"), true);
+                DrawEffectList(passiveEffectsProp, "Passive Effects");
 
                 if (passiveEffectsProp.arraySize == 0)
                 {
@@ -210,16 +234,45 @@ namespace GameFramework.Editor
             }
             else
             {
-                EditorGUILayout.PropertyField(effectsToApplyProp, new GUIContent("Effects on Target"), true);
-                EditorGUILayout.PropertyField(selfEffectsProp, new GUIContent("Effects on Self"), true);
+                DrawEffectList(effectsToApplyProp, "Effects on Target");
+                DrawEffectList(selfEffectsProp, "Effects on Self");
             }
 
-            // 效果数量统计
-            int totalEffects = effectsToApplyProp.arraySize + selfEffectsProp.arraySize + passiveEffectsProp.arraySize;
+            int totalEffects =
+                effectsToApplyProp.arraySize +
+                selfEffectsProp.arraySize +
+                passiveEffectsProp.arraySize;
+
             if (totalEffects > 0)
             {
                 EditorGUILayout.LabelField($"Total: {totalEffects} effect(s)", EditorStyles.miniLabel);
             }
+        }
+
+        void DrawEffectList(SerializedProperty listProp, string label)
+        {
+            EditorGUILayout.LabelField(label, EditorStyles.boldLabel);
+            EditorGUI.indentLevel++;
+
+            for (int i = 0; i < listProp.arraySize; i++)
+            {
+                EditorGUILayout.PropertyField(
+                    listProp.GetArrayElementAtIndex(i),
+                    new GUIContent($"Element {i}"),
+                    true
+                );
+            }
+
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+            if (GUILayout.Button("+ Add", GUILayout.Width(80)))
+            {
+                listProp.InsertArrayElementAtIndex(listProp.arraySize);
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUI.indentLevel--;
+            EditorGUILayout.Space(4);
         }
 
         void DrawVisual()

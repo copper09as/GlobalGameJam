@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34f0411ca2b6c7943ad9e79e4f86e10c, type: 3}
+  m_Name: NewEffect
+  m_EditorClassIdentifier: 
+  EffectId: 
+  DisplayName: 
+  Description: 
+  DurationType: 0
+  Duration: 5
+  Period: 1
+  StackingPolicy: 0
+  MaxStacks: 1
+  StackMultiplier: 1
+  Modifiers: []
+  GrantedTags: []
+  RequiredTags: []
+  BlockedTags: []
+  RemoveEffectsWithTags: []
+  Icon: {fileID: 0}
+  VfxPrefab: {fileID: 0}

@@ -36,7 +36,6 @@ namespace GameFramework.Editor
 
             EditorGUI.PropertyField(nameRect, nameProp, new GUIContent("Name"));
             EditorGUI.PropertyField(displayRect, displayNameProp, new GUIContent("Display"));
-
             // 第二行: Default | Min | Max | IsInt
             float y2 = position.y + EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;
             var secondLine = new Rect(position.x, y2, position.width, EditorGUIUtility.singleLineHeight);
@@ -48,10 +47,28 @@ namespace GameFramework.Editor
             var maxRect = new Rect(secondLine.x + fieldWidth * 2 + Spacing * 2, secondLine.y, fieldWidth, secondLine.height);
             var intRect = new Rect(secondLine.x + fieldWidth * 3 + Spacing * 3, secondLine.y, IntWidth, secondLine.height);
 
-            EditorGUI.PropertyField(defaultRect, defaultProp, new GUIContent("Def"));
-            EditorGUI.PropertyField(minRect, minProp, new GUIContent("Min"));
-            EditorGUI.PropertyField(maxRect, maxProp, new GUIContent("Max"));
+            // --- Labels（手动画）---
+            EditorGUI.LabelField(defaultRect, "Def");
+            EditorGUI.LabelField(minRect, "Min");
+            EditorGUI.LabelField(maxRect, "Max");
+
+            // --- 数值框（去掉 Label）---
+            float labelWidth = 28f;
+
+            defaultRect.x += labelWidth;
+            defaultRect.width -= labelWidth;
+            minRect.x += labelWidth;
+            minRect.width -= labelWidth;
+            maxRect.x += labelWidth;
+            maxRect.width -= labelWidth;
+
+            EditorGUI.PropertyField(defaultRect, defaultProp, GUIContent.none);
+            EditorGUI.PropertyField(minRect, minProp, GUIContent.none);
+            EditorGUI.PropertyField(maxRect, maxProp, GUIContent.none);
+
+            // Bool
             EditorGUI.PropertyField(intRect, isIntProp, GUIContent.none);
+
 
             // 第三行: Category
             float y3 = y2 + EditorGUIUtility.singleLineHeight + EditorGUIUtility.standardVerticalSpacing;

@@ -186,27 +186,67 @@ namespace GameFramework.Editor
             }
         }
 
-        void DrawModifiers()
-        {
-            EditorGUILayout.PropertyField(modifiersProp, new GUIContent("Attribute Modifiers"), true);
+void DrawModifiers()
+{
+    // 标题（不要让 PropertyField 生成 Foldout）
+    EditorGUILayout.LabelField("Attribute Modifiers", EditorStyles.boldLabel);
 
-            // 添加修改器快捷按钮
-            EditorGUILayout.BeginHorizontal();
-            GUILayout.FlexibleSpace();
-            if (GUILayout.Button("+ Add Modifier", GUILayout.Width(120)))
-            {
-                modifiersProp.InsertArrayElementAtIndex(modifiersProp.arraySize);
-            }
-            EditorGUILayout.EndHorizontal();
-        }
+    EditorGUI.indentLevel++;
 
-        void DrawTags()
-        {
-            EditorGUILayout.PropertyField(grantedTagsProp, new GUIContent("Granted Tags"), true);
-            EditorGUILayout.PropertyField(requiredTagsProp, new GUIContent("Required Tags"), true);
-            EditorGUILayout.PropertyField(blockedTagsProp, new GUIContent("Blocked Tags"), true);
-            EditorGUILayout.PropertyField(removeEffectsWithTagsProp, new GUIContent("Remove Effects With"), true);
-        }
+    // 手动画数组内容，避免嵌套 Foldout
+    for (int i = 0; i < modifiersProp.arraySize; i++)
+    {
+        var element = modifiersProp.GetArrayElementAtIndex(i);
+        EditorGUILayout.PropertyField(element, new GUIContent($"Modifier {i}"), true);
+    }
+
+    EditorGUI.indentLevel--;
+
+    EditorGUILayout.Space(4);
+
+    // 添加 / 删除按钮
+    EditorGUILayout.BeginHorizontal();
+    GUILayout.FlexibleSpace();
+
+    if (GUILayout.Button("+ Add Modifier", GUILayout.Width(120)))
+    {
+        modifiersProp.InsertArrayElementAtIndex(modifiersProp.arraySize);
+    }
+
+    EditorGUILayout.EndHorizontal();
+}
+
+
+void DrawTags()
+{
+    DrawTagList(grantedTagsProp, "Granted Tags");
+    DrawTagList(requiredTagsProp, "Required Tags");
+    DrawTagList(blockedTagsProp, "Blocked Tags");
+    DrawTagList(removeEffectsWithTagsProp, "Remove Effects With");
+}
+
+void DrawTagList(SerializedProperty listProp, string label)
+{
+    EditorGUILayout.LabelField(label, EditorStyles.boldLabel);
+    EditorGUI.indentLevel++;
+
+    for (int i = 0; i < listProp.arraySize; i++)
+    {
+        EditorGUILayout.PropertyField(listProp.GetArrayElementAtIndex(i), GUIContent.none);
+    }
+
+    // 添加按钮
+    EditorGUILayout.BeginHorizontal();
+    GUILayout.FlexibleSpace();
+    if (GUILayout.Button("+", GUILayout.Width(30)))
+    {
+        listProp.InsertArrayElementAtIndex(listProp.arraySize);
+    }
+    EditorGUILayout.EndHorizontal();
+
+    EditorGUI.indentLevel--;
+    EditorGUILayout.Space(6);
+}
 
         void DrawVisual()
         {
