@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e48539b3828ab64b91b67beb4d518ef, type: 3}
   m_Name: AbilityDatabase
   m_EditorClassIdentifier: 
-  Abilities: []
+  Abilities:
+  - {fileID: 0}
   Effects: []

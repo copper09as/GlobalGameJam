@@ -12,4 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: AttributeDefinitions
   m_EditorClassIdentifier: Assembly-CSharp:GameFramework:AttributeDefinitionDatabase
-  definitions: []
+  definitions:
+  - Name: 
+    DisplayName: 
+    DefaultValue: 0
+    MinValue: 0
+    MaxValue: 0
+    IsInteger: 0
+    Category: 

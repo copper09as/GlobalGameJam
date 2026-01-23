@@ -12,24 +12,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2cc971039db91941bcb96d3c6f790a4, type: 3}
   m_Name: NewAbility
   m_EditorClassIdentifier: 
-  AbilityId: 
+  AbilityId: NewAbility
   DisplayName: 
   Description: 
   Type: 1
   Trigger: 0
-  TargetType: 0
+  TargetType: 6
   ManaAttribute: Mana
   ManaCost: 0
   Cooldown: 0
   UsesPerBattle: 0
-  AbilityTags: []
+  AbilityTags:
+  - 
   RequiredOwnerTags: []
   BlockedOwnerTags: []
-  RequiredTargetTags: []
-  BlockedTargetTags: []
-  ActivationGrantedTags: []
-  EffectsToApply: []
-  SelfEffects: []
+  RequiredTargetTags:
+  - 
+  BlockedTargetTags:
+  - 
+  ActivationGrantedTags:
+  - 
+  EffectsToApply:
+  - {fileID: 11400000, guid: bd1723a1cd1bbab42a656290a467e206, type: 2}
+  SelfEffects:
+  - {fileID: 11400000, guid: bd1723a1cd1bbab42a656290a467e206, type: 2}
   PassiveEffects: []
   Icon: {fileID: 0}
   AnimationTrigger: 

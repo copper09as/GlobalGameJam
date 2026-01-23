@@ -12,16 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34f0411ca2b6c7943ad9e79e4f86e10c, type: 3}
   m_Name: NewEffect
   m_EditorClassIdentifier: 
-  EffectId: 
+  EffectId: 10000
   DisplayName: 
   Description: 
-  DurationType: 0
+  DurationType: 1
   Duration: 5
   Period: 1
   StackingPolicy: 0
   MaxStacks: 1
+  EventTriggers: []
   StackMultiplier: 1
-  Modifiers: []
+  Modifiers:
+  - Attribute: 
+    Operation: 0
+    Value: 0
   GrantedTags: []
   RequiredTags: []
   BlockedTags: []
