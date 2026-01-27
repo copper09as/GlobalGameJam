@@ -35,6 +35,7 @@ namespace BFGGJ
         void Start()
         {
             SetupInitialState();
+            GameEntry.Instance.GetSystem<AudioSystem>().PlayBGM("Assets/Audio/boss.mp3");
             StartCoroutine(PlayBootSequence());
         }
 

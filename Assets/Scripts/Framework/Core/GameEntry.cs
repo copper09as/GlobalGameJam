@@ -50,6 +50,7 @@ namespace GameFramework
             // 注册核心系统
             RegisterSystemInternal(new EventSystem());
             RegisterSystemInternal(new ContextSystem());
+            RegisterSystemInternal(new AudioSystem());
 
             // 初始化所有系统
             foreach (var system in updateSystems)
