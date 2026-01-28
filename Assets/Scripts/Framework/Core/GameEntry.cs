@@ -103,14 +103,6 @@ namespace GameFramework
             var deltaTime = Time.deltaTime;
             foreach (var system in updateSystems)
                 system.OnUpdate(deltaTime);
-            if(Input.GetKeyDown(KeyCode.Escape))
-            {
-                GetSystem<GlobalUiSystem>().ToggleGlobalSettingPanel();
-            }
-            if(Input.GetKeyDown(KeyCode.A))
-            {
-                GetSystem<GlobalUiSystem>().ShowNotification("This is a test notification!","23333");
-            }
         }
 
         void OnDestroy()

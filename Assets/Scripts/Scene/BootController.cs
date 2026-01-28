@@ -5,6 +5,7 @@ using System.Collections;
 using TMPro;
 using DG.Tweening;
 using GameFramework;
+using Michsky.MUIP;
 
 namespace BFGGJ
 {
@@ -30,12 +31,13 @@ namespace BFGGJ
         {
             DOTween.Init();
             InitializeSystems();
+
         }
 
         void Start()
         {
             SetupInitialState();
-            GameEntry.Instance.GetSystem<AudioSystem>().PlayBGM("Assets/Audio/boss.mp3");
+            GameEntry.Instance.GetSystem<AudioSystem>().PlayBGMByName("Test2");
             StartCoroutine(PlayBootSequence());
         }
 

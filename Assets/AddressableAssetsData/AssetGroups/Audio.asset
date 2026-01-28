@@ -27,6 +27,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e06fb8e0a399cd14a9fbd0758cd4b6fb
+    m_Address: Assets/Audio/AudioDataBase.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: fe21c897e6b56154aadb46ddd5aa28d7
     m_Address: "Assets/Audio/\u8DB3\u97F3\u30FB\u8349\u6B69.ogg"
     m_ReadOnly: 0

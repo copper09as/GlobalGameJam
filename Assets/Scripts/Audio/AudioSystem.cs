@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GameFramework;
+using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
@@ -16,8 +17,11 @@ public class AudioSystem : IGameSystem
     private AudioSource bgmAudioSource;
     private List<AudioSource> sfxAudioSourceList = new List<AudioSource>();
     private string currentAudio;
+    private string currentBgmName;
     private AudioMixer audioMixer;
     private const string AudioMixerPath = "Audio/AudioMixer.asset";
+    private const string AudioDataBasePath = "Assets/Audio/AudioDataBase.asset";
+    private  AudioDataBase audioDataBase;
     private const int MaxSfxAudioSourceCount = 5;
     private Dictionary<string, AudioClip> audioClipCache = new Dictionary<string, AudioClip>();
     public void OnInit()
@@ -25,6 +29,9 @@ public class AudioSystem : IGameSystem
 
         audioMixer = Addressables
             .LoadAssetAsync<AudioMixer>(AudioMixerPath)
+            .WaitForCompletion();
+        audioDataBase = Addressables
+            .LoadAssetAsync<AudioDataBase>(AudioDataBasePath)
             .WaitForCompletion();
         bgmAudioSource = CreateAudioSource("BGMAudioSource", audioMixer.FindMatchingGroups("Bgm")[0]);
         bgmAudioSource.loop = true;
@@ -90,7 +97,33 @@ public class AudioSystem : IGameSystem
     public void OnUpdate(float deltaTime)
     {
     }
-
+    public void PlayBGMByName(string name)
+    {
+        if (name == currentBgmName) return;
+        var audioData = audioDataBase.audioDataList.Find(data => data.audioName == name);
+        if (audioData != null)
+        {
+            PlayBGM(audioData.audioClip);
+            currentBgmName = name;
+        }
+        else
+        {
+            Debug.LogError($"[AudioSystem] 未找到名称为{name}的BGM");
+        }
+    }
+    public void PlaySFXByName(string name)
+    {
+        var audioData = audioDataBase.audioDataList.Find(data => data.audioName == name);
+        if (audioData != null)
+        {
+            PlaySFX(audioData.audioClip);
+           
+        }
+        else
+        {
+            Debug.LogError($"[AudioSystem] 未找到名称为{name}的SFX");
+        }
+    }
     public void PlayBGM(string clipName)
     {
         if (currentAudio == clipName) return;
@@ -101,8 +134,7 @@ public class AudioSystem : IGameSystem
                 .WaitForCompletion();
             audioClipCache.Add(clipName, cachedClip);
         }
-        bgmAudioSource.clip = cachedClip;
-        bgmAudioSource.Play();
+        PlayBGM(cachedClip);
         currentAudio = clipName;
     }
     public void PlaySFX(string clipName)
@@ -114,13 +146,23 @@ public class AudioSystem : IGameSystem
                 .WaitForCompletion();
             audioClipCache.Add(clipName, cachedClip);
         }
+        PlaySFX(cachedClip);
+
+    }
+    private void PlayBGM(AudioClip clip)
+    {
+        bgmAudioSource.clip = clip;
+        bgmAudioSource.Play();
+    }
+    private void PlaySFX(AudioClip clip)
+    {
         for (int i = 0; i < sfxAudioSourceList.Count; i++)
         {
             var source = sfxAudioSourceList[i];
 
             if (!source.isPlaying)
             {
-                source.clip = cachedClip;
+                source.clip = clip;
                 source.Play();
                 return;
             }
@@ -129,9 +171,7 @@ public class AudioSystem : IGameSystem
         // 如果全在播，直接替换第一个
         var firstSource = sfxAudioSourceList[0];
         firstSource.Stop();
-        firstSource.clip = cachedClip;
+        firstSource.clip = clip;
         firstSource.Play();
-
     }
-
 }
