@@ -51,6 +51,7 @@ namespace GameFramework
             RegisterSystemInternal(new EventSystem());
             RegisterSystemInternal(new ContextSystem());
             RegisterSystemInternal(new AudioSystem());
+            RegisterSystemInternal(new GlobalUiSystem());
 
             // 初始化所有系统
             foreach (var system in updateSystems)
@@ -102,6 +103,10 @@ namespace GameFramework
             var deltaTime = Time.deltaTime;
             foreach (var system in updateSystems)
                 system.OnUpdate(deltaTime);
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                GetSystem<GlobalUiSystem>().ToggleGlobalSettingPanel();
+            }
         }
 
         void OnDestroy()
