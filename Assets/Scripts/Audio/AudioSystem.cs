@@ -34,6 +34,9 @@ public class AudioSystem : IGameSystem
             sfxAudioSourceList.Add(sfxAudioSource);
             sfxAudioSource.loop = false;
         }
+        SetMasterVolume(PlayerPrefs.GetFloat("MasterSound", 50f));
+        SetBgmVolume(PlayerPrefs.GetFloat("BgmSound", 50f));
+        SetSfxVolume(PlayerPrefs.GetFloat("SfxSound", 50f));
     }
 
     private AudioSource CreateAudioSource(string audioName, AudioMixerGroup outputMixerGroup)
@@ -52,18 +55,21 @@ public class AudioSystem : IGameSystem
     {
         masterVolume = Mathf.Clamp01(value / 100f);
         UpdateVolumes();
+        PlayerPrefs.SetFloat("MasterSound", value);
     }
 
     public void SetBgmVolume(float value)
     {
         bgmVolume = Mathf.Clamp01(value / 100f);
         UpdateVolumes();
+        PlayerPrefs.SetFloat("BgmSound", value);
     }
 
     public void SetSfxVolume(float value)
     {
         sfxVolume = Mathf.Clamp01(value / 100f);
         UpdateVolumes();
+        PlayerPrefs.SetFloat("SfxSound", value);
     }
     private void UpdateVolumes()
     {
