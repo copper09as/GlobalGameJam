@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using GameFramework;
+using Michsky.MUIP;
 using UnityEngine;
 
 public class GlobalUiSystem : IGameSystem
@@ -12,6 +13,8 @@ public class GlobalUiSystem : IGameSystem
     private Vector2 hidePos;
     private RectTransform rect;
     private CanvasGroup canvasGroup;
+    private GameObject notificationStacking;
+    private GameObject notificationPrefab;
 
     public void OnInit()
     {
@@ -25,6 +28,9 @@ public class GlobalUiSystem : IGameSystem
 
         showPos = rect.anchoredPosition;
         hidePos = showPos + new Vector2(0, -200f); // 向下偏移
+        notificationStacking = GameObject.Instantiate
+        (Resources.Load<GameObject>("Prefabs/Ui/Notification/NotificationStacking"),GameEntry.Instance.transform);
+        notificationPrefab = Resources.Load<GameObject>("Prefabs/Ui/Notification/Notification");
         HideGlobalSettingPanel();
 
     }
@@ -71,6 +77,18 @@ public class GlobalUiSystem : IGameSystem
             {
                 globalSettingPanel.SetActive(false);
             });
+    }
+    public void ShowNotification(string title, string description, Sprite icon = null)
+    {
+        GameObject notifObj = GameObject.Instantiate(notificationPrefab, notificationStacking.transform);
+        NotificationManager notifManager = notifObj.GetComponent<NotificationManager>();
+        notifManager.title = title;
+        notifManager.description = description;
+        if(icon != null)
+        {
+            notifManager.icon = icon;
+        }
+        notifManager.UpdateUI();
     }
 
     public void OnShutdown()

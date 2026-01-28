@@ -107,6 +107,10 @@ namespace GameFramework
             {
                 GetSystem<GlobalUiSystem>().ToggleGlobalSettingPanel();
             }
+            if(Input.GetKeyDown(KeyCode.A))
+            {
+                GetSystem<GlobalUiSystem>().ShowNotification("This is a test notification!","23333");
+            }
         }
 
         void OnDestroy()
