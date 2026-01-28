@@ -39,6 +39,8 @@ ShaderVariantCollection:
         passType: 0
       - keywords: TONE_POSTERIZE
         passType: 0
+      - keywords: TONE_RETRO
+        passType: 0
       - keywords: TRANSITION_BLAZE
         passType: 0
       - keywords: TRANSITION_FADE
