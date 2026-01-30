@@ -29,7 +29,6 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 
         initialPosition = rectTransform.localPosition; // 记录初始位置
     }
-
     public void OnPointerDown(PointerEventData eventData)
     {
         originalPanelLocalPosition = rectTransform.localPosition;
@@ -37,12 +36,9 @@ public class DragWindow : MonoBehaviour, IPointerDownHandler, IBeginDragHandler,
 
         moveTween?.Kill();
     }
-
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // 可扩展拖动开始逻辑
     }
-
     public void OnDrag(PointerEventData eventData)
     {
         if (rectTransform == null || canvas == null)

@@ -25,8 +25,7 @@ namespace GameFramework
 
         private Dictionary<Type, IGameSystem> systems = new();
         private List<IGameSystem> updateSystems = new();
-        private bool isInitialized;
-
+        private bool isInitialized;                                                    
         void Awake()
         {
             if (instance != null && instance != this)

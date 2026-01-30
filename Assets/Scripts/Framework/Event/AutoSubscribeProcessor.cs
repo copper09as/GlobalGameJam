@@ -82,10 +82,8 @@ namespace GameFramework
                     UnsubscribeMethod = info.UnsubscribeMethod
                 });
             }
-
             return result;
         }
-
         /// <summary>
         /// 注销活动订阅列表
         /// </summary>
@@ -99,7 +97,6 @@ namespace GameFramework
             subscriptions.Clear();
         }
     }
-
     /// <summary>
     /// 自动订阅方法的缓存信息
     /// </summary>
