@@ -168,7 +168,6 @@ namespace GameFramework
                     return;
                 }
             }
-
             foreach (var transition in transitions)
             {
                 if (!EqualityComparer<TState>.Default.Equals(transition.FromState, currentState))
@@ -181,7 +180,6 @@ namespace GameFramework
                 }
             }
         }
-
         /// <summary>
         /// 强制切换状态
         /// </summary>
