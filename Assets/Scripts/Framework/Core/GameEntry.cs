@@ -51,8 +51,6 @@ namespace GameFramework
             RegisterSystemInternal(new ContextSystem());
             RegisterSystemInternal(new AudioSystem());
             RegisterSystemInternal(new GlobalUiSystem());
-            
-
             // 初始化所有系统
             foreach (var system in updateSystems)
                 system.OnInit();
