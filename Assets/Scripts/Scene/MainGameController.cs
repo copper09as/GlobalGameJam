@@ -86,13 +86,17 @@ public class MainGameController : GameBehaviour
         NetManager.RemoveListener("MsgHpChange", OnMsgHpChange);
         NetManager.RemoveListener("MsgBulletChange", OnMsgBulletChange);
     }
-
     private void HpChange(PlayerHpChange change)
     {
-        hpBar.maxValue = change.MaxHp;
-        hpBar.SetValue(change.hp);
+        if(change.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            hpBar.maxValue = change.MaxHp;
+            hpBar.SetValue(change.hp);
+            return;
+        }
+        syncHpBar.maxValue = change.MaxHp;
+        syncHpBar.SetValue(change.hp);
     }
-
     private void OnMsgCreateBullet(MsgBase msgBase)
     {
         MsgCreateBullet msg = msgBase as MsgCreateBullet;
