@@ -20,6 +20,15 @@ public class MainMenuController : MonoBehaviour
         NetManager.AddEventListener(NetEvent.ConnectFail,OnConnectFail);
         
     }
+    void Start()
+    {
+        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>()!=null)
+        {
+            GameEntry.Instance.GetSystem<ContextSystem>().DisposeContext<SessionContext>();
+        }
+        GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().PlayerName = "Player"+(DateTime.Now.Ticks*31279%10000).ToString();
+    }
     void OnDestroy()
     {
         NetManager.RemoveEventListener(NetEvent.ConnectSucc, OnConnectSucc);

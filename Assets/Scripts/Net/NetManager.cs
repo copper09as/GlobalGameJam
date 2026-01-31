@@ -79,11 +79,15 @@ public static class NetManager
     }
     private static void FireEvent(NetEvent netEvent,string err)
     {
+        UnityEngine.Debug.Log($"FireEvent: {netEvent}, Error: {err}");
         if (eventListeners.ContainsKey(netEvent))
         {
 			eventListeners[netEvent](err);
         }
-
+        else
+        {
+            UnityEngine.Debug.LogWarning($"No listener registered for event: {netEvent}");
+        }
     }
 	static bool isConnecting = false;
 	public static void Connect(string ip,int port)
@@ -141,8 +145,9 @@ public static class NetManager
         }
 		catch(SocketException ex)
 		{
+			UnityEngine.Debug.Log("ReceiveCallback caught SocketException: " + ex.ToString());
+			FireEvent(NetEvent.Close, ex.ToString());
 			UnityEngine.Debug.Log("Socket Receive Fail" + ex.ToString());
-			FireEvent(NetEvent.Close, "");
 		}
 
     }

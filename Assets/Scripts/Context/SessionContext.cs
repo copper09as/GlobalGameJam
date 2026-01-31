@@ -7,6 +7,7 @@ public class SessionContext : GameContext
 {
     public List<Wall> Walls = new ();
     public MaskCollection maskCollection;
+    public string PlayerName;
     public Player SyncPlayer;
     public Player LocalPlayer;
     protected override void OnInitialize()

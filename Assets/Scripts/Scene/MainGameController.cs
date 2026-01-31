@@ -18,7 +18,7 @@ public class MainGameController : GameBehaviour
     protected override void Awake()
     {
         base.Awake();
-        NetManager.Connect("139.9.116.94",7777);
+        NetManager.Connect("192.168.163.13",7777);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
@@ -32,12 +32,14 @@ public class MainGameController : GameBehaviour
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerHpChange>(HpChange);
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
-        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>()!=null)
+        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>()==null)
         {
-           GameEntry.Instance.GetSystem<ContextSystem>().DisposeContext<SessionContext>();
+          GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
+           GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().PlayerName = "Player"+(DateTime.Now.Ticks*31279%10000).ToString();
         }
-        GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>().LocalPlayer = player;
-
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer = player;
+        player.playerName = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().PlayerName;
+        player.name = player.playerName;
         InvokeRepeating(nameof(SyncPosition),1f,2f);
     }
 

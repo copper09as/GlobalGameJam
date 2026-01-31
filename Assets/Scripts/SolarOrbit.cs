@@ -23,17 +23,15 @@ public class SolarOrbit : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        // 保存原始颜色
+        // 锟斤拷锟斤拷原始锟斤拷色
         Gizmos.color = pointColor;
 
-        // 绘制所有点
+        // 锟斤拷锟斤拷锟斤拷锟叫碉拷
         for (int i = 0; i < points.Length; i++)
         {
             Vector3 worldPos = points[i].position;
             Gizmos.DrawWireSphere(worldPos, pointSize);
 
-            // 显示序号
-            UnityEditor.Handles.Label(worldPos, i.ToString());
         }
         if (drawLines && points.Length > 1)
         {
