@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 10f;
     public float lifeTime = 5f;
+    public Player Owner;
 
     private Vector3 moveDir;
 
@@ -13,21 +14,28 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject, lifeTime);
     }
-
-    public void Init(Vector3 initPosition, Vector3 dir)
+    public void Init(Player owner,Vector3 initPosition, Vector3 dir)
     {
+        Owner = owner;
         transform.position = initPosition;
         moveDir = dir.normalized;   // 再保险一次
     }
-
     void Update()
     {
         transform.position += moveDir * speed * Time.deltaTime;
     }
-
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        Destroy(gameObject);
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            Player hitPlayer = collision.gameObject.GetComponent<Player>();
+            if(hitPlayer != Owner)
+            {
+                hitPlayer.Hp.Value -= 1;
+                 Destroy(gameObject);
+            }
+        }
+       
     }
 }
 
