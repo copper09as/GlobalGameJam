@@ -29,6 +29,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     public Transform FirePoint;
     public int MaxHp = 10;
     public ReactiveInt Hp = new ReactiveInt(10);
+    public bool startGame   = false;
     public Vector2 MoveDirection;
 
     public Animator Animator;
@@ -52,6 +53,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     protected override void Update()
     {
         base.Update(); 
+        if(!startGame) return;
         controller.ControlMove(this);
         controller.Rotate(this);
         controller.Fire(this);
@@ -136,6 +138,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         //触发对应面具的效果
         //获取面具
         //切换脸上面具
+        
     }
 
     public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)

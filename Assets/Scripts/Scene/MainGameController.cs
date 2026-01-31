@@ -19,10 +19,13 @@ public class MainGameController : GameBehaviour
     [SerializeField] private Image mask;
     [SerializeField] private Image syncMask;
     
-    private Dictionary<string,Action> maskEffectDict = new Dictionary<string, Action>();
-    protected override void Awake()
+    private Dictionary<string,Action<string>> maskEffectDict;
+        protected override void Awake()
     {
         base.Awake();
+        maskEffectDict = new();
+        maskEffectDict.Add("ShineMask", ShineEffect);
+        maskEffectDict.Add("ReplacePosMask", ReplacePosEffect);
         NetManager.Connect("139.9.116.94",7777);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
@@ -33,6 +36,7 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgBulletChange", OnMsgBulletChange);
         NetManager.AddMsgListener("MsgGameOver", OnMsgGameOver);
         NetManager.AddMsgListener("MsgReplacePos", OnMsgReplacePos);
+        GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.UseMaskEffect>(TrigMaskEffect);
         NetManager.AddEventListener(NetEvent.Close,OnClose);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerHpChange>(HpChange);
@@ -266,6 +270,18 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         msgPos.y = player.transform.position.y;
         NetManager.Send(msgPos);
     }
+    public void TrigMaskEffect(PlayerEvent.UseMaskEffect evt)
+    {
+        string id = evt.id;
+        string maskName = evt.MaskName;
+        if(maskEffectDict.ContainsKey(maskName))
+        {
+            maskEffectDict[maskName].Invoke(id);
+        }
+    }
+    
+
+    
     #region 面具效果
     private void ShineEffect(string id)
     {
