@@ -399,6 +399,8 @@ MonoBehaviour:
   hpBar: {fileID: 0}
   syncHpBar: {fileID: 0}
   syncBulletBar: {fileID: 0}
+  mask: {fileID: 0}
+  syncMask: {fileID: 0}
 --- !u!4 &141266274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9032509952803400280, guid: f3e29eaa282fc0c44942884ddb364174, type: 3}
@@ -1290,6 +1292,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2217436055450977271, guid: 9895bfe532002dc478e23e54c90613f3, type: 3}
   m_PrefabInstance: {fileID: 1143044244}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1147210032 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7921834999075193755, guid: 0acef626e57cf1a44b0bef0ad7c582ef, type: 3}
+  m_PrefabInstance: {fileID: 1874280837373138308}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1263182099
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2116,22 +2123,32 @@ PrefabInstance:
       propertyPath: m_Name
       value: SolarOrbit
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1684913145264836646, guid: 0acef626e57cf1a44b0bef0ad7c582ef, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7921834999075193755, guid: 0acef626e57cf1a44b0bef0ad7c582ef, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1874280837373138312}
   m_SourcePrefab: {fileID: 100100000, guid: 0acef626e57cf1a44b0bef0ad7c582ef, type: 3}
---- !u!114 &1874280837373138310 stripped
+--- !u!114 &1874280837373138312
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1684913145264836646, guid: 0acef626e57cf1a44b0bef0ad7c582ef, type: 3}
-  m_PrefabInstance: {fileID: 1874280837373138308}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1147210032}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4764837e6aaf32041b3439676e48dbec, type: 3}
+  m_Script: {fileID: 11500000, guid: e910bf9ece55cbb438238c3d20466e7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  points: []
+  pointSize: 0.2
+  pointColor: {r: 1, g: 0, b: 0, a: 1}
+  lineColor: {r: 0, g: 1, b: 0, a: 1}
+  drawLines: 1
 --- !u!1001 &5302494583570427848
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2219,15 +2236,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3190961341876720731, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3190961341876720731, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3190961341876720731, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3190961341876720731, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2244,7 +2261,7 @@ PrefabInstance:
     - target: {fileID: 5326699670498576970, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
       propertyPath: Orbit
       value: 
-      objectReference: {fileID: 1874280837373138310}
+      objectReference: {fileID: 1874280837373138312}
     - target: {fileID: 5326699670498576970, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
       propertyPath: DarkSun
       value: 
@@ -2275,9 +2292,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 953972900}
-  - {fileID: 8390089616203595136}
   - {fileID: 365998682}
   - {fileID: 1715931332}
+  - {fileID: 8390089616203595136}
   - {fileID: 1874280837373138308}
   - {fileID: 102390057}
   - {fileID: 1263182099}

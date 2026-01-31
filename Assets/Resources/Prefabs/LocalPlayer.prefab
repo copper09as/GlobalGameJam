@@ -399,7 +399,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3304208405382173714, guid: 130bd6cfb9dd99f4c97ec0f8b418c7ad, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.85
+      value: 1.5960875
       objectReference: {fileID: 0}
     - target: {fileID: 3304208405382173714, guid: 130bd6cfb9dd99f4c97ec0f8b418c7ad, type: 3}
       propertyPath: m_LocalPosition.x
@@ -407,7 +407,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3304208405382173714, guid: 130bd6cfb9dd99f4c97ec0f8b418c7ad, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.9
+      value: 15.137
       objectReference: {fileID: 0}
     - target: {fileID: 5706598407116853670, guid: 130bd6cfb9dd99f4c97ec0f8b418c7ad, type: 3}
       propertyPath: m_Name
