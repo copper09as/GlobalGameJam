@@ -29,6 +29,11 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgGameOver", OnMsgGameOver);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerHpChange>(HpChange);
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() != null)
+        {
+            GameEntry.Instance.GetSystem<ContextSystem>().DisposeContext<SessionContext>();
+        }
+        GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer = player;

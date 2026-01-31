@@ -19,12 +19,6 @@ public class MainMenuController : MonoBehaviour
         NetManager.AddEventListener(NetEvent.ConnectSucc,OnConnectSucc);
         NetManager.AddEventListener(NetEvent.ConnectFail,OnConnectFail);
         
-        var contextSystem = GameEntry.Instance.GetSystem<ContextSystem>();
-        if(contextSystem.GetContext<SessionContext>() == null)
-        {
-            contextSystem.DisposeContext<SessionContext>();
-        }
-        contextSystem.CreateContext<SessionContext>();
     }
     void OnDestroy()
     {
