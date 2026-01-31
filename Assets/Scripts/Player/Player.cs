@@ -30,6 +30,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
     {
         base.Start();
         Rb.gravityScale = 0f;
+        Rb.constraints = RigidbodyConstraints2D.FreezeRotation; // 只冻结旋转，位置由代码控制
         Debug.Log($"Player {playerName} started with {BulletCount.Value} bullets and {Hp.Value} HP.");
     }
     
@@ -41,6 +42,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
         base.Update(); 
         controller.ControlMove(this);
         controller.Rotate(this);
+        controller.Fire(this);
     }
     public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3))
     {

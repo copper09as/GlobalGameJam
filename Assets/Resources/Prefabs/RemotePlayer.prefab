@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8355105553573056454}
   - component: {fileID: 5647478868730178510}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4664362991323059141}
   - component: {fileID: 5882891176016074355}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2875674691113701183}
   - component: {fileID: 7915883743781332246}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 4294446548770262235}
   - component: {fileID: 4632091160451034876}
   - component: {fileID: 3869403070599884773}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: RemotePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
