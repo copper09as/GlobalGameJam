@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shadow : MonoBehaviour
+public class ShadowMove : MonoBehaviour
 {
     public SpriteRenderer sr;
     public SpriteRenderer sr_Parent;
@@ -15,7 +15,7 @@ public class Shadow : MonoBehaviour
         sr.color = new Color(0, 0, 0, 0.5f);//设置颜色
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         SetShadow();//实时更新阴影位置
     }
@@ -26,11 +26,12 @@ public class Shadow : MonoBehaviour
         angle = angle - transform.rotation.eulerAngles.z;
         transform.rotation = transform.rotation * Quaternion.Euler(0, 0, angle);//设置阴影旋转
 
-        //Debug.Log(angle);
+        Debug.Log(angle);
     }
 
     Vector3 GetDirection()
     {
+
         return child.transform.localPosition;
     }
 }
