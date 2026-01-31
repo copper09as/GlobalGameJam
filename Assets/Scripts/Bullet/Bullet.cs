@@ -58,9 +58,12 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
         {
             if (p ==
             GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer)
+            {
+                Debug.Log("子弹碰到自己，忽略");
                 return;
+            }
         }
-        var c = collision.gameObject.GetComponent<IBeAttacked>();
+        var c = collision.gameObject.GetComponentInParent<IBeAttacked>();
         c?.OnBeAttacked(this, moveDir,transform.position);//子弹的体积小，中心点约等于碰撞点
         if(c!=null)Destroy(gameObject);
     }
