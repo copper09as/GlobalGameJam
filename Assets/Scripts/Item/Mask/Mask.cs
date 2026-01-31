@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Mask : MonoBehaviour
 {
-
+    public MaskSO MaskSO;
+    public SpriteRenderer SpriteRenderer;
+    public string Name;
     void Start()
     {
-        
+        SpriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer.sprite = MaskSO.Sprite;
+        Name = MaskSO.MaskName;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

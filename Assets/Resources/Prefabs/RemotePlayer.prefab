@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 4664362991323059141}
   - component: {fileID: 5882891176016074355}
   m_Layer: 6
-  m_Name: Circle
+  m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -103,11 +103,11 @@ Transform:
   m_GameObject: {fileID: 5477370764340042422}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.036, y: 0, z: -0.0010352277}
+  m_LocalPosition: {x: 1.036, y: 0, z: 0}
   m_LocalScale: {x: 0.29999998, y: 0.29999998, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4294446548770262235}
+  m_Father: {fileID: 1565221523685876291}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5882891176016074355
 SpriteRenderer:
@@ -245,6 +245,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &7493788539866405266
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1565221523685876291}
+  m_Layer: 0
+  m_Name: FirePointRotate
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1565221523685876291
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7493788539866405266}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0010352277}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4664362991323059141}
+  m_Father: {fileID: 4294446548770262235}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7631319308059977947
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,9 +308,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4664362991323059141}
   - {fileID: 2875674691113701183}
   - {fileID: 8355105553573056454}
+  - {fileID: 1565221523685876291}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &4632091160451034876
@@ -327,6 +359,9 @@ MonoBehaviour:
   isRunning: 0
   registeredStateCount: 0
   transitionCount: 0
+  coldDownTime: 0.2
+  currentColdDownTime: 0
+  InReload: 0
   controller: {fileID: 11400000, guid: e3023bf5f16a9694d9497a049c8ee358, type: 2}
   Rb: {fileID: 4632091160451034876}
   reloadTimeRate: 0
@@ -336,6 +371,7 @@ MonoBehaviour:
   BulletCount:
     serializedValue: 10
   FirePoint: {fileID: 4664362991323059141}
+  MaxHp: 10
   Hp:
     serializedValue: 10
   MoveDirection: {x: 0, y: 0}
