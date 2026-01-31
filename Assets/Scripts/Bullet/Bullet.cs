@@ -26,15 +26,13 @@ public class Bullet : MonoBehaviour
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
-        {
             Player hitPlayer = collision.gameObject.GetComponent<Player>();
             if(hitPlayer != Owner)
             {
                 hitPlayer.Hp.Value -= 1;
                  Destroy(gameObject);
             }
-        }
+        
        
     }
 }
