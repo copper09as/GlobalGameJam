@@ -100,6 +100,7 @@ public static class NetManager
 		socket.NoDelay = true;
 		isConnecting = true;
 		socket.BeginConnect(ip,port,ConnectCallback,socket);
+		UnityEngine.Debug.Log("Begin Connect");
 	}
 
     private static void ConnectCallback(IAsyncResult ar)
