@@ -9,6 +9,8 @@ public class MainGameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
+        NetManager.AddMsgListener("MsgMove", OnMsgMove);
         if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() == null)
         {
             GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
@@ -20,8 +22,7 @@ public class MainGameController : MonoBehaviour
        //等于独立设备id
         msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName; 
         NetManager.Send(msg);
-        NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
-        NetManager.AddMsgListener("MsgMove", OnMsgMove);
+
     }
 
     private void OnMsgLogin(MsgBase msgBase)

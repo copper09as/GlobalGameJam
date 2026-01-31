@@ -25,6 +25,8 @@ public class LocalPlayer : Player
         }
         SendPlayerMsg();
 
+
+    }
         void SendPlayerMsg()
         {
             MsgMove msg = new MsgMove();
@@ -32,5 +34,4 @@ public class LocalPlayer : Player
             msg.y = transform.position.y;
             NetManager.Send(msg);
         }
-    }
 }
