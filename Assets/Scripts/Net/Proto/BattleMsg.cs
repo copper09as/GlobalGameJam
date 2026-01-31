@@ -57,3 +57,11 @@ public class MsgReplacePos : MsgBase
     public float x;
     public float y;
 }
+public class MsgShine:MsgBase
+{
+    public MsgShine()
+    {
+        protoName = "MsgShine";
+    }
+    public string id;
+}
