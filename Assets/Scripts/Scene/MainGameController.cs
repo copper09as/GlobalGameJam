@@ -26,7 +26,7 @@ public class MainGameController : GameBehaviour
         maskEffectDict = new();
         maskEffectDict.Add("ShineMask", ShineEffect);
         maskEffectDict.Add("ReplacePosMask", ReplacePosEffect);
-        NetManager.Connect("192.168.163.13",7777);
+        NetManager.Connect("139.9.116.94",7777);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
@@ -54,24 +54,26 @@ public class MainGameController : GameBehaviour
         InvokeRepeating(nameof(SyncPosition),1f,2f);
     }
 
-    private void OnMsgReplacePos(MsgBase msgBase)
+private void OnMsgReplacePos(MsgBase msgBase)
+{
+    MsgReplacePos msg = msgBase as MsgReplacePos;
+    var session = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>();
+
+    // 确保消息不是自己发的
+    if(session.LocalPlayer.playerName != msg.id) 
     {
-        MsgReplacePos msg = msgBase as MsgReplacePos;
-        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
+        // 自己被目标玩家换位置了
+        Vector3 originPos = session.LocalPlayer.transform.position;
+        session.LocalPlayer.transform.position = new Vector3(msg.x, msg.y, 0);
+
+        // 如果远程玩家有 SyncPlayer，也把远程位置交换（可选）
+        if(session.SyncPlayer != null)
         {
-            return;
+            session.SyncPlayer.transform.position = originPos;
         }
-        if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
-        {
-            return;
-        }
-        var originPos = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position;
-        GameEntry.Instance.GetSystem<ContextSystem>().
-        GetContext<SessionContext>().SyncPlayer.transform.position = new Vector3(msg.x, msg.y, 0);
-        GameEntry.Instance.GetSystem<ContextSystem>().
-        GetContext<SessionContext>().LocalPlayer.transform.position = originPos;
-        
     }
+}
+
 
     private void OnClose(string err)
     {
@@ -143,6 +145,9 @@ public class MainGameController : GameBehaviour
         NetManager.RemoveListener("MsgPos", OnSyncPosition);
         NetManager.RemoveListener("MsgHpChange", OnMsgHpChange);
         NetManager.RemoveListener("MsgBulletChange", OnMsgBulletChange);
+        NetManager.RemoveListener("MsgGameOver", OnMsgGameOver);
+        NetManager.RemoveListener("MsgReplacePos", OnMsgReplacePos);
+        GameEntry.Instance.GetSystem<EventSystem>().Unsubscribe<PlayerEvent.UseMaskEffect>(TrigMaskEffect);
         NetManager.RemoveEventListener(NetEvent.Close,OnClose);
     }
     private void HpChange(PlayerHpChange change)
@@ -287,17 +292,30 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
     {
         
     }
-    private void ReplacePosEffect(string id)
+private void ReplacePosEffect(string targetId)
+{
+    var session = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>();
+    var localPlayer = session.LocalPlayer;
+    var syncPlayer = session.SyncPlayer;
+
+    // 记录自己位置
+    Vector3 originPos = localPlayer.transform.position;
+
+    // 发送消息给对方（msg.x/y = 自己位置，id = 对方）
+    MsgReplacePos msg = new MsgReplacePos();
+    msg.id = targetId; // 目标玩家 id
+    msg.x = originPos.x;
+    msg.y = originPos.y;
+    NetManager.Send(msg);
+
+    // 本地立即交换
+    if(syncPlayer != null)
     {
-        MsgReplacePos msg = new MsgReplacePos();
-        var originPos = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.transform.position;
-        msg.id = id;
-        msg.x = originPos.x;
-        msg.y = originPos.y;
-        NetManager.Send(msg);
-        transform.position = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position;
-        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position = originPos;
+        localPlayer.transform.position = syncPlayer.transform.position;
+        syncPlayer.transform.position = originPos;
     }
+}
+
     #endregion
 
 }
