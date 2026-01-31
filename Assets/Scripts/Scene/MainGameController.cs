@@ -129,7 +129,7 @@ public class MainGameController : GameBehaviour
         }
         GameEntry.Instance.GetSystem<ContextSystem>().
         GetContext<SessionContext>().SyncPlayer.
-        CreateBullet(new Vector3(msg.targetX, msg.targetY, 0), new Vector3(msg.fireX, msg.fireY, 0));
+        CreateBullet(new Vector3(msg.targetX, msg.targetY, 0), new Vector3(msg.fireX, msg.fireY, 0),true);
     }
 
     private void OnMsgPlayerLoad(MsgBase msgBase)

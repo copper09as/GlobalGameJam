@@ -52,16 +52,16 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         controller.Reload(this);
         controller.Tick(this, Time.deltaTime);
     }
-    public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3))
+    public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3),bool isSync = false)
     {
         GameObject bulletObj = Instantiate(Resources.Load<GameObject>("Prefabs/Bullet"));
         Bullet bullet = bulletObj.GetComponent<Bullet>();
         if(FirePoint!=null)
         {
-            bullet.Init(this,FirePoint.transform.position, targetPosition);
+            bullet.Init(this,FirePoint.transform.position, targetPosition,isSync);
             return;
         }
-        bullet.Init(this, firePosition, targetPosition);
+        bullet.Init(this, firePosition, targetPosition,isSync);
     }
     public void StartReload()
     {
