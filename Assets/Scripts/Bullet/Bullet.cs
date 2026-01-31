@@ -30,8 +30,10 @@ public class Bullet : MonoBehaviour
             if(hitPlayer != Owner)
             {
                 hitPlayer.Hp.Value -= 1;
-                 Destroy(gameObject);
+                Destroy(gameObject);
+                return;
             }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
