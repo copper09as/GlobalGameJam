@@ -5097,7 +5097,6 @@ GameObject:
   - component: {fileID: 2145732581}
   - component: {fileID: 2145732580}
   - component: {fileID: 2145732579}
-  - component: {fileID: 2145732583}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -5125,7 +5124,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -304}
   m_SizeDelta: {x: 0, y: 55}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2145732579
@@ -5260,16 +5259,16 @@ MonoBehaviour:
   onClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2145732583}
-        m_TargetAssemblyTypeName: ConnectBtn, Assembly-CSharp
-        m_MethodName: Register
-        m_Mode: 1
+      - m_Target: {fileID: 1950666359}
+        m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
+        m_MethodName: EnterGame
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: MainGame
           m_BoolArgument: 0
         m_CallState: 2
   onDoubleClick:
@@ -5292,18 +5291,6 @@ MonoBehaviour:
   centered: 0
   isPreset: 0
   latestTabIndex: 0
---- !u!114 &2145732583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2145732577}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24701adb07390df4ab2de045e59b8a19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
