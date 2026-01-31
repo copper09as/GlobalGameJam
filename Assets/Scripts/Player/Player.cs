@@ -30,7 +30,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
     {
         base.Start();
         Rb.gravityScale = 0f;
-
+        Debug.Log($"Player {playerName} started with {BulletCount.Value} bullets and {Hp.Value} HP.");
     }
     
 

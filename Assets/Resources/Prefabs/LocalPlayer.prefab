@@ -330,7 +330,7 @@ MonoBehaviour:
   controller: {fileID: 11400000, guid: 55028c8a732ef0345b8ee25ff3746153, type: 2}
   Rb: {fileID: 2365571720684789902}
   reloadTimeRate: 0
-  playerName: 
+  playerName: 1234
   moveSpeed: 5
   MaxBullet: 10
   BulletCount:
