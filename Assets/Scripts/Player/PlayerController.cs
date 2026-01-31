@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class ScPlayerController:ScriptableObject
 {
+    
     public virtual void ControlMove(Player player)
     {
 
@@ -17,6 +18,10 @@ public class ScPlayerController:ScriptableObject
     public virtual void Rotate(Player player)
     {
 
+    }
+    public virtual void Reload(Player player)
+    {
+        
     }
     public virtual void Fire(Player player,Vector2 targetPosition,Vector2 firePosition)
     {

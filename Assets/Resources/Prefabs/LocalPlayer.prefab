@@ -327,9 +327,10 @@ MonoBehaviour:
   isRunning: 0
   registeredStateCount: 0
   transitionCount: 0
+  InReload: 0
   controller: {fileID: 11400000, guid: 55028c8a732ef0345b8ee25ff3746153, type: 2}
   Rb: {fileID: 2365571720684789902}
-  reloadTimeRate: 0
+  reloadTimeRate: 1
   playerName: 12
   moveSpeed: 5
   MaxBullet: 10

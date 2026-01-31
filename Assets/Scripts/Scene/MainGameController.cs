@@ -3,14 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using GameFramework;
 using Michsky.MUIP;
+using PlayerEvent;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
 
 public class MainGameController : GameBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField] private ProgressBar bulletBar;
+    [SerializeField] private ProgressBar hpBar;
+    [SerializeField] private ProgressBar syncHpBar;
+    [SerializeField] private ProgressBar syncBulletBar;
     protected override void Start()
     {
         base.Start();
@@ -19,7 +22,10 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
         NetManager.AddMsgListener("MsgCreateBullet", OnMsgCreateBullet);
         NetManager.AddMsgListener("MsgPos", OnSyncPosition);
+        NetManager.AddMsgListener("MsgHpChange", OnMsgHpChange);
+        NetManager.AddMsgListener("MsgBulletChange", OnMsgBulletChange);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
+        GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerHpChange>(HpChange);
         if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() == null)
         {
             GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
@@ -32,16 +38,61 @@ public class MainGameController : GameBehaviour
         NetManager.Send(msg);
         InvokeRepeating(nameof(SyncPosition),1f,2f);
     }
+
+    private void OnMsgBulletChange(MsgBase msgBase)
+    {
+        MsgBulletChange msg = msgBase as MsgBulletChange;
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
+        {
+            return;
+        }
+        if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.BulletCount.Value = msg.CurrentBullet;
+        syncBulletBar.maxValue = msg.MaxBullet;
+        syncBulletBar.SetValue(msg.CurrentBullet);
+    }
+
+    private void OnMsgHpChange(MsgBase msgBase)
+    {
+        MsgHpChange msg = msgBase as MsgHpChange;
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
+        {
+            return;
+        }
+        if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.Hp.Value = msg.hp;
+        syncHpBar.maxValue = msg.MaxHp;
+        syncHpBar.SetValue(msg.hp);
+    }
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
         GameEntry.Instance.GetSystem<EventSystem>().Unsubscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
+        GameEntry.Instance.GetSystem<EventSystem>().Unsubscribe<PlayerEvent.PlayerHpChange>(HpChange);
         NetManager.RemoveListener("MsgLogin", OnMsgLogin);
         NetManager.RemoveListener("MsgMove", OnMsgMove);
         NetManager.RemoveListener("MsgLoadPlayer", OnMsgPlayerLoad);
         NetManager.RemoveListener("MsgCreateBullet", OnMsgCreateBullet);
         NetManager.RemoveListener("MsgPos", OnSyncPosition);
+        NetManager.RemoveListener("MsgHpChange", OnMsgHpChange);
+        NetManager.RemoveListener("MsgBulletChange", OnMsgBulletChange);
     }
+
+    private void HpChange(PlayerHpChange change)
+    {
+        hpBar.maxValue = change.MaxHp;
+        hpBar.SetValue(change.hp);
+    }
+
     private void OnMsgCreateBullet(MsgBase msgBase)
     {
         MsgCreateBullet msg = msgBase as MsgCreateBullet;
@@ -121,7 +172,8 @@ transform.rotation = Quaternion.Euler(0f, 0f, msg.angle);
     }
     public void BulletChange(PlayerEvent.PlayerBulletChange evt)
     {
-        bulletBar.SetValue((float)evt.CurrentBullet / evt.MaxBullet * 100f);
+        bulletBar.maxValue=evt.MaxBullet;
+        bulletBar.SetValue(evt.CurrentBullet);
     }
     private void SyncPosition()
     {

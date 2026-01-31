@@ -19,3 +19,23 @@ public class MsgPos:MsgBase
     public float x = 0;
     public float y = 0;
 }
+public class MsgHpChange : MsgBase
+{
+    public MsgHpChange()
+    {
+        protoName = "MsgHpChange";
+    }
+    public string id;
+    public int hp = 0;
+    public int MaxHp = 0;
+}
+public class MsgBulletChange : MsgBase
+{
+    public MsgBulletChange()
+    {
+        protoName = "MsgBulletChange";
+    }
+    public string id;
+    public int CurrentBullet = 0;
+    public int MaxBullet = 0;
+}
