@@ -9,3 +9,13 @@ public class MsgMove : MsgBase
     public float y = 0;
     public float angle = 0;
 }
+public class MsgPos:MsgBase
+{
+    public MsgPos()
+    {
+        protoName = "MsgPos";
+    }
+    public string id;
+    public float x = 0;
+    public float y = 0;
+}

@@ -18,6 +18,7 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
         NetManager.AddMsgListener("MsgCreateBullet", OnMsgCreateBullet);
+        NetManager.AddMsgListener("MsgPos", OnSyncPosition);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() == null)
         {
@@ -29,10 +30,8 @@ public class MainGameController : GameBehaviour
         MsgLogin msg = new MsgLogin();
         msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName;
         NetManager.Send(msg);
-
+        InvokeRepeating(nameof(SyncPosition),1f,1f);
     }
-
-
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -40,6 +39,8 @@ public class MainGameController : GameBehaviour
         NetManager.RemoveListener("MsgLogin", OnMsgLogin);
         NetManager.RemoveListener("MsgMove", OnMsgMove);
         NetManager.RemoveListener("MsgLoadPlayer", OnMsgPlayerLoad);
+        NetManager.RemoveListener("MsgCreateBullet", OnMsgCreateBullet);
+        NetManager.RemoveListener("MsgPos", OnSyncPosition);
     }
     private void OnMsgCreateBullet(MsgBase msgBase)
     {
@@ -103,9 +104,32 @@ GetContext<SessionContext>().SyncPlayer.
 transform.rotation = Quaternion.Euler(0f, 0f, msg.angle);
 
     }
+    private void OnSyncPosition(MsgBase msgBase)
+    {
+        MsgPos msg = msgBase as MsgPos;
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
+        {
+            return;
+        }
+        if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.
+        transform.position = new Vector3(msg.x, msg.y, 0);
+    }
     public void BulletChange(PlayerEvent.PlayerBulletChange evt)
     {
         bulletBar.SetValue((float)evt.CurrentBullet / evt.MaxBullet * 100f);
+    }
+    private void SyncPosition(Player player)
+    {
+        MsgPos msgPos = new MsgPos();
+        msgPos.id = player.playerName;
+        msgPos.x = player.transform.position.x;
+        msgPos.y = player.transform.position.y;
+        NetManager.Send(msgPos);
     }
 
 }
