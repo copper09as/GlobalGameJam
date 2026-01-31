@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   normalSpeed: 10
-  shakedSpeed: 50
+  shakedSpeed: 150
   NormalSun: {fileID: 21300000, guid: 1c1bef4b40e990c42aed6432ebd324ef, type: 3}
   ShakedSun: {fileID: 21300002, guid: 88dca061d041a2a4596563e6a38f66c8, type: 3}
   DarkSun: {fileID: 0}
