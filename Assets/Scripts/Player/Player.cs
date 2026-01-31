@@ -30,6 +30,8 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     public int MaxHp = 10;
     public ReactiveInt Hp = new ReactiveInt(10);
     public Vector2 MoveDirection;
+
+    public Animator Animator;
     // Start is called before the first frame update
     protected override void Start()
     {
