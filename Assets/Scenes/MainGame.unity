@@ -1326,6 +1326,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletBar: {fileID: 610938063}
   hpBar: {fileID: 595687738}
+  syncHpBar: {fileID: 103801342}
+  syncBulletBar: {fileID: 903420799}
 --- !u!4 &1216008119
 Transform:
   m_ObjectHideFlags: 0
