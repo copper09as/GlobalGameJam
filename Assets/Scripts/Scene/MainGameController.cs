@@ -21,7 +21,7 @@ public class MainGameController : GameBehaviour
     protected override void Awake()
     {
         base.Awake();
-        NetManager.Connect("192.168.163.13",7777);
+        NetManager.Connect("139.9.116.94",7777);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
@@ -38,8 +38,8 @@ public class MainGameController : GameBehaviour
         Player player = playerObj.GetComponent<Player>();
         if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>()==null)
         {
-          GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
-           GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().PlayerName = "Player"+(DateTime.Now.Ticks*31279%10000).ToString();
+            GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
+            GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().PlayerName = "Player"+(DateTime.Now.Ticks*31279%10000).ToString();
         }
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer = player;
         player.playerName = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().PlayerName;
@@ -211,6 +211,7 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
     private void OnSyncPosition(MsgBase msgBase)
     {
         MsgPos msg = msgBase as MsgPos;
+            var session = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>();
         if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
         {
             return;
@@ -219,9 +220,14 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         {
             return;
         }
-        GameEntry.Instance.GetSystem<ContextSystem>().
-        GetContext<SessionContext>().SyncPlayer.
-        transform.position = new Vector3(msg.x, msg.y, 0);
+        Vector3 targetPos = new Vector3(msg.x, msg.y, 0);
+
+        // 每帧插值
+        session.SyncPlayer.transform.position = Vector3.Lerp(
+            session.SyncPlayer.transform.position, 
+            targetPos, 
+            0.1f // 平滑系数 0~1，越小越慢
+        );
     }
     public void BulletChange(PlayerEvent.PlayerBulletChange evt)
     {
