@@ -123,8 +123,9 @@ transform.rotation = Quaternion.Euler(0f, 0f, msg.angle);
     {
         bulletBar.SetValue((float)evt.CurrentBullet / evt.MaxBullet * 100f);
     }
-    private void SyncPosition(Player player)
+    private void SyncPosition()
     {
+        var player = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer;
         MsgPos msgPos = new MsgPos();
         msgPos.id = player.playerName;
         msgPos.x = player.transform.position.x;
