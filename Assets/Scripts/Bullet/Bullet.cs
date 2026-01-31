@@ -15,20 +15,14 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject, lifeTime);
     }
-    public void Init(Player owner,Vector3 initPosition, Vector3 dir,bool isSync=false)
-    {
-        if(isSync)
-        {
-            currentSpeed = syncSpeed;
-        }
-        else
-        {
-            currentSpeed = speed;
-        }
-        Owner = owner;
-        transform.position = initPosition;
-        moveDir = dir.normalized;   // 再保险一次
-    }
+public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, bool isSync = false)
+{
+    currentSpeed = isSync ? syncSpeed : speed;
+    Owner = owner;
+    transform.position = initPosition;
+    moveDir = (targetPosition - initPosition).normalized;
+}
+
     void FixedUpdate()
     {
         transform.position += moveDir * currentSpeed;
