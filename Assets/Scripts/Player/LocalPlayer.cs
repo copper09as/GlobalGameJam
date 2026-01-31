@@ -35,11 +35,26 @@ public class LocalPlayer : Player
             msg.id = playerName;
             msg.targetX = mouseWorldPos.x;
             msg.targetY = mouseWorldPos.y;
+            msg.fireX = FirePoint.position.x;
+            msg.fireY = FirePoint.position.y;
             NetManager.Send(msg);
         }
          base.Update();
         SendPlayerMsg();
+        LookAtMouse();
     }
+
+    void LookAtMouse()
+    {
+        Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mouseWorldPos.z = 0f;
+
+        Vector3 dir = mouseWorldPos - transform.position;
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+    }
+
     void SendPlayerMsg()
     {
         MsgMove msg = new MsgMove();

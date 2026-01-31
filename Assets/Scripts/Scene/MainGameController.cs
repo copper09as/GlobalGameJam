@@ -35,7 +35,9 @@ public class MainGameController : MonoBehaviour
         {
             return;
         }
-        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.CreateBullet(new Vector3(msg.targetX, msg.targetY,0));
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.
+        CreateBullet(new Vector3(msg.targetX, msg.targetY,0), new Vector3(msg.fireX, msg.fireY,0));
     }
 
     private void OnMsgPlayerLoad(MsgBase msgBase)

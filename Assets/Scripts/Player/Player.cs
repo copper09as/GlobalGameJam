@@ -13,8 +13,9 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
 {   
     [SerializeField]protected Rigidbody2D rb;
     public string playerName;
-        public float moveSpeed = 5f;
+    public float moveSpeed = 5f;
     public ReactiveInt BulletCount = new ReactiveInt(10);
+    public Transform FirePoint;
     public ReactiveInt Hp = new ReactiveInt(10);
     // Start is called before the first frame update
     protected override void Start()
@@ -36,13 +37,18 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
     {
        base.Update(); 
     }
-public void CreateBullet(Vector3 targetPosition)
-{
-    GameObject bulletObj = Instantiate(Resources.Load<GameObject>("Prefabs/Bullet"));
-    Bullet bullet = bulletObj.GetComponent<Bullet>();
-
-    bullet.Init(this,transform.position, targetPosition);
-}
+    public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3))
+    {
+        GameObject bulletObj = Instantiate(Resources.Load<GameObject>("Prefabs/Bullet"));
+        Bullet bullet = bulletObj.GetComponent<Bullet>();
+        if(FirePoint==null)
+        {
+            bullet.Init(this,FirePoint.transform.position, targetPosition);
+            return;
+        }
+        bullet.Init(this, firePosition, targetPosition);
+       
+    }
 
     protected override Player GetOwner()
     {
