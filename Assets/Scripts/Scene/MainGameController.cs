@@ -37,6 +37,10 @@ public class MainGameController : MonoBehaviour
 
     private void OnMsgMove(MsgBase msgBase)
     {
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
+        {
+            return;
+        }
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.context.position = new Vector3(((MsgMove)msgBase).x, ((MsgMove)msgBase).y, 0);
     }
 
