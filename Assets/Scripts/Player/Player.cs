@@ -20,6 +20,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
     protected override void Start()
     {
         base.Start();
+        rb.gravityScale = 0f;
         Listen<PlayerEvent.PlayerHpChange>(evt =>
         {
             GameEntry.Instance.GetSystem<EventSystem>().Publish<PlayerEvent.PlayerHpChange>(evt);

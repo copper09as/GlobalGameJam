@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 10
   lifeTime: 10
+  Owner: {fileID: 0}
 --- !u!61 &1929651512801723925
 BoxCollider2D:
   m_ObjectHideFlags: 0
