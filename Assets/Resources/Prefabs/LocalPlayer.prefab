@@ -419,6 +419,7 @@ MonoBehaviour:
   MaxHp: 10
   Hp:
     serializedValue: 10
+  startGame: 0
   MoveDirection: {x: 0, y: 0}
   Animator: {fileID: 7160684933270585211}
   ShadowSR: {fileID: 6803679167418603641}

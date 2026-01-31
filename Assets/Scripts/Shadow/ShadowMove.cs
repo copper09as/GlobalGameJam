@@ -19,15 +19,12 @@ public class ShadowMove : MonoBehaviour
     {
         SetShadow();//ʵʱ������Ӱλ��
     }
-
     void SetShadow()
     {
         float angle  = Vector2.SignedAngle(GetDirection(), Sun.Instance.GetDirection(transform));//���������Ƕ�
         angle = angle - transform.rotation.eulerAngles.z;
         transform.rotation = transform.rotation * Quaternion.Euler(0, 0, angle);//������Ӱ��ת
     }
-    
-
     Vector3 GetDirection()
     {
 

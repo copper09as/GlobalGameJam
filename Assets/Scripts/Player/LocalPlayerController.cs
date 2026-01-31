@@ -41,7 +41,7 @@ public class LocalPlayerController : ScPlayerController
     }
     public override void Fire(Player player)
     {
-        if (Input.GetKeyDown(fireKey))
+        if (Input.GetKeyDown(fireKey) || Input.GetMouseButtonDown(0))
         {
             if(player.currentColdDownTime < player.coldDownTime)
             {
