@@ -93,7 +93,7 @@ public class LocalPlayerController : ScPlayerController
         msg.x = player.MoveDirection.x;
         msg.y = player.MoveDirection.y;
         msg.id = player.playerName;
-        msg.angle = player.transform.rotation.eulerAngles.z;
+        msg.angle = player.FirePoint.transform.parent.rotation.eulerAngles.z;
         NetManager.Send(msg);
     }
     void SendFireMsg(Player player, Vector3 targetPosition, Vector3 firePosition)
