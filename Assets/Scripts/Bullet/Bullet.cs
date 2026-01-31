@@ -56,8 +56,7 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
         //攻击太阳，阴影，
         if (p!=null)
         {
-            if (p ==
-            GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer)
+            if (p == Owner)
             {
                 Debug.Log("子弹碰到自己，忽略");
                 return;
