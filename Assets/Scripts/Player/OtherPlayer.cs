@@ -14,20 +14,9 @@ public class OtherPlayer : Player
     protected override void Update()
     {
         DownLoad(data);
-        Synchronization(data);
     }
     void DownLoad(PlayerData data)
     {
 
-    }
-    /// <summary>
-    /// ��������ͬ�����������
-    /// </summary>
-    /// <param name="context"></param>
-    void Synchronization(PlayerData data)
-    {
-        transform.position = data.position;
-        transform.rotation= data.rotation;
-        transform.localScale = data.localScale;
     }
 }
