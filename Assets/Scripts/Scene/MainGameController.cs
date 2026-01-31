@@ -18,6 +18,8 @@ public class MainGameController : GameBehaviour
     [SerializeField] private ProgressBar syncBulletBar;
     [SerializeField] private Image mask;
     [SerializeField] private Image syncMask;
+    
+    private Dictionary<string,Action> maskEffectDict = new Dictionary<string, Action>();
     protected override void Awake()
     {
         base.Awake();
@@ -52,8 +54,9 @@ public class MainGameController : GameBehaviour
         SceneManager.LoadScene("MainMenuScene");
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();   
         MsgLogin msg = new MsgLogin();
         msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName;
         NetManager.Send(msg);
@@ -170,6 +173,8 @@ public class MainGameController : GameBehaviour
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
+        player.startGame = true;
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.startGame = true;
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
         player.controller = Resources.Load<RemotePlayerController>("Prefabs/NewRemotePlayerController");
     }
@@ -185,6 +190,8 @@ public class MainGameController : GameBehaviour
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
+        player.startGame = true;
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.startGame = true;
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
         player.controller = Resources.Load<RemotePlayerController>("Prefabs/NewRemotePlayerController");
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
@@ -238,5 +245,11 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         msgPos.y = player.transform.position.y;
         NetManager.Send(msgPos);
     }
+    #region 面具效果
+    private void ShineEffect()
+    {
+        
+    }
+    #endregion
 
 }

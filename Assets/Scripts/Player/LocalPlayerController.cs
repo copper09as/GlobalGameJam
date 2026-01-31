@@ -10,6 +10,7 @@ public class LocalPlayerController : ScPlayerController
     [SerializeField] private KeyCode rightKey = KeyCode.D;
     [SerializeField] private KeyCode fireKey = KeyCode.Space;
     [SerializeField]private KeyCode reloadKey = KeyCode.R;
+    
     public override void ControlMove(Player player)
     {
         float x = 0f;

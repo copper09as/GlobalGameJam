@@ -32,6 +32,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     public Vector2 MoveDirection;
 
     public Animator Animator;
+    public bool startGame = false;
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -46,6 +47,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     protected override void Update()
     {
         base.Update(); 
+        if (!startGame) return;
         controller.ControlMove(this);
         controller.Rotate(this);
         controller.Fire(this);
@@ -83,7 +85,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         InReload = false;
         //StateMachine.ChangeState(PlayerState.Idle);
     }
-    
+
     public void StopReload()
     {
         if (reloadCoroutine != null)
