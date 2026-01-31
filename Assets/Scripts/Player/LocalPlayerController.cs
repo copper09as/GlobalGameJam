@@ -10,8 +10,8 @@ public class LocalPlayerController : ScPlayerController
     public override void Update(Player player, float deltaTime)
     {
         base.Update(player, deltaTime);
-         SendMoveMsg(player);
-        SendRotateMsg(player);
+         
+
     }
     public override void ControlMove(Player player)
     {
@@ -22,7 +22,8 @@ public class LocalPlayerController : ScPlayerController
         if (Input.GetKey(upKey)) y = 1f;
         if (Input.GetKey(downKey)) y = -1f;
         player.MoveDirection = new Vector2(x, y);
-       
+        SendRotateMsg(player);
+        SendMoveMsg(player);
         
     }
     public override void SetPosition(Player player,Vector2 position)
