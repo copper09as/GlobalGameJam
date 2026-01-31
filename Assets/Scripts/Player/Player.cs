@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public class PlayerContext
+    public class PlayerData
     {
         public Vector3 position;
         public Vector3 localScale;
         public Quaternion rotation;
     }
 
-    public PlayerContext context;
+    public PlayerData data;
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }
+
+
 }

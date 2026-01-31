@@ -5,29 +5,29 @@ using UnityEngine;
 public class OtherPlayer : Player 
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        
+        base.Start();
     }
 
-    // Update is called once per frame
-    void Update()
+
+    protected override void Update()
     {
-        DownLoad(context);
-        Synchronization(context);
+        DownLoad(data);
+        Synchronization(data);
     }
-    void DownLoad(PlayerContext context)
+    void DownLoad(PlayerData data)
     {
 
     }
     /// <summary>
-    /// 上下文数据同步到本地组件
+    /// 线上数据同步到本地组件
     /// </summary>
     /// <param name="context"></param>
-    void Synchronization(PlayerContext context)
+    void Synchronization(PlayerData data)
     {
-        transform.position = context.position;
-        transform.rotation= context.rotation;
-        transform.localScale = context.localScale;
+        transform.position = data.position;
+        transform.rotation= data.rotation;
+        transform.localScale = data.localScale;
     }
 }

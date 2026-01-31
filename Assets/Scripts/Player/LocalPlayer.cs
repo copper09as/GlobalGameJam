@@ -6,29 +6,29 @@ using static Player;
 public class LocalPlayer : Player
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        Synchronization(context);
-        UpLoad(context);
+        Synchronization(data);
+        UpLoad(data);
     }
-    void UpLoad(PlayerContext context)
+    void UpLoad(PlayerData data)
     {
 
     }
     /// <summary>
-    /// 本地组件数据同步到上下文
+    /// 本地数据同步到线上
     /// </summary>
     /// <param name="context"></param>
-    void Synchronization(PlayerContext context)
+    void Synchronization(PlayerData data)
     {
-        context.position = transform.position;
-        context.rotation = transform.rotation;
-        context.localScale = transform.localScale;
+        data.position = transform.position;
+        data.rotation = transform.rotation;
+        data.localScale = transform.localScale;
     }
 }
