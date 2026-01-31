@@ -6,7 +6,7 @@ public class Shadow : MonoBehaviour
 {
     public SpriteRenderer sr;
     public SpriteRenderer sr_Parent;
-    public GameObject parent;
+    public GameObject child;
     void Start()
     {
         sr = GetComponentInChildren<SpriteRenderer>();
@@ -22,12 +22,15 @@ public class Shadow : MonoBehaviour
 
     void SetShadow()
     {
-        float angle  = Vector2.SignedAngle(GetDirection(), Sun.Instance.GetDirection(transform));//计算阴影旋转角度
-        sr.transform.rotation = sr.transform.rotation * Quaternion.Euler(0, 0, angle);//设置阴影旋转
+        float angle  = Vector2.SignedAngle(GetDirection(), Sun.Instance.GetDirection(transform));//计算向量角度
+        angle = angle - transform.rotation.eulerAngles.z;
+        transform.rotation = transform.rotation * Quaternion.Euler(0, 0, angle);//设置阴影旋转
+
+        Debug.Log(angle);
     }
 
     Vector3 GetDirection()
     {
-        return transform.position-transform.parent.position;
+        return child.transform.localPosition;
     }
 }
