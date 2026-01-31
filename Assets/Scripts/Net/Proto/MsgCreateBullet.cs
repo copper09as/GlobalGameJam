@@ -7,4 +7,6 @@ public class MsgCreateBullet : MsgBase
     public string id = "";
     public float targetX = 0;
     public float targetY = 0;
+    public float fireX = 0;
+    public float fireY = 0;
 }
