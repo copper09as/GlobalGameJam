@@ -13,6 +13,7 @@ public class MainGameController : MonoBehaviour
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
+        NetManager.AddMsgListener("MsgCreateBullet", OnMsgCreateBullet);
         if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() == null)
         {
             GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
@@ -25,6 +26,16 @@ public class MainGameController : MonoBehaviour
         msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName; 
         NetManager.Send(msg);
 
+    }
+
+    private void OnMsgCreateBullet(MsgBase msgBase)
+    {
+        MsgCreateBullet msg = msgBase as MsgCreateBullet;
+        if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.CreateBullet(new Vector3(msg.targetX, msg.targetY,0));
     }
 
     private void OnMsgPlayerLoad(MsgBase msgBase)
