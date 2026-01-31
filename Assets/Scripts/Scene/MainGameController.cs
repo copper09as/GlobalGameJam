@@ -15,9 +15,9 @@ public class MainGameController : GameBehaviour
     [SerializeField] private ProgressBar hpBar;
     [SerializeField] private ProgressBar syncHpBar;
     [SerializeField] private ProgressBar syncBulletBar;
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
@@ -197,6 +197,7 @@ transform.rotation = Quaternion.Euler(0f, 0f, msg.angle);
     }
     public void BulletChange(PlayerEvent.PlayerBulletChange evt)
     {
+        if (bulletBar == null) return;
         bulletBar.maxValue=evt.MaxBullet;
         bulletBar.SetValue(evt.CurrentBullet);
     }
