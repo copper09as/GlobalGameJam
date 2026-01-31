@@ -81,7 +81,7 @@ MonoBehaviour:
   isRunning: 0
   registeredStateCount: 0
   transitionCount: 0
-  rb: {fileID: 0}
+  rb: {fileID: 3974593911766944139}
   playerName: 
   moveSpeed: 5
   BulletCount:
