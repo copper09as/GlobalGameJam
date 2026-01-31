@@ -7,6 +7,9 @@ public class LocalPlayerController : ScPlayerController
     [SerializeField]private KeyCode downKey = KeyCode.S;
     [SerializeField]private KeyCode leftKey = KeyCode.A;
     [SerializeField]private KeyCode rightKey = KeyCode.D;
+    
+    private float lastRotateSendTime = 0f;
+    [SerializeField]private float rotateSendInterval = 0.05f; // 每 50ms 发送一次旋转信息
 
     public override void ControlMove(Player player)
     {
@@ -44,9 +47,16 @@ public class LocalPlayerController : ScPlayerController
     }
     void SendRotateMsg(Player player)
     {
+        // 限制旋转消息的发送频率，避免网络拥塞
+        if (Time.time - lastRotateSendTime < rotateSendInterval)
+        {
+            return;
+        }
+        
         MsgRotate msg = new MsgRotate();
         msg.angle = player.transform.rotation.eulerAngles.z;
         msg.id = player.playerName;
         NetManager.Send(msg);
+        lastRotateSendTime = Time.time;
     }
 }
