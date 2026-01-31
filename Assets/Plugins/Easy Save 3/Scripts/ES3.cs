@@ -43,7 +43,6 @@ public class ES3
     {
         Save<object>(key, value, new ES3Settings(filePath));
     }
-
     /// <summary>Saves the value to a file with the given key.</summary>
     /// <param name="key">The key we want to use to identify our value in the file.</param>
     /// <param name="value">The value we want to save.</param>
@@ -53,7 +52,6 @@ public class ES3
     {
         Save<object>(key, value, new ES3Settings(filePath, settings));
     }
-
     /// <summary>Saves the value to a file with the given key.</summary>
     /// <param name="key">The key we want to use to identify our value in the file.</param>
     /// <param name="value">The value we want to save.</param>

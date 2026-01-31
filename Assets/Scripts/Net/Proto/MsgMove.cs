@@ -1,0 +1,9 @@
+public class MsgMove : MsgBase
+{
+    public MsgMove()
+    {
+        protoName = "MsgMove";
+    }
+    public float x = 0;
+    public float y = 0;
+}

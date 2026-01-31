@@ -51,7 +51,13 @@ namespace GameFramework
             RegisterSystemInternal(new ContextSystem());
             RegisterSystemInternal(new AudioSystem());
             RegisterSystemInternal(new GlobalUiSystem());
-
+            NetManager.Connect("127.0.0.1",7778);
+            MsgLogin msg = new MsgLogin();
+            //  等于显卡名字
+            msg.id = SystemInfo.deviceUniqueIdentifier;
+            Debug.Log("Device ID: " + msg.id);
+            msg.pw = "password1";
+            NetManager.Send(msg);
             // 初始化所有系统
             foreach (var system in updateSystems)
                 system.OnInit();
@@ -102,6 +108,7 @@ namespace GameFramework
             var deltaTime = Time.deltaTime;
             foreach (var system in updateSystems)
                 system.OnUpdate(deltaTime);
+            NetManager.Update();
         }
 
         void OnDestroy()

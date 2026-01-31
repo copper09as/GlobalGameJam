@@ -89,7 +89,6 @@ namespace BFGGJ
             {
                 yield return subtitleText.DOFade(1f, titleFadeInDuration * 0.6f).WaitForCompletion();
             }
-
             // 停留展示
             yield return new WaitForSeconds(logoStayDuration * 0.5f);
 
@@ -104,7 +103,6 @@ namespace BFGGJ
                     yield return fadeCanvas.DOFade(1f, finalFadeOutDuration).WaitForCompletion();
                 }
             }
-
             // 异步加载场景
             var asyncOp = SceneManager.LoadSceneAsync(mainMenuScene);
             asyncOp.allowSceneActivation = true;
