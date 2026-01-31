@@ -25,7 +25,6 @@ public class ScPlayerController:ScriptableObject
     }
     public virtual void Fire(Player player,Vector2 targetPosition,Vector2 firePosition)
     {
-        player.CreateBullet(targetPosition, firePosition);
     }
     public virtual void Rotate(Player player, float angle)
     {

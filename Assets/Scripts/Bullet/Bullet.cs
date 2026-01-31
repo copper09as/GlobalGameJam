@@ -7,22 +7,35 @@ public class Bullet : MonoBehaviour
     public float speed = 10f;
     public float lifeTime = 5f;
     public Player Owner;
-
+    public float syncSpeed;
+    public float currentSpeed;
     private Vector3 moveDir;
 
     void Start()
     {
         Destroy(gameObject, lifeTime);
     }
-    public void Init(Player owner,Vector3 initPosition, Vector3 dir)
+    public void Init(Player owner,Vector3 initPosition, Vector3 dir,bool isSync=false)
     {
+        if(isSync)
+        {
+            currentSpeed = syncSpeed;
+        }
+        else
+        {
+            currentSpeed = speed;
+        }
         Owner = owner;
         transform.position = initPosition;
         moveDir = dir.normalized;   // 再保险一次
     }
+    void FixedUpdate()
+    {
+        transform.position += moveDir * currentSpeed;
+    }
     void Update()
     {
-        transform.position += moveDir * speed * Time.deltaTime;
+        
     }
     void OnCollisionEnter2D(Collision2D collision)
     {
