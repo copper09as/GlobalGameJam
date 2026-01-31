@@ -177,8 +177,7 @@ public class MainGameController : GameBehaviour
         }
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.MoveDirection = new Vector2(msg.x, msg.y);
         GameEntry.Instance.GetSystem<ContextSystem>().
-GetContext<SessionContext>().SyncPlayer.
-transform.rotation = Quaternion.Euler(0f, 0f, msg.angle);
+GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Quaternion.Euler(0f, 0f, msg.angle);
 
     }
     private void OnSyncPosition(MsgBase msgBase)
