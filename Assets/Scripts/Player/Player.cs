@@ -36,6 +36,8 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     public SpriteRenderer ShadowSR;//阴影渲染器
     public float beAttackTimer;//受击计时器
     public float beAttackDuration = 0.2f;//受击持续时间
+    public Color normalColor = new Color(0,0,0,0.5f);
+    public Color beAttackedColor = new Color(1,0,0,0.5f);
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -154,11 +156,11 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         if(beAttackTimer>=0.1f)
         {
             beAttackTimer-= deltaTime;
-            ShadowSR.color = Color.red;
+            ShadowSR.color = beAttackedColor;
         }
         else
         {
-            ShadowSR.color = Color.white;
+            ShadowSR.color = normalColor;
         }
     }
 }
