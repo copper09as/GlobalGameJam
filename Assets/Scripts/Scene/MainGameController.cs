@@ -26,7 +26,7 @@ public class MainGameController : GameBehaviour
         maskEffectDict = new();
         maskEffectDict.Add("ShineMask", ShineEffect);
         maskEffectDict.Add("ReplacePosMask", ReplacePosEffect);
-        NetManager.Connect("139.9.116.94",7777);
+        NetManager.Connect("139.9.116.94", 7777);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
