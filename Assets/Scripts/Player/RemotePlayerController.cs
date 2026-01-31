@@ -9,6 +9,6 @@ public class RemotePlayerController : ScPlayerController
     }
     public override void Rotate(Player player, float angle)
     {
-        player.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+         player.FirePoint.transform.parent.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 }
