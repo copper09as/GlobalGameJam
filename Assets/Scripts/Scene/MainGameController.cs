@@ -18,7 +18,7 @@ public class MainGameController : GameBehaviour
     protected override void Start()
     {
         base.Start();
-        NetManager.Connect("192.168.1.121",7777);
+        NetManager.Connect("192.168.163.13",7778);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
