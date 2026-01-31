@@ -1828,7 +1828,6 @@ MonoBehaviour:
   - {fileID: 645299907}
   - {fileID: 645299906}
   - {fileID: 645299905}
-  - {fileID: 1455436395}
   - {fileID: 645299904}
   - {fileID: 645299903}
   - {fileID: 645299902}
@@ -2394,10 +2393,6 @@ PrefabInstance:
     - target: {fileID: 1409129397635491599, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
       propertyPath: m_Name
       value: Sun
-      objectReference: {fileID: 0}
-    - target: {fileID: 2768276191577641788, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
-      propertyPath: m_SortingOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3190961341876720731, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3054,11 +3049,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 9032509952803400280, guid: f3e29eaa282fc0c44942884ddb364174, type: 3}
   m_PrefabInstance: {fileID: 1413123533}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1455436395 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5004603964926280581, guid: 0acef626e57cf1a44b0bef0ad7c582ef, type: 3}
-  m_PrefabInstance: {fileID: 645299899}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1483225390
 PrefabInstance:
@@ -3943,6 +3933,90 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9032509952803400280, guid: f3e29eaa282fc0c44942884ddb364174, type: 3}
   m_PrefabInstance: {fileID: 1982682477}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2002252963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2002252965}
+  - component: {fileID: 2002252964}
+  m_Layer: 0
+  m_Name: Square (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!212 &2002252964
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002252963}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: -1
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.050314426, g: 0.050314426, b: 0.050314426, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &2002252965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002252963}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.3794, y: 1.6986, z: 0}
+  m_LocalScale: {x: 55.19882, y: 32.601738, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2014504315
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4357,6 +4431,7 @@ SceneRoots:
   - {fileID: 645299899}
   - {fileID: 996249030}
   - {fileID: 958809073}
+  - {fileID: 2002252965}
   - {fileID: 1982682477}
   - {fileID: 137963605}
   - {fileID: 1413123533}

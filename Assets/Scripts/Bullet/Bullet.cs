@@ -1,3 +1,4 @@
+using GameFramework;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security;
@@ -34,19 +35,29 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-            Player hitPlayer = collision.gameObject.GetComponent<Player>();
-            if(hitPlayer != Owner)
-            {
-                hitPlayer.Hp.Value -= 1;
-                Destroy(gameObject);
-                return;
-            }
+        var p = GetComponentInParent<Player>();
+        if (p != null)
+        {
+            Destroy(gameObject); return;
+        }
+        //攻击墙壁，与玩家本体触碰
+        var c = collision.gameObject.GetComponent<IBeAttacked>();
+        c?.OnBeAttacked(this, moveDir, transform.position);//子弹的体积小，中心点约等于碰撞点
 
+        Destroy(gameObject);
+        return;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //攻击太阳，影子
+        var p = GetComponentInParent<Player>();
+        //攻击太阳，阴影，
+        if (p!=null)
+        {
+            if (p ==
+            GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer)
+                return;
+        }
         var c = collision.gameObject.GetComponent<IBeAttacked>();
         c?.OnBeAttacked(this, moveDir,transform.position);//子弹的体积小，中心点约等于碰撞点
         if(c!=null)Destroy(gameObject);

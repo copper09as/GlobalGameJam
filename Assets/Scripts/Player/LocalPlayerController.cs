@@ -10,7 +10,6 @@ public class LocalPlayerController : ScPlayerController
     [SerializeField] private KeyCode rightKey = KeyCode.D;
     [SerializeField] private KeyCode fireKey = KeyCode.Space;
     [SerializeField]private KeyCode reloadKey = KeyCode.R;
-    
     public override void ControlMove(Player player)
     {
         float x = 0f;
@@ -42,7 +41,7 @@ public class LocalPlayerController : ScPlayerController
     }
     public override void Fire(Player player)
     {
-        if (Input.GetKeyDown(fireKey) || Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(fireKey))
         {
             if(player.currentColdDownTime < player.coldDownTime)
             {
@@ -54,7 +53,6 @@ public class LocalPlayerController : ScPlayerController
             }
             player.currentColdDownTime = 0f;
             player.BulletCount.Value -= 1;
-            player.StopReload();
             SendBulletMsg(player);
             GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.PlayerBulletChange {
                 CurrentBullet = player.BulletCount.Value,

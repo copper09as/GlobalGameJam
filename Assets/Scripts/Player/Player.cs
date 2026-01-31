@@ -32,7 +32,12 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     public Vector2 MoveDirection;
 
     public Animator Animator;
-    public bool startGame = false;
+
+    public SpriteRenderer ShadowSR;//阴影渲染器
+    public float beAttackTimer;//受击计时器
+    public float beAttackDuration = 0.2f;//受击持续时间
+    public Color normalColor = new Color(0,0,0,0.5f);
+    public Color beAttackedColor = new Color(1,0,0,0.5f);
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -47,12 +52,12 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     protected override void Update()
     {
         base.Update(); 
-        if (!startGame) return;
         controller.ControlMove(this);
         controller.Rotate(this);
         controller.Fire(this);
         controller.Reload(this);
         controller.Tick(this, Time.deltaTime);
+        ShadowUpdate(Time.deltaTime);
     }
     public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3),bool isSync = false)
     {
@@ -85,7 +90,6 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         InReload = false;
         //StateMachine.ChangeState(PlayerState.Idle);
     }
-
     public void StopReload()
     {
         if (reloadCoroutine != null)
@@ -146,11 +150,25 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         });
 
         //受击反馈
+        beAttackTimer = beAttackDuration;
 
         Destroy(bullet.gameObject);
         if (Hp.Value <= 0)
         {
             Debug.Log($"Player {playerName} died.");
+        }
+    }
+
+    public void ShadowUpdate(float deltaTime)
+    {
+        if(beAttackTimer>=0.1f)
+        {
+            beAttackTimer-= deltaTime;
+            ShadowSR.color = beAttackedColor;
+        }
+        else
+        {
+            ShadowSR.color = normalColor;
         }
     }
 }
