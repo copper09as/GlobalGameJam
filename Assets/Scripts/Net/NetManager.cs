@@ -142,7 +142,7 @@ public static class NetManager
 		catch(SocketException ex)
 		{
 			UnityEngine.Debug.Log("Socket Receive Fail" + ex.ToString());
-			
+			FireEvent(NetEvent.Close, "");
 		}
 
     }

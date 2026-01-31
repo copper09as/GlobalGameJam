@@ -27,14 +27,25 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgHpChange", OnMsgHpChange);
         NetManager.AddMsgListener("MsgBulletChange", OnMsgBulletChange);
         NetManager.AddMsgListener("MsgGameOver", OnMsgGameOver);
+        NetManager.AddEventListener(NetEvent.Close,OnClose);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerHpChange>(HpChange);
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
+        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>()!=null)
+        {
+           GameEntry.Instance.GetSystem<ContextSystem>().DisposeContext<SessionContext>();
+        }
         GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>().LocalPlayer = player;
 
         InvokeRepeating(nameof(SyncPosition),1f,2f);
     }
+
+    private void OnClose(string err)
+    {
+        SceneManager.LoadScene("MainMenuScene");
+    }
+
     void Start()
     {
         MsgLogin msg = new MsgLogin();
@@ -98,6 +109,7 @@ public class MainGameController : GameBehaviour
         NetManager.RemoveListener("MsgPos", OnSyncPosition);
         NetManager.RemoveListener("MsgHpChange", OnMsgHpChange);
         NetManager.RemoveListener("MsgBulletChange", OnMsgBulletChange);
+        NetManager.RemoveEventListener(NetEvent.Close,OnClose);
     }
     private void HpChange(PlayerHpChange change)
     {
