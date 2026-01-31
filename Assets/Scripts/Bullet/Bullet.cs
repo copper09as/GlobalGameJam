@@ -27,7 +27,10 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
     targetPos.z = initPosition.z; // 保证同一平面
     Vector2 dir = (targetPos - initPosition).normalized;
     rb.velocity = dir * currentSpeed;
-}
+
+    var angle = Vector2.SignedAngle(Vector2.right, dir);
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+    }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
@@ -44,10 +47,9 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //攻击影子，太阳
-        
-        collision.gameObject.GetComponent<IBeAttacked>()?.OnBeAttacked(this, moveDir);
-        
-        Debug.Log("触发事件");
+        var c = collision.gameObject.GetComponent<IBeAttacked>();
+        c?.OnBeAttacked(this, moveDir);
+        if(c!=null)Destroy(gameObject);
     }
 
     public interface IBeAttacked

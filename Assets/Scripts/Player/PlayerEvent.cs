@@ -12,4 +12,10 @@ namespace PlayerEvent
         public int CurrentBullet;
         public int MaxBullet;
     }
+    public struct PlayerMaskChange
+    {
+        public string id;
+        public string MaskName;
+    }
+
 }
