@@ -5,19 +5,30 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed = 10f;
-    public float lifeTime = 2f;
-    // Start is called before the first frame update
+    public float lifeTime = 5f;
+
+    private Vector3 moveDir;
+
     void Start()
     {
         Destroy(gameObject, lifeTime);
     }
-    // Update is called once per frame
-    void Update()   
+
+    public void Init(Vector3 initPosition, Vector3 dir)
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.position = initPosition;
+        moveDir = dir.normalized;   // 再保险一次
     }
+
+    void Update()
+    {
+        transform.position += moveDir * speed * Time.deltaTime;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         Destroy(gameObject);
     }
 }
+
+
