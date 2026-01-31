@@ -20,6 +20,9 @@ public class LocalPlayer : Player
         if (Input.GetKey(KeyCode.D))
         {
             transform.position += Vector3.right * Time.deltaTime * 5;
+
+    }
+        SendPlayerMsg();
     }
     void SendPlayerMsg()
     {
@@ -28,5 +31,4 @@ public class LocalPlayer : Player
         msg.y = transform.position.y;
         NetManager.Send(msg);
     }
-}
 }
