@@ -17,5 +17,10 @@ namespace PlayerEvent
         public string id;
         public string MaskName;
     }
+    public struct UseMaskEffect
+    {
+        public string id;
+        public string MaskName;
+    }
 
 }

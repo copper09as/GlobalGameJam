@@ -25,9 +25,6 @@ public class ShadowMove : MonoBehaviour
         float angle  = Vector2.SignedAngle(GetDirection(), Sun.Instance.GetDirection(transform));//���������Ƕ�
         angle = angle - transform.rotation.eulerAngles.z;
         transform.rotation = transform.rotation * Quaternion.Euler(0, 0, angle);//������Ӱ��ת
-
-        Debug.Log(GetDirection());
-        Debug.Log(Sun.Instance.GetDirection(transform));
     }
     
 

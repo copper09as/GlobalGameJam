@@ -18,9 +18,14 @@ public class MainGameController : GameBehaviour
     [SerializeField] private ProgressBar syncBulletBar;
     [SerializeField] private Image mask;
     [SerializeField] private Image syncMask;
-    protected override void Awake()
+    
+    private Dictionary<string,Action<string>> maskEffectDict;
+        protected override void Awake()
     {
         base.Awake();
+        maskEffectDict = new();
+        maskEffectDict.Add("ShineMask", ShineEffect);
+        maskEffectDict.Add("ReplacePosMask", ReplacePosEffect);
         NetManager.Connect("139.9.116.94",7777);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
@@ -30,6 +35,8 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgHpChange", OnMsgHpChange);
         NetManager.AddMsgListener("MsgBulletChange", OnMsgBulletChange);
         NetManager.AddMsgListener("MsgGameOver", OnMsgGameOver);
+        NetManager.AddMsgListener("MsgReplacePos", OnMsgReplacePos);
+        GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.UseMaskEffect>(TrigMaskEffect);
         NetManager.AddEventListener(NetEvent.Close,OnClose);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerHpChange>(HpChange);
@@ -47,13 +54,33 @@ public class MainGameController : GameBehaviour
         InvokeRepeating(nameof(SyncPosition),1f,2f);
     }
 
+    private void OnMsgReplacePos(MsgBase msgBase)
+    {
+        MsgReplacePos msg = msgBase as MsgReplacePos;
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
+        {
+            return;
+        }
+        if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
+        var originPos = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position;
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.transform.position = new Vector3(msg.x, msg.y, 0);
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().LocalPlayer.transform.position = originPos;
+        
+    }
+
     private void OnClose(string err)
     {
         SceneManager.LoadScene("MainMenuScene");
     }
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();   
         MsgLogin msg = new MsgLogin();
         msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName;
         NetManager.Send(msg);
@@ -67,6 +94,7 @@ public class MainGameController : GameBehaviour
             result = "你赢了！";
         }
         GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("游戏结束",result);
+        NetManager.Close();
         SceneManager.LoadScene("MainUiScene");
     }
     private void OnMsgBulletChange(MsgBase msgBase)
@@ -170,6 +198,8 @@ public class MainGameController : GameBehaviour
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
+        player.startGame = true;
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.startGame = true;
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
         player.controller = Resources.Load<RemotePlayerController>("Prefabs/NewRemotePlayerController");
     }
@@ -185,6 +215,8 @@ public class MainGameController : GameBehaviour
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
+        player.startGame = true;
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.startGame = true;
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
         player.controller = Resources.Load<RemotePlayerController>("Prefabs/NewRemotePlayerController");
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
@@ -211,7 +243,6 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
     private void OnSyncPosition(MsgBase msgBase)
     {
         MsgPos msg = msgBase as MsgPos;
-            var session = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>();
         if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
         {
             return;
@@ -220,14 +251,9 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         {
             return;
         }
-        Vector3 targetPos = new Vector3(msg.x, msg.y, 0);
-
-        // 每帧插值
-        session.SyncPlayer.transform.position = Vector3.Lerp(
-            session.SyncPlayer.transform.position, 
-            targetPos, 
-            0.1f // 平滑系数 0~1，越小越慢
-        );
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.
+        transform.position = new Vector3(msg.x, msg.y, 0);
     }
     public void BulletChange(PlayerEvent.PlayerBulletChange evt)
     {
@@ -244,5 +270,34 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         msgPos.y = player.transform.position.y;
         NetManager.Send(msgPos);
     }
+    public void TrigMaskEffect(PlayerEvent.UseMaskEffect evt)
+    {
+        string id = evt.id;
+        string maskName = evt.MaskName;
+        if(maskEffectDict.ContainsKey(maskName))
+        {
+            maskEffectDict[maskName].Invoke(id);
+        }
+    }
+    
+
+    
+    #region 面具效果
+    private void ShineEffect(string id)
+    {
+        
+    }
+    private void ReplacePosEffect(string id)
+    {
+        MsgReplacePos msg = new MsgReplacePos();
+        var originPos = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.transform.position;
+        msg.id = id;
+        msg.x = originPos.x;
+        msg.y = originPos.y;
+        NetManager.Send(msg);
+        transform.position = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position;
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position = originPos;
+    }
+    #endregion
 
 }

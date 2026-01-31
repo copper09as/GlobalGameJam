@@ -7,6 +7,7 @@ public class Mask : MonoBehaviour
 {
     public MaskSO MaskSO;
     public SpriteRenderer SpriteRenderer;
+    public LayerMask PlayerLayer;
     public string Name;
     void Start()
     {
@@ -15,15 +16,7 @@ public class Mask : MonoBehaviour
         Name = MaskSO.MaskName;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == LayerMask.GetMask("Player"))
-        { 
-            BeUsed(collision.gameObject);
-        }
-    }
-
-    public virtual void BeUsed(GameObject Player)//被使用的动画效果
+    public virtual void BeUsed(GameObject Player)//锟斤拷使锟矫的讹拷锟斤拷效锟斤拷
     {
         //Player.GetComponentInParent<Player>();
         transform.DOMove(Player.transform.position, 0.5f).OnComplete(()=>

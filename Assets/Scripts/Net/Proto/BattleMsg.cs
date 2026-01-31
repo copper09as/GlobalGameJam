@@ -47,3 +47,13 @@ public class MsgGameOver : MsgBase
     }
     public string winnerId;
 }
+public class MsgReplacePos : MsgBase
+{
+    public MsgReplacePos()
+    {
+        protoName = "MsgReplacePos";
+    }
+    public string id;
+    public float x;
+    public float y;
+}

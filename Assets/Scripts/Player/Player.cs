@@ -29,6 +29,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     public Transform FirePoint;
     public int MaxHp = 10;
     public ReactiveInt Hp = new ReactiveInt(10);
+    public bool startGame   = false;
     public Vector2 MoveDirection;
 
     public Animator Animator;
@@ -52,6 +53,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     protected override void Update()
     {
         base.Update(); 
+        if(!startGame) return;
         controller.ControlMove(this);
         controller.Rotate(this);
         controller.Fire(this);
@@ -100,7 +102,15 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
 
         InReload = false;
     }
-
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Mask"))
+        {
+            Mask mask = collision.gameObject.GetComponent<Mask>();
+            mask.BeUsed(this.gameObject);
+            UseMask(mask.Name);
+        }
+    }
     protected override Player GetOwner()
     {
         return this;
@@ -123,11 +133,12 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     }
   
 
-    public void UseMask(string MaskName)
+    public void UseMask(string maskName)
     {
         //触发对应面具的效果
         //获取面具
         //切换脸上面具
+        
     }
 
     public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)

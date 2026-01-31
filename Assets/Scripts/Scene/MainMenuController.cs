@@ -55,21 +55,6 @@ public class MainMenuController : MonoBehaviour
     }
     public void ConnectToServer()
     {
-        Debug.Log(ipInputField.inputText.text);
-        Debug.Log(portInputField.inputText.text);
-        if(!int.TryParse(portInputField.inputText.text, out int port))
-        {
-            GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("input error","please input correct port number");
-            return;
-        }
-        if(string.IsNullOrEmpty(ipInputField.inputText.text))
-        {
-            GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("input error","please input correct ip address");
-            return;
-        }
         SceneManager.LoadScene("MainGame");
-        
-       
-
     }
 }
