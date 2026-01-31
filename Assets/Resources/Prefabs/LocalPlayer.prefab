@@ -243,7 +243,7 @@ MonoBehaviour:
   registeredStateCount: 0
   transitionCount: 0
   rb: {fileID: 2365571720684789902}
-  playerName: 
+  playerName: 12138
   moveSpeed: 5
   BulletCount:
     serializedValue: 10
