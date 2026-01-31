@@ -11,7 +11,6 @@ public class ConnectBtn : MonoBehaviour
         //等于显卡名字
         msg.id = SystemInfo.deviceUniqueIdentifier;
         Debug.Log("Device ID: " + msg.id);
-        msg.pw = "password1";
         NetManager.Send(msg);
     }
 }
