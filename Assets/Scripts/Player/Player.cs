@@ -137,4 +137,11 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
             Debug.Log($"Player {playerName} died.");
         }
     }
+
+    public void UseMask(string MaskName)
+    {
+        //触发对应面具的效果
+        //获取面具
+        //切换脸上面具
+    }
 }
