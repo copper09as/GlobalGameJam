@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27a98c60c776eea4ba8bc027ee3de1c5, type: 3}
-  m_Name: New Remote Player Controller
+  m_Name: NewRemotePlayerController
   m_EditorClassIdentifier: 
