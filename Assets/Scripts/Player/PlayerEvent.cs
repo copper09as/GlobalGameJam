@@ -4,6 +4,7 @@ namespace PlayerEvent
     {
         public string id;
         public int hp;
+        public int MaxHp;
     }
     public struct PlayerBulletChange
     {

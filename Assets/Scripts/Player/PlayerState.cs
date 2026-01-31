@@ -8,8 +8,16 @@ public class ReloadState : StateBase<Player>
     {
         
     }
+    public override void OnUpdate(Player owner, float deltaTime)
+    {
+
+        Vector2 moveDir = owner.MoveDirection.normalized;
+
+        owner.Rb.velocity = moveDir * owner.moveSpeed;
+    }
     public override void OnExit(Player owner)
     {
+        owner.Rb.velocity = Vector2.zero;
     }
 
 }

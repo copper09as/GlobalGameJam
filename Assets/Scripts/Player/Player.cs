@@ -15,14 +15,18 @@ public enum PlayerState
 }
 public class Player : GameStateMachineBehaviour<PlayerState, Player>
 {   
+    public float coldDownTime = 0.2f;
+    public float currentColdDownTime = 0f;
+    public bool InReload = false;
     public ScPlayerController controller;
     public Rigidbody2D Rb;
-    [SerializeField]protected float reloadTimeRate;
+    [SerializeField]protected float reloadTimeRate = 1;
     public string playerName;
     public float moveSpeed = 5f;
     public int MaxBullet = 10;
     public ReactiveInt BulletCount = new ReactiveInt(10);
     public Transform FirePoint;
+    public int MaxHp = 10;
     public ReactiveInt Hp = new ReactiveInt(10);
     public Vector2 MoveDirection;
     // Start is called before the first frame update
@@ -42,6 +46,8 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
         controller.ControlMove(this);
         controller.Rotate(this);
         controller.Fire(this);
+        controller.Reload(this);
+        controller.Update(this, Time.deltaTime);
     }
     public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3))
     {
@@ -54,17 +60,44 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
         }
         bullet.Init(this, firePosition, targetPosition);
     }
-    public void ReloadBullets()
+    public void StartReload()
     {
-        ChangeState(PlayerState.Reload);
+        if (InReload) return;
+
+        InReload = true;
+        reloadCoroutine = StartCoroutine(ReloadCoroutine());
     }
+    private Coroutine reloadCoroutine;
+    private IEnumerator ReloadCoroutine()
+    {
+        yield return new WaitForSeconds(ReloadTime());
+        BulletCount.Value = MaxBullet;
+        GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.PlayerBulletChange {
+            CurrentBullet = BulletCount.Value,
+            MaxBullet = MaxBullet,
+            id = playerName
+        });
+        InReload = false;
+        //StateMachine.ChangeState(PlayerState.Idle);
+    }
+    public void StopReload()
+    {
+        if (reloadCoroutine != null)
+        {
+            StopCoroutine(reloadCoroutine);
+            reloadCoroutine = null;
+        }
+
+        InReload = false;
+    }
+
     protected override Player GetOwner()
     {
         return this;
     }
     protected override PlayerState GetInitialState()
     {
-        return PlayerState.Idle;
+        return PlayerState.Idle; 
     }
     protected override void ConfigureStateMachine()
     {
@@ -76,6 +109,26 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
         (PlayerState.Idle, PlayerState.Move, (i) => MoveDirection.magnitude > 0.1f);
         StateMachine.AddTransition
         (PlayerState.Move, PlayerState.Idle, (i) => MoveDirection.magnitude <= 0.1f);
-    }    
+    }
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("Bullet"))
+        {
+            Bullet bullet = collision.transform.parent.GetComponent<Bullet>();
+            if(bullet.Owner.playerName==playerName)return;
+                Hp.Value -= 1;
+                GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.PlayerHpChange {
+                    hp = Hp.Value,
+                    MaxHp = MaxHp,
+                    id = playerName
+                });
+                Destroy(bullet.gameObject);
+                if(Hp.Value <= 0)
+                {
+                    Debug.Log($"Player {playerName} died.");
+                }
+            
+        }
+    }
 
 }
