@@ -10,14 +10,17 @@ public class LocalPlayer : Player
     // Update is called once per frame
     protected override void Update()
     {
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.position += Vector3.left * Time.deltaTime * 5;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.position += Vector3.right * Time.deltaTime * 5;
-        }
+        float x = 0f;
+        float y = 0f;
+
+        if (Input.GetKey(KeyCode.A)) x = -1f;
+        if (Input.GetKey(KeyCode.D)) x = 1f;
+        if (Input.GetKey(KeyCode.W)) y = 1f;
+        if (Input.GetKey(KeyCode.S)) y = -1f;
+
+        Vector2 moveDir = new Vector2(x, y).normalized;
+
+        rb.velocity = moveDir * moveSpeed;
         if(Input.GetMouseButtonDown(0))
         {
 
