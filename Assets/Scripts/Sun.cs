@@ -136,4 +136,8 @@ public class Sun : MonoBehaviour,IBeAttacked
         var a = Vector2.Dot(transform.position-hit, GetDirection(Orbit.points[target]));
         if (a < 0f) SwitchDirection();//改变方向
     }
+    private void OnDestroy()
+    {
+        instance = null;
+    }
 }
