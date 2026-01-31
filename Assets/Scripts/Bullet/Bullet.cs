@@ -47,10 +47,9 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //攻击影子，太阳
-        
-        collision.gameObject.GetComponent<IBeAttacked>()?.OnBeAttacked(this, moveDir);
-        
-        Debug.Log("触发事件");
+        var c = collision.gameObject.GetComponent<IBeAttacked>();
+        c?.OnBeAttacked(this, moveDir);
+        if(c!=null)Destroy(gameObject);
     }
 
     public interface IBeAttacked
