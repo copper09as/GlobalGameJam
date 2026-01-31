@@ -382,13 +382,13 @@ MonoBehaviour:
   isRunning: 0
   registeredStateCount: 0
   transitionCount: 0
-  coldDownTime: 0.2
+  coldDownTime: 0
   currentColdDownTime: 0
   InReload: 0
   controller: {fileID: 11400000, guid: 55028c8a732ef0345b8ee25ff3746153, type: 2}
   Rb: {fileID: 2365571720684789902}
-  reloadTimeRate: 0.4
-  playerName: 123123
+  reloadTimeRate: 0
+  playerName: 12313
   moveSpeed: 5
   MaxBullet: 10
   BulletCount:
@@ -425,7 +425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5706598407116853670, guid: 130bd6cfb9dd99f4c97ec0f8b418c7ad, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5795194129816249514, guid: 130bd6cfb9dd99f4c97ec0f8b418c7ad, type: 3}
       propertyPath: m_Sprite
