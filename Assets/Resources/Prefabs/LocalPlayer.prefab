@@ -387,8 +387,8 @@ MonoBehaviour:
   InReload: 0
   controller: {fileID: 11400000, guid: 55028c8a732ef0345b8ee25ff3746153, type: 2}
   Rb: {fileID: 2365571720684789902}
-  reloadTimeRate: 1
-  playerName: 12
+  reloadTimeRate: 0.4
+  playerName: 12138
   moveSpeed: 5
   MaxBullet: 10
   BulletCount:
@@ -421,6 +421,10 @@ PrefabInstance:
     - target: {fileID: 5706598407116853670, guid: 130bd6cfb9dd99f4c97ec0f8b418c7ad, type: 3}
       propertyPath: m_Name
       value: PlayerShadow
+      objectReference: {fileID: 0}
+    - target: {fileID: 5706598407116853670, guid: 130bd6cfb9dd99f4c97ec0f8b418c7ad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5795194129816249514, guid: 130bd6cfb9dd99f4c97ec0f8b418c7ad, type: 3}
       propertyPath: m_Sprite

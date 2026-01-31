@@ -11,20 +11,20 @@ public class ShadowMove : MonoBehaviour
     {
         sr = GetComponentInChildren<SpriteRenderer>();
         sr_Parent = GetComponentInParent<SpriteRenderer>();
-        sr.sprite = sr_Parent.sprite;//ÉèÖÃ¾«Áé
-        sr.color = new Color(0, 0, 0, 0.5f);//ÉèÖÃÑÕÉ«
+        sr.sprite = sr_Parent.sprite;//ï¿½ï¿½ï¿½Ã¾ï¿½ï¿½ï¿½
+        sr.color = new Color(0, 0, 0, 0.5f);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
     }
     // Update is called once per frame
     void FixedUpdate()
     {
-        SetShadow();//ÊµÊ±¸üÐÂÒõÓ°Î»ÖÃ
+        SetShadow();//ÊµÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°Î»ï¿½ï¿½
     }
 
     void SetShadow()
     {
-        float angle  = Vector2.SignedAngle(GetDirection(), Sun.Instance.GetDirection(transform));//¼ÆËãÏòÁ¿½Ç¶È
+        float angle  = Vector2.SignedAngle(GetDirection(), Sun.Instance.GetDirection(transform));//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶ï¿½
         angle = angle - transform.rotation.eulerAngles.z;
-        transform.rotation = transform.rotation * Quaternion.Euler(0, 0, angle);//ÉèÖÃÒõÓ°Ðý×ª
+        transform.rotation = transform.rotation * Quaternion.Euler(0, 0, angle);//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½×ª
 
         //Debug.Log(angle);
     }
