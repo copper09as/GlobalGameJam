@@ -35,12 +35,14 @@ public class MainGameController : MonoBehaviour
         }
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/RemotePlayer"));
         Player player = playerObj.GetComponent<Player>();
+        player.playerName = msg.id;
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
     }
 
     private void OnMsgMove(MsgBase msgBase)
     {
         MsgMove msg = msgBase as MsgMove;
+        Debug.Log(msg.id);
         if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
         {
             return;
@@ -49,7 +51,7 @@ public class MainGameController : MonoBehaviour
         {
             return;
         }
-        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.data.position = new Vector3(msg.x, msg.y, 0);
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position = new Vector3(msg.x, msg.y, 0);
     }
 
 }

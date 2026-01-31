@@ -24,8 +24,6 @@ public class LocalPlayer : Player
             transform.position += Vector3.right * Time.deltaTime * 5;
         }
         SendPlayerMsg();
-
-
     }
     void SendPlayerMsg()
     {
