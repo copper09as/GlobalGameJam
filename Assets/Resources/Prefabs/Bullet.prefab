@@ -177,11 +177,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e48ed7657a5fb6498788c26fcc46d8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.4
+  speed: 10
   lifeTime: 10
   Owner: {fileID: 0}
-  syncSpeed: 0.2
+  syncSpeed: 10
   currentSpeed: 0
+  rb: {fileID: 8602547140720987749}
 --- !u!61 &1929651512801723925
 BoxCollider2D:
   m_ObjectHideFlags: 0
