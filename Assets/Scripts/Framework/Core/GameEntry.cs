@@ -51,7 +51,7 @@ namespace GameFramework
             RegisterSystemInternal(new ContextSystem());
             RegisterSystemInternal(new AudioSystem());
             RegisterSystemInternal(new GlobalUiSystem());
-
+            NetManager.Connect("127.0.0.1",7778);
             // 初始化所有系统
             foreach (var system in updateSystems)
                 system.OnInit();
@@ -102,6 +102,7 @@ namespace GameFramework
             var deltaTime = Time.deltaTime;
             foreach (var system in updateSystems)
                 system.OnUpdate(deltaTime);
+            NetManager.Update();
         }
 
         void OnDestroy()
