@@ -180,7 +180,7 @@ MonoBehaviour:
   speed: 10
   lifeTime: 10
   Owner: {fileID: 0}
-  syncSpeed: 0.2
+  syncSpeed: 10
   currentSpeed: 0
   rb: {fileID: 8602547140720987749}
 --- !u!61 &1929651512801723925
