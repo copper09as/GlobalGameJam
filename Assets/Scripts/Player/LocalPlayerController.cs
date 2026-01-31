@@ -53,6 +53,7 @@ public class LocalPlayerController : ScPlayerController
             }
             player.currentColdDownTime = 0f;
             player.BulletCount.Value -= 1;
+            player.StopReload();
             SendBulletMsg(player);
             GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.PlayerBulletChange {
                 CurrentBullet = player.BulletCount.Value,

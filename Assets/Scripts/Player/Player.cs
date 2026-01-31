@@ -83,6 +83,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         InReload = false;
         //StateMachine.ChangeState(PlayerState.Idle);
     }
+    
     public void StopReload()
     {
         if (reloadCoroutine != null)
