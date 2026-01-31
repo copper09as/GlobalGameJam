@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5633687680225072848, guid: 98cae2c9a9f40e64fbc321182f5bcf18, type: 3}
       propertyPath: m_Name
-      value: LocalPlayer Variant
+      value: LocalPlayer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -77,4 +77,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f7d1b1f8180eea428e56d0e281b1b1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerName: 1234
+  playerName: 12138
