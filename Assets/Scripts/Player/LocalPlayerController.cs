@@ -37,7 +37,7 @@ public class LocalPlayerController : ScPlayerController
         mouseWorldPos.z = 0f;
         Vector3 dir = mouseWorldPos - player.transform.position;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        player.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        player.FirePoint.transform.parent.rotation = Quaternion.Euler(0f, 0f, angle);
     }
     public override void Fire(Player player)
     {

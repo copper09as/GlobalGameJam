@@ -7,6 +7,7 @@ using PlayerEvent;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainGameController : GameBehaviour
 {
@@ -24,12 +25,14 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgPos", OnSyncPosition);
         NetManager.AddMsgListener("MsgHpChange", OnMsgHpChange);
         NetManager.AddMsgListener("MsgBulletChange", OnMsgBulletChange);
+        NetManager.AddMsgListener("MsgGameOver", OnMsgGameOver);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerHpChange>(HpChange);
-        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() == null)
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() != null)
         {
-            GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
+            GameEntry.Instance.GetSystem<ContextSystem>().DisposeContext<SessionContext>();
         }
+        GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer = player;
@@ -37,6 +40,18 @@ public class MainGameController : GameBehaviour
         msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName;
         NetManager.Send(msg);
         InvokeRepeating(nameof(SyncPosition),1f,2f);
+    }
+
+    private void OnMsgGameOver(MsgBase msgBase)
+    {
+        MsgGameOver msg = msgBase as MsgGameOver;
+        string result = "你输了！";
+        if(msg.winnerId== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            result = "你赢了！";
+        }
+        GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("游戏结束",result);
+        SceneManager.LoadScene("MainUiScene");
     }
 
     private void OnMsgBulletChange(MsgBase msgBase)
@@ -92,6 +107,12 @@ public class MainGameController : GameBehaviour
         {
             hpBar.maxValue = change.MaxHp;
             hpBar.SetValue(change.hp);
+            if(change.hp<=0)
+            {
+                MsgGameOver msg = new MsgGameOver();
+                msg.winnerId = change.id;
+                NetManager.Send(msg);
+            }
             return;
         }
         syncHpBar.maxValue = change.MaxHp;
