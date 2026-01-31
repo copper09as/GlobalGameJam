@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GameFramework;
 using JetBrains.Annotations;
 using PlayerEvent;
+using UnityEditor;
 using UnityEngine;
 public enum PlayerState
 {
@@ -14,7 +15,7 @@ public enum PlayerState
     Die
 }
 public class Player : GameStateMachineBehaviour<PlayerState, Player>
-{   
+{
     public ScPlayerController controller;
     public Rigidbody2D Rb;
     [SerializeField]protected float reloadTimeRate;
@@ -41,6 +42,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
         base.Update(); 
         controller.ControlMove(this);
         controller.Rotate(this);
+
     }
     public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3))
     {
@@ -75,6 +77,17 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
         (PlayerState.Idle, PlayerState.Move, (i) => MoveDirection.magnitude > 0.1f);
         StateMachine.AddTransition
         (PlayerState.Move, PlayerState.Idle, (i) => MoveDirection.magnitude <= 0.1f);
-    }    
+    }
 
+    public void TakeDamage(int damage)
+    {
+        Hp.Value -= damage;
+        Debug.Log($"Player {playerName} took {damage} damage, remaining HP: {Hp.Value}");
+        if (Hp.Value <= 0)
+        {
+            Debug.Log($"Player {playerName} has died.");
+            // Handle player death (e.g., change state, play animation, etc.)
+        }
+    }
+    
 }

@@ -32,8 +32,20 @@ public class Bullet : MonoBehaviour
                 hitPlayer.Hp.Value -= 1;
                  Destroy(gameObject);
             }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        //攻击影子，太阳
         
-       
+        collision.gameObject.GetComponent<IBeAttacked>()?.OnBeAttacked(this, moveDir);
+        
+        Debug.Log("触发事件");
+    }
+
+    public interface IBeAttacked
+    {
+        void OnBeAttacked(Bullet bullet,Vector3 moveDir);//前面是子弹，后面是攻击方向
     }
 }
 
