@@ -39,7 +39,7 @@ public class MainGameController : GameBehaviour
     {
         MsgLogin msg = new MsgLogin();
         msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName;
-        NetManager.Send(msg); 
+        NetManager.Send(msg);
     }
     private void OnMsgGameOver(MsgBase msgBase)
     {
@@ -197,6 +197,7 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
     }
     public void BulletChange(PlayerEvent.PlayerBulletChange evt)
     {
+        if (bulletBar == null) return;
         bulletBar.maxValue=evt.MaxBullet;
         bulletBar.SetValue(evt.CurrentBullet);
     }

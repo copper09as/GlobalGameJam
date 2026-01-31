@@ -43,6 +43,8 @@ public class MoveState : StateBase<Player>
     public override void OnEnter(Player owner)
     {
         UnityEngine.Debug.Log("Enter Move State");
+        owner.Animator.Play("Walk");
+
     }
     public override void OnUpdate(Player owner, float deltaTime)
     {
@@ -54,6 +56,7 @@ public class MoveState : StateBase<Player>
     public override void OnExit(Player owner)
     {
         owner.Rb.velocity = Vector2.zero;
+        owner.Animator.
     }
 
 }

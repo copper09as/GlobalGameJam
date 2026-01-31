@@ -398,6 +398,7 @@ MonoBehaviour:
   Hp:
     serializedValue: 10
   MoveDirection: {x: 0, y: 0}
+  Animator: {fileID: 7160684933270585211}
 --- !u!1001 &1010825555065863379
 PrefabInstance:
   m_ObjectHideFlags: 0
