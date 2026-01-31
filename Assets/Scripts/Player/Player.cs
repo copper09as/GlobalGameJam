@@ -42,7 +42,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
         base.Update(); 
         controller.ControlMove(this);
         controller.Rotate(this);
-
+        controller.Fire(this);
     }
     public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3))
     {
@@ -89,5 +89,5 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
             // Handle player death (e.g., change state, play animation, etc.)
         }
     }
-    
+
 }

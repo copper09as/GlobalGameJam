@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7265794828138586122}
   - component: {fileID: 8281842125142659360}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 661652761654283834}
   - component: {fileID: 6966292769292278966}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5458122503031161638}
   - component: {fileID: 6292544948622602852}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 7871493076091098196}
   - component: {fileID: 2365571720684789902}
   - component: {fileID: -5188286415830579284}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LocalPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -303,7 +303,7 @@ Rigidbody2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -330,7 +330,7 @@ MonoBehaviour:
   controller: {fileID: 11400000, guid: 55028c8a732ef0345b8ee25ff3746153, type: 2}
   Rb: {fileID: 2365571720684789902}
   reloadTimeRate: 0
-  playerName: 1234
+  playerName: 12
   moveSpeed: 5
   MaxBullet: 10
   BulletCount:

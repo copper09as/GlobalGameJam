@@ -7,13 +7,15 @@ public class MsgMove : MsgBase
     public string id;
     public float x = 0;
     public float y = 0;
+    public float angle = 0;
 }
-public class MsgRotate : MsgBase
+public class MsgPos:MsgBase
 {
-    public MsgRotate()
+    public MsgPos()
     {
-        protoName = "MsgRotate";
+        protoName = "MsgPos";
     }
     public string id;
-    public float angle = 0;
+    public float x = 0;
+    public float y = 0;
 }

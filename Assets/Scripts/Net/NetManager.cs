@@ -12,7 +12,7 @@ public static class NetManager
     static bool isClosing = false;
 	static List<MsgBase> msgList = new List<MsgBase>();
 	static int msgCount = 0;
-	readonly static int MAX_MESSAGE_FIRE = 10;
+	readonly static int MAX_MESSAGE_FIRE = 100;
     public delegate void EventListener(string err);
     private static Dictionary<NetEvent, EventListener> eventListeners =
 		new Dictionary<NetEvent, EventListener>();
@@ -285,15 +285,23 @@ public static class NetManager
 		ByteArray ba;
 		lock(writeQueue)
 		{
-			ba = writeQueue.Dequeue();
-		}
-		ba.readIdx += count;
-		if(ba.length==0)
-		{
-			lock(writeQueue)
+			if (writeQueue.Count == 0)
+			{
+				return;
+			}
+			ba = writeQueue.Peek();
+			ba.readIdx += count;
+			if (ba.length == 0)
 			{
 				writeQueue.Dequeue();
-				ba = writeQueue.First();
+				if (writeQueue.Count > 0)
+				{
+					ba = writeQueue.Peek();
+				}
+				else
+				{
+					ba = null;
+				}
 			}
 		}
 		if(ba!=null)
