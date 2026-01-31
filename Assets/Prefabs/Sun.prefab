@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8656339917302864030}
   - component: {fileID: 5326699670498576970}
   - component: {fileID: 2768276191577641788}
+  - component: {fileID: 428807370100618504}
   m_Layer: 0
   m_Name: Sun
   m_TagString: Untagged
@@ -54,7 +55,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 000000004fee425a
+  m_ApplyToSortingLayers: 000000005fda43788d78917143bef975
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -64,7 +65,7 @@ MonoBehaviour:
   m_NormalMapQuality: 2
   m_UseNormalMap: 0
   m_ShadowIntensityEnabled: 1
-  m_ShadowIntensity: 0.641
+  m_ShadowIntensity: 1
   m_ShadowVolumeIntensityEnabled: 0
   m_ShadowVolumeIntensity: 0.75
   m_LocalBounds:
@@ -72,8 +73,8 @@ MonoBehaviour:
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
-  m_PointLightInnerRadius: 3.6914685
-  m_PointLightOuterRadius: 34.299637
+  m_PointLightInnerRadius: 5.4
+  m_PointLightOuterRadius: 55.99
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -97,6 +98,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  normalSpeed: 10
+  shakedSpeed: 50
+  NormalSun: {fileID: 21300000, guid: 1c1bef4b40e990c42aed6432ebd324ef, type: 3}
+  ShakedSun: {fileID: 21300002, guid: 88dca061d041a2a4596563e6a38f66c8, type: 3}
+  sr: {fileID: 0}
   Orbit: {fileID: 0}
   shakeDuration: 0.1
   shakeMagnitude: 0.5
@@ -153,3 +159,38 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &428807370100618504
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1409129397635491599}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5.1199994
