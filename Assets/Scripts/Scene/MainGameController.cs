@@ -36,6 +36,7 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgBulletChange", OnMsgBulletChange);
         NetManager.AddMsgListener("MsgGameOver", OnMsgGameOver);
         NetManager.AddMsgListener("MsgReplacePos", OnMsgReplacePos);
+        NetManager.AddMsgListener("MsgShine", OnMsgShine);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.UseMaskEffect>(TrigMaskEffect);
         NetManager.AddEventListener(NetEvent.Close,OnClose);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
@@ -148,9 +149,25 @@ private void OnMsgReplacePos(MsgBase msgBase)
         NetManager.RemoveListener("MsgBulletChange", OnMsgBulletChange);
         NetManager.RemoveListener("MsgGameOver", OnMsgGameOver);
         NetManager.RemoveListener("MsgReplacePos", OnMsgReplacePos);
+        NetManager.RemoveListener("MsgShine", OnMsgShine);
         GameEntry.Instance.GetSystem<EventSystem>().Unsubscribe<PlayerEvent.UseMaskEffect>(TrigMaskEffect);
         NetManager.RemoveEventListener(NetEvent.Close,OnClose);
     }
+
+    private void OnMsgShine(MsgBase msgBase)
+    {
+       if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
+        {
+            return;
+        }
+        MsgShine msg = msgBase as MsgShine;
+        if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
+        Debug.Log("收到闪耀特效消息");
+    }
+
     private void HpChange(PlayerHpChange change)
     {
         if(change.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
@@ -293,7 +310,9 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
     #region 面具效果
     private void ShineEffect(string id)
     {
-        
+        MsgShine msg = new MsgShine();
+        msg.id = id;
+        NetManager.Send(msg);
     }
 private void ReplacePosEffect(string targetId)
 {
