@@ -29,6 +29,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     public Transform FirePoint;
     public int MaxHp = 10;
     public ReactiveInt Hp = new ReactiveInt(10);
+
     public bool startGame   = false;
     public Vector2 MoveDirection;
 
@@ -138,7 +139,12 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         //触发对应面具的效果
         //获取面具
         //切换脸上面具
-        
+        GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.UseMaskEffect
+        {
+            id = playerName,
+            MaskName = maskName
+        });
+
     }
 
     public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
