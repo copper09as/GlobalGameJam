@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.67148125, w: 0.7410215}
   m_LocalPosition: {x: 27.2, y: 1.9, z: 3.01}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.4427, y: 0.4427, z: 0.4427}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -102,6 +102,7 @@ MonoBehaviour:
   shakedSpeed: 50
   NormalSun: {fileID: 21300000, guid: 1c1bef4b40e990c42aed6432ebd324ef, type: 3}
   ShakedSun: {fileID: 21300002, guid: 88dca061d041a2a4596563e6a38f66c8, type: 3}
+  DarkSun: {fileID: 0}
   sr: {fileID: 0}
   Orbit: {fileID: 0}
   shakeDuration: 0.1

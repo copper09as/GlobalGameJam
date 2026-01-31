@@ -148,7 +148,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 661652761654283834}
-  - component: {fileID: 6966292769292278966}
+  - component: {fileID: 2500758231421460970}
   m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
@@ -171,8 +171,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7871493076091098196}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &6966292769292278966
-BoxCollider2D:
+--- !u!70 &2500758231421460970
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -203,19 +203,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Offset: {x: -0.3195969, y: -0.27143812}
+  m_Size: {x: 2.154898, y: 4.3264036}
+  m_Direction: 0
 --- !u!1 &7901551700756051755
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,14 +372,14 @@ MonoBehaviour:
   isRunning: 0
   registeredStateCount: 0
   transitionCount: 0
-  coldDownTime: 0
+  coldDownTime: 0.7
   currentColdDownTime: 0
   InReload: 0
   controller: {fileID: 11400000, guid: 55028c8a732ef0345b8ee25ff3746153, type: 2}
   Rb: {fileID: 2365571720684789902}
   reloadTimeRate: 0
-  playerName: 12313
-  moveSpeed: 5
+  playerName: 123
+  moveSpeed: 10
   MaxBullet: 10
   BulletCount:
     serializedValue: 10

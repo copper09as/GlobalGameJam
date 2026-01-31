@@ -21,7 +21,7 @@ public class MainGameController : GameBehaviour
     protected override void Awake()
     {
         base.Awake();
-        NetManager.Connect("192.168.163.13",1234);
+        NetManager.Connect("139.9.116.94",7777);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
