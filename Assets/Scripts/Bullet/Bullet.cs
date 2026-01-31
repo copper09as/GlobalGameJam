@@ -35,7 +35,7 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        var p = GetComponentInParent<Player>();
+        var p = collision.gameObject.GetComponentInParent<Player>();
         if (p != null)
         {
             Destroy(gameObject); return;
@@ -50,7 +50,7 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        var p = GetComponentInParent<Player>();
+        var p = collision.gameObject.GetComponentInParent<Player>();
         //攻击太阳，阴影，
         if (p!=null)
         {
