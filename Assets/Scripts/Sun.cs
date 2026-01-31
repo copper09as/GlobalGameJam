@@ -56,6 +56,7 @@ public class Sun : MonoBehaviour,IBeAttacked
         }
 
         sr = GetComponent<SpriteRenderer>();
+        Random.InitState(System.DateTime.Now.Millisecond);
     }
     void Update()
     {
