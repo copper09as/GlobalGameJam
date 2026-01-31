@@ -310,6 +310,7 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
     #region 面具效果
     private void ShineEffect(string id)
     {
+        Debug.Log("捡起闪耀面具，触发闪耀特效");
         MsgShine msg = new MsgShine();
         msg.id = id;
         NetManager.Send(msg);
