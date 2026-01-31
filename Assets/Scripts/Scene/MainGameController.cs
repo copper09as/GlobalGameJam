@@ -36,10 +36,15 @@ public class MainGameController : GameBehaviour
     private void OnMsgRotate(MsgBase msgBase)
     {
         MsgRotate msg = msgBase as MsgRotate;
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
+        {
+            return;
+        }
         if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
         {
             return;
         }
+        
         GameEntry.Instance.GetSystem<ContextSystem>().
         GetContext<SessionContext>().SyncPlayer.
         transform.rotation = Quaternion.Euler(0f, 0f, msg.angle);
@@ -58,6 +63,10 @@ public class MainGameController : GameBehaviour
     private void OnMsgCreateBullet(MsgBase msgBase)
     {
         MsgCreateBullet msg = msgBase as MsgCreateBullet;
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
+        {
+            return;
+        }
         if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
         {
             return;
@@ -99,7 +108,6 @@ public class MainGameController : GameBehaviour
     private void OnMsgMove(MsgBase msgBase)
     {
         MsgMove msg = msgBase as MsgMove;
-        Debug.Log(msg.id);
         if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
         {
             return;

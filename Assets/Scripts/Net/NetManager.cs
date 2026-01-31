@@ -12,7 +12,7 @@ public static class NetManager
     static bool isClosing = false;
 	static List<MsgBase> msgList = new List<MsgBase>();
 	static int msgCount = 0;
-	readonly static int MAX_MESSAGE_FIRE = 10;
+	readonly static int MAX_MESSAGE_FIRE = 100;
     public delegate void EventListener(string err);
     private static Dictionary<NetEvent, EventListener> eventListeners =
 		new Dictionary<NetEvent, EventListener>();
