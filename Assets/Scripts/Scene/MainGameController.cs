@@ -89,6 +89,7 @@ private void OnMsgReplacePos(MsgBase msgBase)
         msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName;
         NetManager.Send(msg);
     }
+
     private void OnMsgGameOver(MsgBase msgBase)
     {
         MsgGameOver msg = msgBase as MsgGameOver;
@@ -99,7 +100,7 @@ private void OnMsgReplacePos(MsgBase msgBase)
         }
         GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("游戏结束",result);
         NetManager.Close();
-        SceneManager.LoadScene("MainUiScene");
+        SceneManager.LoadScene("MainMenuScene");
     }
     private void OnMsgBulletChange(MsgBase msgBase)
     {
@@ -174,13 +175,6 @@ private void OnMsgReplacePos(MsgBase msgBase)
         {
             hpBar.maxValue = change.MaxHp;
             hpBar.SetValue(change.hp);
-            if(change.hp<=0)
-            {
-                MsgGameOver msg = new MsgGameOver();
-                msg.winnerId = change.id;
-                NetManager.Send(msg);
-            }
-            return;
         }
         syncHpBar.maxValue = change.MaxHp;
         syncHpBar.SetValue(change.hp);

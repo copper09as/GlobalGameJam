@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Bullet;
 public enum PlayerState
 {
@@ -173,10 +174,16 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         Destroy(bullet.gameObject);
         if (Hp.Value <= 0)
         {
-            Debug.Log($"Player {playerName} died.");
+            string result = "你输了！";
+            if(playerName== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+            {
+                result = "你赢了！";
+            }
+            GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("游戏结束",result);
+            NetManager.Close();
+            SceneManager.LoadScene("MainMenuScene");
         }
     }
-
     public void ShadowUpdate(float deltaTime)
     {
         if(beAttackTimer>=0.1f)
