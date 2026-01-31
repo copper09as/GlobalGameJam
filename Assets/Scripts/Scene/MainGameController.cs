@@ -70,7 +70,6 @@ private void OnMsgReplacePos(MsgBase msgBase)
         if(session.SyncPlayer != null)
         {
             session.SyncPlayer.transform.position = originPos;
-
         }
         SyncPosition();
     }
@@ -261,6 +260,8 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         GameEntry.Instance.GetSystem<ContextSystem>().
         GetContext<SessionContext>().SyncPlayer.
         transform.position = new Vector3(msg.x, msg.y, 0);
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.Rb.velocity = Vector2.zero;
     }
     public void BulletChange(PlayerEvent.PlayerBulletChange evt)
     {
