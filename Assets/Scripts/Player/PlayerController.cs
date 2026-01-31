@@ -10,6 +10,10 @@ public class ScPlayerController:ScriptableObject
     {
 
     }
+    public virtual void Update(Player player, float deltaTime)
+    {
+
+    }
     public virtual void Rotate(Player player)
     {
 

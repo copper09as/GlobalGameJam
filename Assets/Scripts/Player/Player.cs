@@ -41,6 +41,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
         base.Update(); 
         controller.ControlMove(this);
         controller.Rotate(this);
+        controller.Update(this, Time.deltaTime);
     }
     public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3))
     {
