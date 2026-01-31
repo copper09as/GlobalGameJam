@@ -211,7 +211,6 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
     private void OnSyncPosition(MsgBase msgBase)
     {
         MsgPos msg = msgBase as MsgPos;
-            var session = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>();
         if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
         {
             return;
@@ -220,14 +219,9 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         {
             return;
         }
-        Vector3 targetPos = new Vector3(msg.x, msg.y, 0);
-
-        // 每帧插值
-        session.SyncPlayer.transform.position = Vector3.Lerp(
-            session.SyncPlayer.transform.position, 
-            targetPos, 
-            0.1f // 平滑系数 0~1，越小越慢
-        );
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.
+        transform.position = new Vector3(msg.x, msg.y, 0);
     }
     public void BulletChange(PlayerEvent.PlayerBulletChange evt)
     {
