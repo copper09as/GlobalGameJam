@@ -121,15 +121,14 @@ public class Sun : MonoBehaviour,IBeAttacked
     //        OnBeAttacked(bullet, moveDir);
     //    }
     //}
-    public void OnBeAttacked( Bullet bullet, Vector3 moveDir)//被攻击
+   
+
+    public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
     {
         Debug.Log("开始震动");
         shaketime = shakeDuration;
         //根据攻击的方向
-        var a = Vector2.Dot(moveDir, GetDirection(Orbit.points[target]));
+        var a = Vector2.Dot(transform.position-hit, GetDirection(Orbit.points[target]));
         if (a < 0f) SwitchDirection();//改变方向
-
-
     }
-    
 }

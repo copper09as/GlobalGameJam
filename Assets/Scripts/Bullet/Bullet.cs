@@ -46,15 +46,15 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //攻击影子，太阳
+        //攻击太阳，影子
         var c = collision.gameObject.GetComponent<IBeAttacked>();
-        c?.OnBeAttacked(this, moveDir);
+        c?.OnBeAttacked(this, moveDir,transform.position);//子弹的体积小，中心点约等于碰撞点
         if(c!=null)Destroy(gameObject);
     }
 
     public interface IBeAttacked
     {
-        void OnBeAttacked(Bullet bullet,Vector3 moveDir);//前面是子弹，后面是攻击方向
+        void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit); // 移除默认参数
     }
 }
 

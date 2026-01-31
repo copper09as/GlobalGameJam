@@ -9,7 +9,7 @@ public class Wall : MonoBehaviour, IBeAttacked
 
     private int hp = 3;
 
-    public void OnBeAttacked(Bullet bullet, Vector3 moveDir)
+    public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
     {
         hp--;
         if (hp<=0)
@@ -46,4 +46,6 @@ public class Wall : MonoBehaviour, IBeAttacked
     {
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().Walls.Remove(this);
     }
+
+
 }

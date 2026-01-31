@@ -114,14 +114,16 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         StateMachine.AddTransition
         (PlayerState.Move, PlayerState.Idle, (i) => MoveDirection.magnitude <= 0.1f);
     }
-    //void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    //����ʰȡ���
-        
+  
 
-    //}
+    public void UseMask(string MaskName)
+    {
+        //触发对应面具的效果
+        //获取面具
+        //切换脸上面具
+    }
 
-    public void OnBeAttacked(Bullet bullet, Vector3 moveDir)
+    public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
     {
         if (bullet.Owner.playerName == playerName) return;
         Hp.Value -= 1;
@@ -131,17 +133,13 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
             MaxHp = MaxHp,
             id = playerName
         });
+
+        //受击反馈
+
         Destroy(bullet.gameObject);
         if (Hp.Value <= 0)
         {
             Debug.Log($"Player {playerName} died.");
         }
-    }
-
-    public void UseMask(string MaskName)
-    {
-        //触发对应面具的效果
-        //获取面具
-        //切换脸上面具
     }
 }
