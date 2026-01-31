@@ -20,7 +20,7 @@ public class Sun : MonoBehaviour
 
     public Vector3 GetDirection(Transform entity)
     {
-        return entity.position - transform.position;
+        return entity.position - transform.localPosition;
     }
 
     void Start()
