@@ -41,7 +41,7 @@ public class MainGameController : MonoBehaviour
         {
             return;
         }
-        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.context.position = new Vector3(((MsgMove)msgBase).x, ((MsgMove)msgBase).y, 0);
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.data.position = new Vector3(((MsgMove)msgBase).x, ((MsgMove)msgBase).y, 0);
     }
 
 }
