@@ -40,11 +40,16 @@ public class MainGameController : MonoBehaviour
 
     private void OnMsgMove(MsgBase msgBase)
     {
+        MsgMove msg = msgBase as MsgMove;
         if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
         {
             return;
         }
-        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.data.position = new Vector3(((MsgMove)msgBase).x, ((MsgMove)msgBase).y, 0);
+        if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.data.position = new Vector3(msg.x, msg.y, 0);
     }
 
 }

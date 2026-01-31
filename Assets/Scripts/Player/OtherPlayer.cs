@@ -13,10 +13,6 @@ public class OtherPlayer : Player
 
     protected override void Update()
     {
-        DownLoad(data);
-    }
-    void DownLoad(PlayerData data)
-    {
-
+        
     }
 }

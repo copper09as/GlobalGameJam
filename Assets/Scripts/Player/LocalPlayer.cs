@@ -27,11 +27,12 @@ public class LocalPlayer : Player
 
 
     }
-        void SendPlayerMsg()
-        {
-            MsgMove msg = new MsgMove();
-            msg.x = transform.position.x;
-            msg.y = transform.position.y;
-            NetManager.Send(msg);
-        }
+    void SendPlayerMsg()
+    {
+        MsgMove msg = new MsgMove();
+        msg.x = transform.position.x;
+        msg.y = transform.position.y;
+        msg.id = playerName;
+        NetManager.Send(msg);
+    }
 }
