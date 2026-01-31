@@ -15,6 +15,7 @@ public class Sun : MonoBehaviour,IBeAttacked
     public Sprite ShakedSun;//±»¹¥»÷Ê±µÄÌ«ÑôÍ¼Æ¬
     public Sprite DarkSun;//ºÚ°µÌ«ÑôÍ¼Æ¬
     public SpriteRenderer sr;//Ì«ÑôÍ¼Æ¬äÖÈ¾Æ÷
+    private bool isStart = false;//Ì«ÑôÊÇ·ñ¿ªÊ¼ÔËÐÐ
 
     [SerializeField]
     private SolarOrbit Orbit;//¹ìµÀ
@@ -67,10 +68,15 @@ public class Sun : MonoBehaviour,IBeAttacked
         //    shaketime = shakeDuration;
             
         //}
-        Playing(Time.deltaTime);
+        if(isStart) Playing(Time.deltaTime);
         Shake(Time.deltaTime);
         
     }
+    public void SunStart()
+    {
+        isStart = true;
+    }
+
     public void Playing(float deltaTime)//Ì«ÑôÔÚ¹ìµÀÉÏÃæÔËÐÐ
     {
         transform.position = Vector3.MoveTowards(transform.position, Orbit.points[target].position, deltaTime * speed);
@@ -87,7 +93,6 @@ public class Sun : MonoBehaviour,IBeAttacked
             }
         }
     }
-
     public void Shake(float deltaTime)
     {
         if(shaketime > 0f)
