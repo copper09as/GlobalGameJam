@@ -30,7 +30,7 @@ public class MainGameController : GameBehaviour
         MsgLogin msg = new MsgLogin();
         msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName;
         NetManager.Send(msg);
-        InvokeRepeating(nameof(SyncPosition),1f,1f);
+        InvokeRepeating(nameof(SyncPosition),1f,2f);
     }
     protected override void OnDestroy()
     {
