@@ -62,7 +62,6 @@ public class LocalPlayerController : ScPlayerController
             if(player.BulletCount.Value==0)
             {
                 player.StartReload();
-                SendBulletMsg(player);
             }
             player.CreateBullet(Camera.main.ScreenToWorldPoint(Input.mousePosition));
             SendFireMsg(player, Camera.main.ScreenToWorldPoint(Input.mousePosition), player.FirePoint.position);
