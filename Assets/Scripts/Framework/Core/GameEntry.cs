@@ -107,7 +107,7 @@ namespace GameFramework
         void OnDestroy()
         {
             if (instance != this) return;
-
+             NetManager.Close();
             Debug.Log("[GameEntry] 关闭");
 
             foreach (var system in updateSystems)
@@ -116,6 +116,10 @@ namespace GameFramework
             systems.Clear();
             updateSystems.Clear();
             //instance = null;
+        }
+        void OnApplicationQuit()
+        {
+            NetManager.Close();
         }
 
     }
