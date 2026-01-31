@@ -327,7 +327,7 @@ MonoBehaviour:
   isRunning: 0
   registeredStateCount: 0
   transitionCount: 0
-  coldDownTime: 0.2
+  coldDownTime: 0.4
   currentColdDownTime: 0
   InReload: 0
   controller: {fileID: 11400000, guid: 55028c8a732ef0345b8ee25ff3746153, type: 2}
