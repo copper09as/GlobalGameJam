@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 475884537668965265}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.31, y: -1.42, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -289,12 +289,12 @@ SpriteRenderer:
   m_SortingLayerID: 1979301443
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0.2999999, b: 0.2999999, a: 1}
-  m_FlipX: 0
+  m_Sprite: {fileID: 21300000, guid: 44f0bb139b180a34197d9c5b6fe82d7f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 24.802656, y: 35.079998}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -387,8 +387,8 @@ MonoBehaviour:
   InReload: 0
   controller: {fileID: 11400000, guid: 55028c8a732ef0345b8ee25ff3746153, type: 2}
   Rb: {fileID: 2365571720684789902}
-  reloadTimeRate: 1
-  playerName: 1212345
+  reloadTimeRate: 0.4
+  playerName: 12138
   moveSpeed: 5
   MaxBullet: 10
   BulletCount:
@@ -490,7 +490,8 @@ PrefabInstance:
       propertyPath: sr_Parent
       value: 
       objectReference: {fileID: 8281842125142659360}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5026854153642261556, guid: 130bd6cfb9dd99f4c97ec0f8b418c7ad, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

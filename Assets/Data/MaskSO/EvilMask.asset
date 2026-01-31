@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: EvilMask
   m_EditorClassIdentifier: 
   MaskName: EvilMask
-  Sprite: {fileID: 0}
+  Sprite: {fileID: 21300000, guid: b6b68c8c37d5cf1419267a80c426ac83, type: 3}

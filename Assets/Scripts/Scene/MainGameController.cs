@@ -15,10 +15,10 @@ public class MainGameController : GameBehaviour
     [SerializeField] private ProgressBar hpBar;
     [SerializeField] private ProgressBar syncHpBar;
     [SerializeField] private ProgressBar syncBulletBar;
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
-        NetManager.Connect("127.0.0.1",7778);
+        base.Awake();
+        NetManager.Connect("192.168.163.13",7778);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
@@ -29,11 +29,6 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgGameOver", OnMsgGameOver);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerHpChange>(HpChange);
-        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() != null)
-        {
-            GameEntry.Instance.GetSystem<ContextSystem>().DisposeContext<SessionContext>();
-        }
-        GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer = player;
