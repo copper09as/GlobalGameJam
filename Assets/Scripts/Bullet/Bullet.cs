@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
@@ -9,6 +10,7 @@ public class Bullet : MonoBehaviour
     public Player Owner;
     public float syncSpeed;
     public float currentSpeed;
+    [SerializeField]private Rigidbody2D rb;
     private Vector3 moveDir;
 
     void Start()
@@ -20,17 +22,13 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
     currentSpeed = isSync ? syncSpeed : speed;
     Owner = owner;
     transform.position = initPosition;
-    moveDir = (targetPosition - initPosition).normalized;
+
+    Vector3 targetPos = targetPosition;
+    targetPos.z = initPosition.z; // 保证同一平面
+    Vector2 dir = (targetPos - initPosition).normalized;
+    rb.velocity = dir * currentSpeed;
 }
 
-    void FixedUpdate()
-    {
-        transform.position += moveDir * currentSpeed;
-    }
-    void Update()
-    {
-        
-    }
     void OnCollisionEnter2D(Collision2D collision)
     {
             Player hitPlayer = collision.gameObject.GetComponent<Player>();
