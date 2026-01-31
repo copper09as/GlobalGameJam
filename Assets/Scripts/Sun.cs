@@ -6,6 +6,11 @@ using UnityEngine;
 public class Sun : MonoBehaviour
 {
     private static Sun instance;
+
+    [SerializeField]
+    private SolarOrbit Orbit;//轨道
+
+    
     public static Sun Instance//全局单例
     {
         get
@@ -35,9 +40,14 @@ public class Sun : MonoBehaviour
         }
     }
 
+    public void Playing()//太阳在轨道上面运行
+    {
+
+    }
+
     // Update is called once per frame
     void Update()
     {
-        
+        Playing();
     }
 }
