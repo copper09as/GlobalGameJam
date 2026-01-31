@@ -22,8 +22,8 @@ public class LocalPlayerController : ScPlayerController
         if (Input.GetKey(upKey)) y = 1f;
         if (Input.GetKey(downKey)) y = -1f;
         player.MoveDirection = new Vector2(x, y);
-        SendRotateMsg(player);
         SendMoveMsg(player);
+        
         
     }
     public override void SetPosition(Player player,Vector2 position)
@@ -47,13 +47,7 @@ public class LocalPlayerController : ScPlayerController
         msg.x = player.MoveDirection.x;
         msg.y = player.MoveDirection.y;
         msg.id = player.playerName;
-        NetManager.Send(msg);
-    }
-    void SendRotateMsg(Player player)
-    {
-        MsgRotate msg = new MsgRotate();
         msg.angle = player.transform.rotation.eulerAngles.z;
-        msg.id = player.playerName;
         NetManager.Send(msg);
     }
 }

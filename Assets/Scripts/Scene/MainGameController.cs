@@ -10,7 +10,7 @@ using UnityEngine;
 public class MainGameController : GameBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField]private ProgressBar bulletBar;
+    [SerializeField] private ProgressBar bulletBar;
     protected override void Start()
     {
         base.Start();
@@ -18,9 +18,8 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
         NetManager.AddMsgListener("MsgCreateBullet", OnMsgCreateBullet);
-        NetManager.AddMsgListener("MsgRotate", OnMsgRotate);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
-        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() == null)
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() == null)
         {
             GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
         }
@@ -28,27 +27,11 @@ public class MainGameController : GameBehaviour
         Player player = playerObj.GetComponent<Player>();
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer = player;
         MsgLogin msg = new MsgLogin();
-        msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName; 
+        msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName;
         NetManager.Send(msg);
 
     }
 
-    private void OnMsgRotate(MsgBase msgBase)
-    {
-        MsgRotate msg = msgBase as MsgRotate;
-        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
-        {
-            return;
-        }
-        if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
-        {
-            return;
-        }
-        
-        GameEntry.Instance.GetSystem<ContextSystem>().
-        GetContext<SessionContext>().SyncPlayer.
-        transform.rotation = Quaternion.Euler(0f, 0f, msg.angle);
-    }
 
     protected override void OnDestroy()
     {
@@ -57,8 +40,6 @@ public class MainGameController : GameBehaviour
         NetManager.RemoveListener("MsgLogin", OnMsgLogin);
         NetManager.RemoveListener("MsgMove", OnMsgMove);
         NetManager.RemoveListener("MsgLoadPlayer", OnMsgPlayerLoad);
-        NetManager.RemoveListener("MsgCreateBullet", OnMsgCreateBullet);
-        NetManager.RemoveListener("MsgRotate", OnMsgRotate);
     }
     private void OnMsgCreateBullet(MsgBase msgBase)
     {
@@ -67,19 +48,19 @@ public class MainGameController : GameBehaviour
         {
             return;
         }
-        if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
         {
             return;
         }
         GameEntry.Instance.GetSystem<ContextSystem>().
         GetContext<SessionContext>().SyncPlayer.
-        CreateBullet(new Vector3(msg.targetX, msg.targetY,0), new Vector3(msg.fireX, msg.fireY,0));
+        CreateBullet(new Vector3(msg.targetX, msg.targetY, 0), new Vector3(msg.fireX, msg.fireY, 0));
     }
 
     private void OnMsgPlayerLoad(MsgBase msgBase)
     {
         MsgLoadPlayer msg = msgBase as MsgLoadPlayer;
-        if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
         {
             return;
         }
@@ -93,7 +74,7 @@ public class MainGameController : GameBehaviour
     {
         MsgLogin msg = msgBase as MsgLogin;
         Debug.Log("收到登录返回消息，结果：" + msg.id);
-        if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
         {
             return;
         }
@@ -112,11 +93,14 @@ public class MainGameController : GameBehaviour
         {
             return;
         }
-        if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
         {
             return;
         }
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.MoveDirection = new Vector2(msg.x, msg.y);
+        GameEntry.Instance.GetSystem<ContextSystem>().
+GetContext<SessionContext>().SyncPlayer.
+transform.rotation = Quaternion.Euler(0f, 0f, msg.angle);
 
     }
     public void BulletChange(PlayerEvent.PlayerBulletChange evt)
