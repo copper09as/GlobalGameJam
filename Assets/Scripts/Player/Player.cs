@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public class PlayerContext
+    public class PlayerData
     {
         public Vector3 position;
         public Vector3 localScale;
         public Quaternion rotation;
     }
 
-    public PlayerContext context;
+    public PlayerData context;
     // Start is called before the first frame update
     void Start()
     {

@@ -5,7 +5,6 @@ using static Player;
 
 public class LocalPlayer : Player
 {
-    // Start is called before the first frame update
     void Start()
     {
         
@@ -14,21 +13,20 @@ public class LocalPlayer : Player
     // Update is called once per frame
     void Update()
     {
-        Synchronization(context);
-        UpLoad(context);
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.position += Vector3.left* Time.deltaTime*5;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.position += Vector3.right * Time.deltaTime * 5;
     }
-    void UpLoad(PlayerContext context)
+    void SendPlayerMsg()
     {
-
+        MsgMove msg = new MsgMove();
+        msg.x = transform.position.x;
+        msg.y = transform.position.y;
+        NetManager.Send(msg);
     }
-    /// <summary>
-    /// 本地组件数据同步到上下文
-    /// </summary>
-    /// <param name="context"></param>
-    void Synchronization(PlayerContext context)
-    {
-        context.position = transform.position;
-        context.rotation = transform.rotation;
-        context.localScale = transform.localScale;
-    }
+}
 }
