@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mask : MonoBehaviour
 {
-
+    
     void Start()
     {
         
