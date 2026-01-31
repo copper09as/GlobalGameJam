@@ -143,7 +143,7 @@ public class MainGameController : GameBehaviour
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
-        player.controller = Resources.Load<LocalPlayerController>("Prefabs/NewRemotePlayerController");
+        player.controller = Resources.Load<RemotePlayerController>("Prefabs/NewRemotePlayerController");
     }
 
     private void OnMsgLogin(MsgBase msgBase)
@@ -158,7 +158,7 @@ public class MainGameController : GameBehaviour
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
-        player.controller = Resources.Load<LocalPlayerController>("Prefabs/NewRemotePlayerController");
+        player.controller = Resources.Load<RemotePlayerController>("Prefabs/NewRemotePlayerController");
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
         MsgLoadPlayer loadMsg = new MsgLoadPlayer();
         loadMsg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName;
