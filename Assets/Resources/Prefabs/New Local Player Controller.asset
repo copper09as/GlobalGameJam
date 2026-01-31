@@ -16,5 +16,5 @@ MonoBehaviour:
   downKey: 115
   leftKey: 97
   rightKey: 100
-  fireKey: 32
+  fireKey: 285
   reloadKey: 114

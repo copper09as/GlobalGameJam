@@ -1948,6 +1948,7 @@ MonoBehaviour:
   - {fileID: 645299907}
   - {fileID: 645299906}
   - {fileID: 645299905}
+  - {fileID: 1455436395}
   - {fileID: 645299904}
   - {fileID: 645299903}
   - {fileID: 645299902}
@@ -2513,6 +2514,10 @@ PrefabInstance:
     - target: {fileID: 1409129397635491599, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
       propertyPath: m_Name
       value: Sun
+      objectReference: {fileID: 0}
+    - target: {fileID: 2768276191577641788, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3190961341876720731, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3169,6 +3174,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 9032509952803400280, guid: f3e29eaa282fc0c44942884ddb364174, type: 3}
   m_PrefabInstance: {fileID: 1413123533}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1455436395 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5004603964926280581, guid: 0acef626e57cf1a44b0bef0ad7c582ef, type: 3}
+  m_PrefabInstance: {fileID: 645299899}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1483225390
 PrefabInstance:
