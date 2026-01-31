@@ -28,6 +28,8 @@ public class IdleState : StateBase<Player>
     public override void OnEnter(Player owner)
     {
         UnityEngine.Debug.Log("Enter Idle State");
+        owner.Animator.Play("Idle");
+        UnityEngine.Debug.Log("playIdle³É¹¦");
     }
     public override void OnUpdate(Player owner, float deltaTime)
     {
@@ -56,7 +58,6 @@ public class MoveState : StateBase<Player>
     public override void OnExit(Player owner)
     {
         owner.Rb.velocity = Vector2.zero;
-        owner.Animator.
     }
 
 }

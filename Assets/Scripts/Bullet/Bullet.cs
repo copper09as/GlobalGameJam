@@ -19,6 +19,9 @@ public class Bullet : MonoBehaviour
         Owner = owner;
         transform.position = initPosition;
         moveDir = dir.normalized;   // 再保险一次
+
+        var angle =Vector2.SignedAngle(Vector2.right, moveDir);
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
     void Update()
     {
