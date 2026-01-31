@@ -1,10 +1,11 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using GameFramework;
 using JetBrains.Annotations;
 using PlayerEvent;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using static Bullet;
 public enum PlayerState
 {
     Idle,
@@ -13,7 +14,7 @@ public enum PlayerState
     Reload,
     Die
 }
-public class Player : GameStateMachineBehaviour<PlayerState, Player>
+public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacked
 {   
     public float coldDownTime = 0.2f;
     public float currentColdDownTime = 0f;
@@ -110,25 +111,27 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>
         StateMachine.AddTransition
         (PlayerState.Move, PlayerState.Idle, (i) => MoveDirection.magnitude <= 0.1f);
     }
-    void OnTriggerEnter2D(Collider2D collision)
+    //void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    //触发拾取面具
+        
+
+    //}
+
+    public void OnBeAttacked(Bullet bullet, Vector3 moveDir)
     {
-        if(collision.gameObject.CompareTag("Bullet"))
+        if (bullet.Owner.playerName == playerName) return;
+        Hp.Value -= 1;
+        GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.PlayerHpChange
         {
-            Bullet bullet = collision.transform.parent.GetComponent<Bullet>();
-            if(bullet.Owner.playerName==playerName)return;
-                Hp.Value -= 1;
-                GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.PlayerHpChange {
-                    hp = Hp.Value,
-                    MaxHp = MaxHp,
-                    id = playerName
-                });
-                Destroy(bullet.gameObject);
-                if(Hp.Value <= 0)
-                {
-                    Debug.Log($"Player {playerName} died.");
-                }
-            
+            hp = Hp.Value,
+            MaxHp = MaxHp,
+            id = playerName
+        });
+        Destroy(bullet.gameObject);
+        if (Hp.Value <= 0)
+        {
+            Debug.Log($"Player {playerName} died.");
         }
     }
-
 }

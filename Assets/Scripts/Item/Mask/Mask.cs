@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,8 +23,12 @@ public class Mask : MonoBehaviour
         }
     }
 
-    public virtual void BeUsed(GameObject Player)
+    public virtual void BeUsed(GameObject Player)//被使用的动画效果
     {
-        
+        //Player.GetComponentInParent<Player>();
+        transform.DOMove(Player.transform.position, 0.5f).OnComplete(()=>
+        {
+            Destroy(gameObject);
+        });
     }
 }

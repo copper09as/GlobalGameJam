@@ -5,11 +5,9 @@ using UnityEngine;
 
 public class SessionContext : GameContext
 {
-    public List<Wall> Walls = new();
+    public List<Wall> Walls = new ();
     public MaskCollection maskCollection;
     public Player SyncPlayer;
-    public string ipAddress;
-    public int port;
     public Player LocalPlayer;
     protected override void OnInitialize()
     {

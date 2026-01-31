@@ -15,9 +15,9 @@ public class MainGameController : GameBehaviour
     [SerializeField] private ProgressBar hpBar;
     [SerializeField] private ProgressBar syncHpBar;
     [SerializeField] private ProgressBar syncBulletBar;
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         NetManager.Connect("192.168.1.121",7777);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
