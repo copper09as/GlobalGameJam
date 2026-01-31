@@ -6,6 +6,8 @@ namespace GameFramework
 {
     public class GameEntry : MonoBehaviour
     {
+        [SerializeField]private string ip;
+        [SerializeField]private int port;
         private static GameEntry instance;
 
         public static GameEntry Instance
@@ -51,7 +53,7 @@ namespace GameFramework
             RegisterSystemInternal(new ContextSystem());
             RegisterSystemInternal(new AudioSystem());
             RegisterSystemInternal(new GlobalUiSystem());
-            NetManager.Connect("139.9.116.94",7778);
+            NetManager.Connect(ip, port);
 
             // 初始化所有系统
             foreach (var system in updateSystems)

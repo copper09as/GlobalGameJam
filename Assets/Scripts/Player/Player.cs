@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public string playerName;
     public class PlayerData
     {
         public Vector3 position;

@@ -13,11 +13,12 @@ public class MainGameController : MonoBehaviour
         {
             GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
         }
+        GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
+        Player player = playerObj.GetComponent<Player>();
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer = player;
         MsgLogin msg = new MsgLogin();
-            //  等于显卡名字
-         msg.id = SystemInfo.deviceUniqueIdentifier;
-         Debug.Log("Device ID: " + msg.id);
-        msg.pw = "password1";
+       //等于独立设备id
+        msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName; 
         NetManager.Send(msg);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
@@ -26,7 +27,8 @@ public class MainGameController : MonoBehaviour
     private void OnMsgLogin(MsgBase msgBase)
     {
         MsgLogin msg = msgBase as MsgLogin;
-        if(msg.id== SystemInfo.deviceUniqueIdentifier)
+        Debug.Log("收到登录返回消息，结果：" + msg.id);
+        if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
         {
             return;
         }

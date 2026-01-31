@@ -11,7 +11,6 @@ public class MsgRegister:MsgBase
         protoName = "MsgRegister";
     }
     public string id = "";
-    public string pw = "";
     public int result = 0;
 }
 public class MsgLogin : MsgBase
@@ -21,7 +20,6 @@ public class MsgLogin : MsgBase
         protoName = "MsgLogin";
     }
     public string id = "";
-    public string pw = "";
     public int result = 0;
 }
 public class MsgKick : MsgBase
