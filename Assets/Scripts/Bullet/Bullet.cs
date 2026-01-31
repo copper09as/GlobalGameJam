@@ -61,6 +61,11 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
                 Debug.Log("子弹碰到自己，忽略");
                 return;
             }
+            else
+            {
+                Debug.Log("子弹碰到玩家本体，销毁子弹");
+                Destroy(gameObject);
+            }
         }
         var c = collision.gameObject.GetComponentInParent<IBeAttacked>();
         c?.OnBeAttacked(this, moveDir,transform.position);//子弹的体积小，中心点约等于碰撞点
