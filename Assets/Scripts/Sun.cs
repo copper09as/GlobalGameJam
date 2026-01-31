@@ -13,6 +13,7 @@ public class Sun : MonoBehaviour,IBeAttacked
     public float shakedSpeed = 50f;//震动时太阳速度
     public Sprite NormalSun;//平常的太阳图片
     public Sprite ShakedSun;//被攻击时的太阳图片
+    public Sprite DarkSun;//黑暗太阳图片
     public SpriteRenderer sr;//太阳图片渲染器
 
     [SerializeField]
@@ -60,12 +61,12 @@ public class Sun : MonoBehaviour,IBeAttacked
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("开始震动");
-            shaketime = shakeDuration;
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    Debug.Log("开始震动");
+        //    shaketime = shakeDuration;
             
-        }
+        //}
         Playing(Time.deltaTime);
         Shake(Time.deltaTime);
         

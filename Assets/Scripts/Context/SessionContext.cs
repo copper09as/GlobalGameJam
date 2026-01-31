@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SessionContext : GameContext
 {
-    public List<Wall> Walls = new List<Wall>();
+    public List<Wall> Walls = new();
     public MaskCollection maskCollection;
     public Player SyncPlayer;
     public string ipAddress;

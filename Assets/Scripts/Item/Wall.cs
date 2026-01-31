@@ -20,6 +20,7 @@ public class Wall : MonoBehaviour, IBeAttacked
 
     void Start()
     {
+        Debug.Log(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().Walls + "有没有报错");
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().Walls.Add(this);
     }
 
