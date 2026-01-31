@@ -111,6 +111,11 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
             mask.BeUsed(this.gameObject);
             UseMask(mask.Name);
         }
+        if(collision.gameObject.name =="Bullet")
+        {
+            var bullet = collision.gameObject.GetComponent<Bullet>();
+            OnBeAttacked(bullet, Vector3.zero, Vector3.zero);
+        }
     }
     protected override Player GetOwner()
     {

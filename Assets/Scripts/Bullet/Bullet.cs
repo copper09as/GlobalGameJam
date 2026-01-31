@@ -51,6 +51,7 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
     //子弹只有Trigger
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("子弹触发器进入"+ collision.gameObject);
         var p = collision.gameObject.GetComponentInParent<Player>();
         //攻击太阳，阴影，
         if (p!=null)
