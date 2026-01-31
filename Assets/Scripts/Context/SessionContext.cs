@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SessionContext : GameContext
 {
+    public List<Wall> Walls = new List<Wall>();
+    public MaskCollection maskCollection;
     public Player SyncPlayer;
     public Player LocalPlayer;
     protected override void OnInitialize()
