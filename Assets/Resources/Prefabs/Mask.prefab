@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7259783198839506234}
   - component: {fileID: 574313088632872354}
   - component: {fileID: 3687634071095017325}
+  - component: {fileID: 1014005025069370065}
   m_Layer: 0
   m_Name: Mask
-  m_TagString: Untagged
+  m_TagString: Mask
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.4763305, y: -2.8813002, z: -0.001305062}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.45, y: 0.45, z: 0.45}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8330179231959031186}
@@ -46,8 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e4953ec5007b14cae780c8dd2e8e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaskSO: {fileID: 0}
-  SpriteRenderer: {fileID: 0}
+  MaskSO: {fileID: 11400000, guid: 3c4698910b71f0f4fb76785e5f2fb2be, type: 2}
+  SpriteRenderer: {fileID: 3687634071095017325}
+  PlayerLayer:
+    serializedVersion: 2
+    m_Bits: 64
   Name: 
 --- !u!212 &3687634071095017325
 SpriteRenderer:
@@ -90,17 +94,52 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b6b68c8c37d5cf1419267a80c426ac83, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.56, y: 2.56}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &1014005025069370065
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8129524297799114835}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.3
 --- !u!1001 &6800027491772233309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109,6 +148,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7259783198839506234}
     m_Modifications:
+    - target: {fileID: 491430910383559868, guid: cf740db07ec19364f944ec0b9141c8da, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3012006246865919025, guid: cf740db07ec19364f944ec0b9141c8da, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3012006246865919025, guid: cf740db07ec19364f944ec0b9141c8da, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3297814813030771663, guid: cf740db07ec19364f944ec0b9141c8da, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.2563305
@@ -149,9 +200,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3297814813030771663, guid: cf740db07ec19364f944ec0b9141c8da, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4981966834521656577, guid: cf740db07ec19364f944ec0b9141c8da, type: 3}
+      propertyPath: lengthInSec
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6124198676781424976, guid: cf740db07ec19364f944ec0b9141c8da, type: 3}
       propertyPath: m_Name
       value: JFD_caita
+      objectReference: {fileID: 0}
+    - target: {fileID: 6124198676781424976, guid: cf740db07ec19364f944ec0b9141c8da, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -32,6 +32,7 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgHpChange", OnMsgHpChange);
         NetManager.AddMsgListener("MsgBulletChange", OnMsgBulletChange);
         NetManager.AddMsgListener("MsgGameOver", OnMsgGameOver);
+        NetManager.AddMsgListener("MsgReplacePos", OnMsgReplacePos);
         NetManager.AddEventListener(NetEvent.Close,OnClose);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerHpChange>(HpChange);
@@ -47,6 +48,25 @@ public class MainGameController : GameBehaviour
         player.playerName = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().PlayerName;
         player.name = player.playerName;
         InvokeRepeating(nameof(SyncPosition),1f,2f);
+    }
+
+    private void OnMsgReplacePos(MsgBase msgBase)
+    {
+        MsgReplacePos msg = msgBase as MsgReplacePos;
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
+        {
+            return;
+        }
+        if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
+        var originPos = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position;
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.transform.position = new Vector3(msg.x, msg.y, 0);
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().LocalPlayer.transform.position = originPos;
+        
     }
 
     private void OnClose(string err)
@@ -70,6 +90,7 @@ public class MainGameController : GameBehaviour
             result = "你赢了！";
         }
         GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("游戏结束",result);
+        NetManager.Close();
         SceneManager.LoadScene("MainUiScene");
     }
     private void OnMsgBulletChange(MsgBase msgBase)
@@ -246,9 +267,20 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         NetManager.Send(msgPos);
     }
     #region 面具效果
-    private void ShineEffect()
+    private void ShineEffect(string id)
     {
         
+    }
+    private void ReplacePosEffect(string id)
+    {
+        MsgReplacePos msg = new MsgReplacePos();
+        var originPos = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.transform.position;
+        msg.id = id;
+        msg.x = originPos.x;
+        msg.y = originPos.y;
+        NetManager.Send(msg);
+        transform.position = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position;
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position = originPos;
     }
     #endregion
 

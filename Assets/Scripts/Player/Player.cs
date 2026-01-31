@@ -96,7 +96,15 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
 
         InReload = false;
     }
-
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Mask"))
+        {
+            Mask mask = collision.gameObject.GetComponent<Mask>();
+            mask.BeUsed(this.gameObject);
+            UseMask(mask.Name);
+        }
+    }
     protected override Player GetOwner()
     {
         return this;
@@ -119,7 +127,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     }
   
 
-    public void UseMask(string MaskName)
+    public void UseMask(string maskName)
     {
         //触发对应面具的效果
         //获取面具
