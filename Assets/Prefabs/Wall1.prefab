@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1559838141302201183}
   - component: {fileID: 7810863838662474998}
   - component: {fileID: 6255602700683873391}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wall1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   m_ShapePathHash: 160822549
   m_Mesh: {fileID: 0}
-  m_InstanceId: 108574
+  m_InstanceId: 77756
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.5, y: 0.5, z: 0}
