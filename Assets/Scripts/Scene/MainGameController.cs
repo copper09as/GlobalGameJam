@@ -18,6 +18,7 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
         NetManager.AddMsgListener("MsgCreateBullet", OnMsgCreateBullet);
+        NetManager.AddMsgListener("MsgRotate", OnMsgRotate);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() == null)
         {
@@ -31,6 +32,19 @@ public class MainGameController : GameBehaviour
         NetManager.Send(msg);
 
     }
+
+    private void OnMsgRotate(MsgBase msgBase)
+    {
+        MsgRotate msg = msgBase as MsgRotate;
+        if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.
+        transform.rotation = Quaternion.Euler(0f, 0f, msg.angle);
+    }
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -39,6 +53,7 @@ public class MainGameController : GameBehaviour
         NetManager.RemoveListener("MsgMove", OnMsgMove);
         NetManager.RemoveListener("MsgLoadPlayer", OnMsgPlayerLoad);
         NetManager.RemoveListener("MsgCreateBullet", OnMsgCreateBullet);
+        NetManager.RemoveListener("MsgRotate", OnMsgRotate);
     }
     private void OnMsgCreateBullet(MsgBase msgBase)
     {
@@ -94,7 +109,7 @@ public class MainGameController : GameBehaviour
             return;
         }
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.MoveDirection = new Vector2(msg.x, msg.y);
-        
+
     }
     public void BulletChange(PlayerEvent.PlayerBulletChange evt)
     {
