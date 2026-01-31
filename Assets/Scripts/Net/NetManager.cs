@@ -153,7 +153,6 @@ public static class NetManager
 	}
     private static void OnReceiveDate()
     {
-		UnityEngine.Debug.Log("Receive");
 		
         if(readBuff.length<=2)
 		{
@@ -163,7 +162,6 @@ public static class NetManager
 		byte[] bytes = readBuff.bytes;
 		Int16 bodyLength = (Int16)((bytes[readIdx + 1] << 8) | bytes[readIdx]);
 
-        UnityEngine.Debug.Log(bodyLength);
         if (readBuff.length<bodyLength+2)
 		{
 			return;
@@ -171,7 +169,6 @@ public static class NetManager
 		readBuff.readIdx += 2;
 		int nameCount = 0;
 		string protoName = MsgBase.DecodeName(readBuff.bytes, readBuff.readIdx, out nameCount);
-        UnityEngine.Debug.Log(protoName);
         if (protoName == "")
 		{
 			UnityEngine.Debug.Log("OnReceiveData Msg.DecodeName Fail");
@@ -199,10 +196,8 @@ public static class NetManager
             
             return;
 		}
-        UnityEngine.Debug.Log("FireFail");
         for (int i = 0; i < MAX_MESSAGE_FIRE; i++)
 		{
-            UnityEngine.Debug.Log("Fire");
             MsgBase msgBase = null;
 			lock(msgList)
 			{
