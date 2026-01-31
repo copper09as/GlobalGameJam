@@ -23,7 +23,7 @@ public class LocalPlayerController : ScPlayerController
 
 
     }
-    public override void Update(Player player, float deltaTime)
+    public override void Tick(Player player, float deltaTime)
     {
         player.currentColdDownTime += deltaTime;
     }
