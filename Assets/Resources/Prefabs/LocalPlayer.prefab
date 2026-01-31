@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &97502943881012314
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1663603140847317583}
+  m_Layer: 6
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1663603140847317583
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97502943881012314}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.57, y: 0.29, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3676399648462269151}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &475884537668965265
 GameObject:
   m_ObjectHideFlags: 0
@@ -25,11 +56,12 @@ Transform:
   m_GameObject: {fileID: 475884537668965265}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.06, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5458122503031161638}
+  - {fileID: 1663603140847317583}
   m_Father: {fileID: 7871493076091098196}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7304053122046631336
@@ -203,8 +235,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.31122482, y: -0.33004147}
-  m_Size: {x: 2.439543, y: 4.44361}
+  m_Offset: {x: -0.31122482, y: -0.2133823}
+  m_Size: {x: 2.439543, y: 4.210292}
   m_Direction: 0
 --- !u!1 &7901551700756051755
 GameObject:
@@ -217,7 +249,7 @@ GameObject:
   - component: {fileID: 5458122503031161638}
   - component: {fileID: 6292544948622602852}
   m_Layer: 6
-  m_Name: FirePoint
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -232,7 +264,7 @@ Transform:
   m_GameObject: {fileID: 7901551700756051755}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: 2.52, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -383,7 +415,7 @@ MonoBehaviour:
   MaxBullet: 10
   BulletCount:
     serializedValue: 10
-  FirePoint: {fileID: 5458122503031161638}
+  FirePoint: {fileID: 1663603140847317583}
   MaxHp: 10
   Hp:
     serializedValue: 10
@@ -392,6 +424,8 @@ MonoBehaviour:
   ShadowSR: {fileID: 6803679167418603641}
   beAttackTimer: 0
   beAttackDuration: 0.2
+  normalColor: {r: 0, g: 0, b: 0, a: 0.5}
+  beAttackedColor: {r: 1, g: 0, b: 0, a: 0.5}
 --- !u!1001 &1010825555065863379
 PrefabInstance:
   m_ObjectHideFlags: 0
