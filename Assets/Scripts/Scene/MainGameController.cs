@@ -18,7 +18,7 @@ public class MainGameController : GameBehaviour
     protected override void Awake()
     {
         base.Awake();
-        NetManager.Connect("192.168.163.13",7778);
+        NetManager.Connect("192.168.163.115",1234);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
@@ -32,12 +32,15 @@ public class MainGameController : GameBehaviour
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
         GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>().LocalPlayer = player;
+
+        //InvokeRepeating(nameof(SyncPosition),1f,2f);
+    }
+    void Start()
+    {
         MsgLogin msg = new MsgLogin();
         msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName;
-        NetManager.Send(msg);
-        InvokeRepeating(nameof(SyncPosition),1f,2f);
+        NetManager.Send(msg); 
     }
-
     private void OnMsgGameOver(MsgBase msgBase)
     {
         MsgGameOver msg = msgBase as MsgGameOver;
@@ -49,7 +52,6 @@ public class MainGameController : GameBehaviour
         GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("游戏结束",result);
         SceneManager.LoadScene("MainUiScene");
     }
-
     private void OnMsgBulletChange(MsgBase msgBase)
     {
         MsgBulletChange msg = msgBase as MsgBulletChange;

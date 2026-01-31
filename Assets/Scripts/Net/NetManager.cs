@@ -19,7 +19,7 @@ public static class NetManager
     public delegate void MsgListener(MsgBase msgBase);
 	private static Dictionary<string, MsgListener> msgListener =
 		new Dictionary<string, MsgListener>();
-	public static bool isUsePing = true;
+	public static bool isUsePing = false;
 	public static int pingInterval = 10;
 	public static float lastPongTime = 0;
     public static float lastPingTime = 0;
