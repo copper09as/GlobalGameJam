@@ -18,7 +18,7 @@ public class MainGameController : GameBehaviour
     protected override void Start()
     {
         base.Start();
-        NetManager.Connect("192.168.1.121",7777);
+        NetManager.Connect("192.168.163.13",7778);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
@@ -29,6 +29,11 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgGameOver", OnMsgGameOver);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerHpChange>(HpChange);
+        if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() != null)
+        {
+            GameEntry.Instance.GetSystem<ContextSystem>().DisposeContext<SessionContext>();
+        }
+        GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer = player;
