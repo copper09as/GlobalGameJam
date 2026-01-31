@@ -30,12 +30,10 @@ public class Bullet : MonoBehaviour
             if(hitPlayer != Owner)
             {
                 hitPlayer.Hp.Value -= 1;
-                 Destroy(gameObject);
+                Destroy(gameObject);
+                return;
             }
 
-            collision.gameObject.GetComponent<IBeAttacked>()?.OnBeAttacked(this, moveDir);
-
-            Debug.Log("触发碰撞事件");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -44,7 +42,7 @@ public class Bullet : MonoBehaviour
         
         collision.gameObject.GetComponent<IBeAttacked>()?.OnBeAttacked(this, moveDir);
         
-        Debug.Log("触发触发器事件");
+        Debug.Log("触发事件");
     }
 
     public interface IBeAttacked
