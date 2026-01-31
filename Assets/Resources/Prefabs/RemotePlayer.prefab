@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 760427242804293250}
   - component: {fileID: 3974593911766944139}
   - component: {fileID: -804128655324669842}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RemotePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &-804128655324669842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
   isRunning: 0
   registeredStateCount: 0
   transitionCount: 0
-  rb: {fileID: 0}
+  rb: {fileID: 3974593911766944139}
   playerName: 
   moveSpeed: 5
   BulletCount:
@@ -98,7 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6728665518933260874}
   - component: {fileID: 8349948387938684212}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -182,7 +182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5429399246007659115}
   - component: {fileID: 6120930024844158451}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

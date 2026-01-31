@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7265794828138586122}
   - component: {fileID: 8281842125142659360}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   m_Component:
   - component: {fileID: 661652761654283834}
   - component: {fileID: 6966292769292278966}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ GameObject:
   - component: {fileID: 7871493076091098196}
   - component: {fileID: 2365571720684789902}
   - component: {fileID: 5967497811235690590}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: LocalPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -222,7 +222,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &5967497811235690590
 MonoBehaviour:
   m_ObjectHideFlags: 0
