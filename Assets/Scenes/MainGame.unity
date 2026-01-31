@@ -2455,6 +2455,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 428807370100618504, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1409129397635491599, guid: 6fa598709e834b0459f0f7920f847ab2, type: 3}
       propertyPath: m_Name
       value: Sun

@@ -33,21 +33,22 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        var p = collision.gameObject.GetComponentInParent<Player>();
-        if (p != null)
-        {
-            Destroy(gameObject); return;
-        }
-        //攻击墙壁，与玩家本体触碰
-        var c = collision.gameObject.GetComponent<IBeAttacked>();
-        c?.OnBeAttacked(this, moveDir, transform.position);//子弹的体积小，中心点约等于碰撞点
+    //void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    var p = collision.gameObject.GetComponentInParent<Player>();
+    //    if (p != null)
+    //    {
+    //        Destroy(gameObject); return;
+    //    }
+    //    //攻击墙壁，与玩家本体触碰
+    //    var c = collision.gameObject.GetComponent<IBeAttacked>();
+    //    c?.OnBeAttacked(this, moveDir, transform.position);//子弹的体积小，中心点约等于碰撞点
 
-        Destroy(gameObject);
-        return;
-    }
+    //    Destroy(gameObject);
+    //    return;
+    //}
 
+    //子弹只有Trigger
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var p = collision.gameObject.GetComponentInParent<Player>();

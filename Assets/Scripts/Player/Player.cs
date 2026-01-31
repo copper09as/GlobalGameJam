@@ -105,7 +105,6 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if(!startGame) return;
         if (collision.gameObject.CompareTag("Mask"))
         {
             Mask mask = collision.gameObject.GetComponent<Mask>();
