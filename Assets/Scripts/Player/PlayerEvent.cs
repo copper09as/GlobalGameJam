@@ -8,6 +8,7 @@ namespace PlayerEvent
     public struct PlayerBulletChange
     {
         public string id;
-        public int bulletCount;
+        public int CurrentBullet;
+        public int MaxBullet;
     }
 }
