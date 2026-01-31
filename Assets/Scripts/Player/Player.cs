@@ -139,6 +139,10 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         //触发对应面具的效果
         //获取面具
         //切换脸上面具
+        if(playerName!= GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
         GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.UseMaskEffect
         {
             id = playerName,
