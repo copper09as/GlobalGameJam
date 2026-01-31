@@ -70,7 +70,9 @@ private void OnMsgReplacePos(MsgBase msgBase)
         if(session.SyncPlayer != null)
         {
             session.SyncPlayer.transform.position = originPos;
+
         }
+        SyncPosition();
     }
 }
 
