@@ -8,6 +8,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainGameController : GameBehaviour
 {
@@ -15,6 +16,8 @@ public class MainGameController : GameBehaviour
     [SerializeField] private ProgressBar hpBar;
     [SerializeField] private ProgressBar syncHpBar;
     [SerializeField] private ProgressBar syncBulletBar;
+    [SerializeField] private Image mask;
+    [SerializeField] private Image syncMask;
     protected override void Awake()
     {
         base.Awake();
@@ -29,6 +32,7 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgGameOver", OnMsgGameOver);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerHpChange>(HpChange);
+        GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerMaskChange>(MaskChange);
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
         Player player = playerObj.GetComponent<Player>();
         GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>().LocalPlayer = player;
@@ -115,6 +119,16 @@ public class MainGameController : GameBehaviour
         }
         syncHpBar.maxValue = change.MaxHp;
         syncHpBar.SetValue(change.hp);
+    }
+    private void MaskChange(PlayerMaskChange change)
+    {
+        
+        if (change.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            mask.sprite = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().maskCollection.GetMaskSOByName(change.MaskName).Sprite;
+            return;
+        }
+        
     }
     private void OnMsgCreateBullet(MsgBase msgBase)
     {

@@ -5,4 +5,16 @@ using UnityEngine;
 public class MaskCollection : ScriptableObject
 {
     public List<MaskSO> MaskDataList;
+
+    public MaskSO GetMaskSOByName(string maskName)
+    {
+        foreach (var mask in MaskDataList)
+        {
+            if (mask.MaskName == maskName)
+            {
+                return mask;
+            }
+        }
+        return null;
+    }
 }
