@@ -18,4 +18,8 @@ public class MainMenuController : MonoBehaviour
     {
         GameEntry.Instance.GetSystem<GlobalUiSystem>().ToggleGlobalSettingPanel();
     }
+    public void EnterGame(string sceneName)
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
+    }
 }

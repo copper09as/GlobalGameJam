@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameFramework;
+using TMPro;
 using UnityEngine;
 
 public class MainGameController : MonoBehaviour
@@ -11,6 +12,7 @@ public class MainGameController : MonoBehaviour
     {
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
+        NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
         if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() == null)
         {
             GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
@@ -25,6 +27,19 @@ public class MainGameController : MonoBehaviour
 
     }
 
+    private void OnMsgPlayerLoad(MsgBase msgBase)
+    {
+        MsgLoadPlayer msg = msgBase as MsgLoadPlayer;
+        if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
+    GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/RemotePlayer"));
+        Player player = playerObj.GetComponent<Player>();
+        player.playerName = msg.id;
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
+    }
+
     private void OnMsgLogin(MsgBase msgBase)
     {
         MsgLogin msg = msgBase as MsgLogin;
@@ -35,16 +50,25 @@ public class MainGameController : MonoBehaviour
         }
         GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/RemotePlayer"));
         Player player = playerObj.GetComponent<Player>();
+        player.playerName = msg.id;
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
+        MsgLoadPlayer loadMsg = new MsgLoadPlayer();
+        loadMsg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName;
+        NetManager.Send(loadMsg);
     }
-
     private void OnMsgMove(MsgBase msgBase)
     {
+        MsgMove msg = msgBase as MsgMove;
+        Debug.Log(msg.id);
         if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
         {
             return;
         }
-        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.data.position = new Vector3(((MsgMove)msgBase).x, ((MsgMove)msgBase).y, 0);
+        if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
+        {
+            return;
+        }
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position = new Vector3(msg.x, msg.y, 0);
     }
 
 }
