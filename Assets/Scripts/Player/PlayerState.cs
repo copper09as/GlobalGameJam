@@ -56,7 +56,6 @@ public class MoveState : StateBase<Player>
     public override void OnExit(Player owner)
     {
         owner.Rb.velocity = Vector2.zero;
-        owner.Animator.
     }
 
 }
