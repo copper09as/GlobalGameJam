@@ -51,7 +51,7 @@ namespace GameFramework
             RegisterSystemInternal(new ContextSystem());
             RegisterSystemInternal(new AudioSystem());
             RegisterSystemInternal(new GlobalUiSystem());
-            NetManager.Connect("127.0.0.1",7778);
+            NetManager.Connect("192.168.1.1",7778);
 
             // 初始化所有系统
             foreach (var system in updateSystems)
