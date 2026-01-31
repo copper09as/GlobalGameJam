@@ -8,28 +8,28 @@ using static Bullet;
 public class Sun : MonoBehaviour,IBeAttacked
 {
     private static Sun instance;
-    public float speed = 10f;//Ì«Ñôµ±Ç°ÔËÐÐËÙ¶È
-    public float normalSpeed = 10f;//Ì«ÑôÕý³£ËÙ¶È
-    public float shakedSpeed = 50f;//Õð¶¯Ê±Ì«ÑôËÙ¶È
-    public Sprite NormalSun;//Æ½³£µÄÌ«ÑôÍ¼Æ¬
-    public Sprite ShakedSun;//±»¹¥»÷Ê±µÄÌ«ÑôÍ¼Æ¬
-    public Sprite DarkSun;//ºÚ°µÌ«ÑôÍ¼Æ¬
-    public SpriteRenderer sr;//Ì«ÑôÍ¼Æ¬äÖÈ¾Æ÷
-    private bool isStart = false;//Ì«ÑôÊÇ·ñ¿ªÊ¼ÔËÐÐ
+    public float speed = 10f;//Ì«ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+    public float normalSpeed = 10f;//Ì«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
+    public float shakedSpeed = 50f;//ï¿½ï¿½Ê±Ì«ï¿½ï¿½ï¿½Ù¶ï¿½
+    public Sprite NormalSun;//Æ½ï¿½ï¿½ï¿½ï¿½Ì«ï¿½ï¿½Í¼Æ¬
+    public Sprite ShakedSun;//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Ì«ï¿½ï¿½Í¼Æ¬
+    public Sprite DarkSun;//ï¿½Ú°ï¿½Ì«ï¿½ï¿½Í¼Æ¬
+    public SpriteRenderer sr;//Ì«ï¿½ï¿½Í¼Æ¬ï¿½ï¿½È¾ï¿½ï¿½
+    private bool isStart = false;//Ì«ï¿½ï¿½ï¿½Ç·ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½
 
     [SerializeField]
-    private SolarOrbit Orbit;//¹ìµÀ
+    private SolarOrbit Orbit;//ï¿½ï¿½ï¿½
 
-    private int direction = 1;//ÔËÐÐ·½Ïò 1ÎªÄæÊ±Õë -1ÎªË³Ê±Õë
+    private int direction = 1;//ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ï¿½ 1Îªï¿½ï¿½Ê±ï¿½ï¿½ -1ÎªË³Ê±ï¿½ï¿½
 
-    private int target = 0;//Ä¿±êµã
+    private int target = 0;//Ä¿ï¿½ï¿½ï¿½
     [SerializeField]
-    private float shakeDuration = 0.5f;//Õð¶¯³ÖÐøÊ±¼ä
+    private float shakeDuration = 0.5f;//ï¿½ð¶¯³ï¿½ï¿½ï¿½Ê±ï¿½ï¿½
     [SerializeField]
-    private float shakeMagnitude = 0.1f;//Õð¶¯·ù¶È
+    private float shakeMagnitude = 0.1f;//ï¿½ð¶¯·ï¿½ï¿½ï¿½
     [SerializeField]
-    private float shaketime = 0f;//Õð¶¯¼ÆÊ±
-    public static Sun Instance//È«¾Öµ¥Àý
+    private float shaketime = 0f;//ï¿½ð¶¯¼ï¿½Ê±
+    public static Sun Instance//È«ï¿½Öµï¿½ï¿½ï¿½
     {
         get
         {
@@ -38,6 +38,13 @@ public class Sun : MonoBehaviour,IBeAttacked
         private set
         {
             instance = value;
+        }
+    }
+    private void OnDestroy()
+    {
+        if (instance == this)
+        {
+            instance = null;
         }
     }
 
@@ -64,7 +71,7 @@ public class Sun : MonoBehaviour,IBeAttacked
     {
         //if (Input.GetKeyDown(KeyCode.Space))
         //{
-        //    Debug.Log("¿ªÊ¼Õð¶¯");
+        //    Debug.Log("ï¿½ï¿½Ê¼ï¿½ï¿½");
         //    shaketime = shakeDuration;
             
         //}
@@ -77,7 +84,7 @@ public class Sun : MonoBehaviour,IBeAttacked
         isStart = true;
     }
 
-    public void Playing(float deltaTime)//Ì«ÑôÔÚ¹ìµÀÉÏÃæÔËÐÐ
+    public void Playing(float deltaTime)//Ì«ï¿½ï¿½ï¿½Ú¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         transform.position = Vector3.MoveTowards(transform.position, Orbit.points[target].position, deltaTime * speed);
         if (Vector3.Distance(transform.position, Orbit.points[target].position) < 0.1f)
@@ -104,21 +111,21 @@ public class Sun : MonoBehaviour,IBeAttacked
 
             speed = shakedSpeed;
 
-            sr.sprite = ShakedSun;//ÇÐ»»Ì«ÑôÍ¼Æ¬
+            sr.sprite = ShakedSun;//ï¿½Ð»ï¿½Ì«ï¿½ï¿½Í¼Æ¬
         }
         else
         {
             speed = normalSpeed;
-            sr.sprite = NormalSun;//ÇÐ»»Ì«ÑôÍ¼Æ¬
+            sr.sprite = NormalSun;//ï¿½Ð»ï¿½Ì«ï¿½ï¿½Í¼Æ¬
         }
     }
-    public void SwitchDirection()//ÇÐ»»·½Ïò
+    public void SwitchDirection()//ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         direction = - direction;
     }
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
-    //    //Åö×²ÊÂ¼þ£¬Ì«ÑôÊÜ»÷
+    //    //ï¿½ï¿½×²ï¿½Â¼ï¿½ï¿½ï¿½Ì«ï¿½ï¿½ï¿½Ü»ï¿½
     //    if (collision.gameObject.CompareTag("Bullet"))
     //    {
     //        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
@@ -130,10 +137,10 @@ public class Sun : MonoBehaviour,IBeAttacked
 
     public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
     {
-        Debug.Log("¿ªÊ¼Õð¶¯");
+        Debug.Log("ï¿½ï¿½Ê¼ï¿½ï¿½");
         shaketime = shakeDuration;
-        //¸ù¾Ý¹¥»÷µÄ·½Ïò
+        //ï¿½ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
         var a = Vector2.Dot(transform.position-hit, GetDirection(Orbit.points[target]));
-        if (a < 0f) SwitchDirection();//¸Ä±ä·½Ïò
+        if (a < 0f) SwitchDirection();//ï¿½Ä±ä·½ï¿½ï¿½
     }
 }
