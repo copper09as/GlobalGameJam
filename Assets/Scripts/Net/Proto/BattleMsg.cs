@@ -39,6 +39,7 @@ public class MsgBulletChange : MsgBase
     public int CurrentBullet = 0;
     public int MaxBullet = 0;
 }
+
 public class MsgGameOver : MsgBase
 {
     public MsgGameOver()
