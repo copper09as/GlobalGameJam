@@ -108,6 +108,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         StateMachine.RegisterState(PlayerState.Move, new MoveState());
         StateMachine.RegisterState(PlayerState.Idle, new IdleState());
         StateMachine.RegisterState(PlayerState.Attack, new AttackState());
+
         StateMachine.AddTransition
         (PlayerState.Idle, PlayerState.Move, (i) => MoveDirection.magnitude > 0.1f);
         StateMachine.AddTransition

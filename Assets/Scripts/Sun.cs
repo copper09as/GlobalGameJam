@@ -111,16 +111,16 @@ public class Sun : MonoBehaviour,IBeAttacked
     {
         direction = - direction;
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        //碰撞事件，太阳受击
-        if (collision.gameObject.CompareTag("Bullet"))
-        {
-            Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-            Vector3 moveDir = bullet.transform.position - transform.position;
-            OnBeAttacked(bullet, moveDir);
-        }
-    }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    //碰撞事件，太阳受击
+    //    if (collision.gameObject.CompareTag("Bullet"))
+    //    {
+    //        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
+    //        Vector3 moveDir = bullet.transform.position - transform.position;
+    //        OnBeAttacked(bullet, moveDir);
+    //    }
+    //}
     public void OnBeAttacked( Bullet bullet, Vector3 moveDir)//被攻击
     {
         Debug.Log("开始震动");
