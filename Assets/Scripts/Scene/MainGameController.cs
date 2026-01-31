@@ -216,6 +216,7 @@ private void OnMsgReplacePos(MsgBase msgBase)
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
         player.startGame = true;
+            
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.startGame = true;
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
         player.controller = Resources.Load<RemotePlayerController>("Prefabs/NewRemotePlayerController");
@@ -233,6 +234,7 @@ private void OnMsgReplacePos(MsgBase msgBase)
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
         player.startGame = true;
+        Sun.Instance.SunStart();
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.startGame = true;
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
         player.controller = Resources.Load<RemotePlayerController>("Prefabs/NewRemotePlayerController");
