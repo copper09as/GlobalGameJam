@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class SessionContext : GameContext
 {
+    public Player SyncPlayer;
     protected override void OnInitialize()
     {
         // 会话初始化逻辑

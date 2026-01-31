@@ -16,13 +16,20 @@ public class LocalPlayer : Player
     {
         Synchronization(data);
         UpLoad(data);
+          if (Input.GetKey(KeyCode.A))
+                {
+                    transform.position += Vector3.left* Time.deltaTime*5;
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    transform.position += Vector3.right * Time.deltaTime * 5;
     }
     void UpLoad(PlayerData data)
     {
 
     }
     /// <summary>
-    /// ±¾µØÊý¾ÝÍ¬²½µ½ÏßÉÏ
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     /// <param name="context"></param>
     void Synchronization(PlayerData data)
@@ -31,4 +38,12 @@ public class LocalPlayer : Player
         data.rotation = transform.rotation;
         data.localScale = transform.localScale;
     }
+    void SendPlayerMsg()
+        {
+            MsgMove msg = new MsgMove();
+            msg.x = transform.position.x;
+            msg.y = transform.position.y;
+            NetManager.Send(msg);
+        }
+}
 }

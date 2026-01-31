@@ -21,7 +21,7 @@ public class OtherPlayer : Player
 
     }
     /// <summary>
-    /// ÏßÉÏÊý¾ÝÍ¬²½µ½±¾µØ×é¼þ
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     /// <param name="context"></param>
     void Synchronization(PlayerData data)
