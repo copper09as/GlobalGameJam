@@ -11,7 +11,7 @@ public class ScPlayerController:ScriptableObject
     {
 
     }
-    public virtual void Update(Player player, float deltaTime)
+    public virtual void Tick(Player player, float deltaTime)
     {
 
     }

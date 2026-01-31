@@ -50,7 +50,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         controller.Rotate(this);
         controller.Fire(this);
         controller.Reload(this);
-        controller.Update(this, Time.deltaTime);
+        controller.Tick(this, Time.deltaTime);
     }
     public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3))
     {
@@ -115,7 +115,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     }
     //void OnTriggerEnter2D(Collider2D collision)
     //{
-    //    //´¥·¢Ê°È¡Ãæ¾ß
+    //    //ï¿½ï¿½ï¿½ï¿½Ê°È¡ï¿½ï¿½ï¿½
         
 
     //}

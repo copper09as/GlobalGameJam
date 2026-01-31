@@ -19,7 +19,7 @@ public static class NetManager
     public delegate void MsgListener(MsgBase msgBase);
 	private static Dictionary<string, MsgListener> msgListener =
 		new Dictionary<string, MsgListener>();
-	public static bool isUsePing = true;
+	public static bool isUsePing = false;
 	public static int pingInterval = 10;
 	public static float lastPongTime = 0;
     public static float lastPingTime = 0;
@@ -86,23 +86,21 @@ public static class NetManager
 
     }
 	static bool isConnecting = false;
-	public static bool Connect(string ip,int port)
+	public static void Connect(string ip,int port)
 	{
-		
 		if(socket!=null&&socket.Connected)
 		{
-			return false;
+			return;
 		}
 		if (isConnecting)
 		{
-            return false	;
+            return;
         }
 		InitState();
 		socket.NoDelay = true;
 		isConnecting = true;
 		socket.BeginConnect(ip,port,ConnectCallback,socket);
 		UnityEngine.Debug.Log("Begin Connect");
-		return true;
 	}
 
     private static void ConnectCallback(IAsyncResult ar)
