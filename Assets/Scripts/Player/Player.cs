@@ -11,16 +11,18 @@ public class Player : MonoBehaviour
         public Quaternion rotation;
     }
 
-    public PlayerData context;
+    public PlayerData data;
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         
     }
+
+
 }
