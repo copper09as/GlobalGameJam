@@ -255,7 +255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4294446548770262235}
   - component: {fileID: 4632091160451034876}
-  - component: {fileID: 8845325033261496504}
+  - component: {fileID: 3869403070599884773}
   m_Layer: 0
   m_Name: RemotePlayer
   m_TagString: Untagged
@@ -308,7 +308,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &8845325033261496504
+--- !u!114 &3869403070599884773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7631319308059977947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fe0bda93b71b54498c3fb28425bb0a8, type: 3}
+  m_Script: {fileID: 11500000, guid: 05f54fb67cf380d48959b989745caec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   debugMode: 0
@@ -327,11 +327,15 @@ MonoBehaviour:
   isRunning: 0
   registeredStateCount: 0
   transitionCount: 0
-  rb: {fileID: 4632091160451034876}
+  controller: {fileID: 11400000, guid: e3023bf5f16a9694d9497a049c8ee358, type: 2}
+  Rb: {fileID: 4632091160451034876}
+  reloadTimeRate: 0
   playerName: 
   moveSpeed: 5
+  MaxBullet: 10
   BulletCount:
     serializedValue: 10
   FirePoint: {fileID: 4664362991323059141}
   Hp:
     serializedValue: 10
+  MoveDirection: {x: 0, y: 0}

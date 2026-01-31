@@ -255,7 +255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7871493076091098196}
   - component: {fileID: 2365571720684789902}
-  - component: {fileID: 5967497811235690590}
+  - component: {fileID: -5188286415830579284}
   m_Layer: 0
   m_Name: LocalPlayer
   m_TagString: Untagged
@@ -308,7 +308,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &5967497811235690590
+--- !u!114 &-5188286415830579284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8126605362618385586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f7d1b1f8180eea428e56d0e281b1b1c, type: 3}
+  m_Script: {fileID: 11500000, guid: 05f54fb67cf380d48959b989745caec1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   debugMode: 0
@@ -327,11 +327,15 @@ MonoBehaviour:
   isRunning: 0
   registeredStateCount: 0
   transitionCount: 0
-  rb: {fileID: 2365571720684789902}
-  playerName: 12138
+  controller: {fileID: 11400000, guid: 55028c8a732ef0345b8ee25ff3746153, type: 2}
+  Rb: {fileID: 2365571720684789902}
+  reloadTimeRate: 0
+  playerName: 
   moveSpeed: 5
+  MaxBullet: 10
   BulletCount:
     serializedValue: 10
   FirePoint: {fileID: 5458122503031161638}
   Hp:
     serializedValue: 10
+  MoveDirection: {x: 0, y: 0}

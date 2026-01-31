@@ -36,7 +36,7 @@ public static class NetManager
 			msgListener[msgName] = listener;
 		}
 	}
-	public static void RemoveListenear(string msgName,MsgListener listener)
+	public static void RemoveListener(string msgName,MsgListener listener)
 	{
         if (msgListener.ContainsKey(msgName))
         {

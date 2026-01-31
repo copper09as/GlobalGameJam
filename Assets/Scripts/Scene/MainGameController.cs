@@ -2,18 +2,23 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using GameFramework;
+using Michsky.MUIP;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
-public class MainGameController : MonoBehaviour
+public class MainGameController : GameBehaviour
 {
     // Start is called before the first frame update
-    void Start()
+    [SerializeField]private ProgressBar bulletBar;
+    protected override void Start()
     {
+        base.Start();
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
         NetManager.AddMsgListener("MsgCreateBullet", OnMsgCreateBullet);
+        GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
         if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>() == null)
         {
             GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
@@ -22,12 +27,19 @@ public class MainGameController : MonoBehaviour
         Player player = playerObj.GetComponent<Player>();
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer = player;
         MsgLogin msg = new MsgLogin();
-       //等于独立设备id
         msg.id = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName; 
         NetManager.Send(msg);
 
     }
-
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        GameEntry.Instance.GetSystem<EventSystem>().Unsubscribe<PlayerEvent.PlayerBulletChange>(BulletChange);
+        NetManager.RemoveListener("MsgLogin", OnMsgLogin);
+        NetManager.RemoveListener("MsgMove", OnMsgMove);
+        NetManager.RemoveListener("MsgLoadPlayer", OnMsgPlayerLoad);
+        NetManager.RemoveListener("MsgCreateBullet", OnMsgCreateBullet);
+    }
     private void OnMsgCreateBullet(MsgBase msgBase)
     {
         MsgCreateBullet msg = msgBase as MsgCreateBullet;
@@ -47,7 +59,7 @@ public class MainGameController : MonoBehaviour
         {
             return;
         }
-    GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/RemotePlayer"));
+        GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/RemotePlayer"));
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer = player;
@@ -81,7 +93,12 @@ public class MainGameController : MonoBehaviour
         {
             return;
         }
-        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.transform.position = new Vector3(msg.x, msg.y, 0);
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.MoveDirection = new Vector2(msg.x, msg.y);
+        
+    }
+    public void BulletChange(PlayerEvent.PlayerBulletChange evt)
+    {
+        bulletBar.SetValue((float)evt.CurrentBullet / evt.MaxBullet * 100f);
     }
 
 }
