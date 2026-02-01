@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ReplaceMask
   m_EditorClassIdentifier: 
   MaskName: ReplacePosMask
-  Sprite: {fileID: 21300000, guid: b8e035c33a308344c82f27bf1dcccf9f, type: 3}
+  Sprite: {fileID: -524718144, guid: 92be8d5c33fc27542b4b0af870f5d8c9, type: 3}
