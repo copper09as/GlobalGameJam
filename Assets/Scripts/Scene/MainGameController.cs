@@ -70,6 +70,8 @@ public class MainGameController : GameBehaviour
         if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
         {
             mask.sprite = maskData.Sprite;
+        GameEntry.Instance.GetSystem<ContextSystem>().
+                GetContext<SessionContext>().LocalPlayer.currentMaskName = "EvilMask";
             return;
         }
         syncMask.sprite = GameEntry.Instance.GetSystem<ContextSystem>().
