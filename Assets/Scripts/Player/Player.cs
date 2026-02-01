@@ -28,8 +28,8 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     public int MaxBullet = 10;
     public ReactiveInt BulletCount = new ReactiveInt(10);
     public Transform FirePoint;
-    public int MaxHp = 10;
-    public ReactiveInt Hp = new ReactiveInt(10);
+    public int MaxHp = 3;
+    public ReactiveInt Hp = new ReactiveInt(3);
 
     public bool startGame   = false;
     public Vector2 MoveDirection;
