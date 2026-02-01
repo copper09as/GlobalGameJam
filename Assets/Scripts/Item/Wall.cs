@@ -44,7 +44,7 @@ public class Wall : MonoBehaviour, IBeAttacked
     
     void BeDestroyed()
     {
-        if(Random.Range(1,2) ==1 ) 
+        if(Random.Range(1,4) ==1 ) 
         {
             var collection = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().maskCollection;
             GreatMask(collection.MaskDataList[Random.Range(0, collection.MaskDataList.Count)]).transform.position = transform.position;
