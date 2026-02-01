@@ -76,7 +76,11 @@ private void OnMsgReplacePos(MsgBase msgBase)
         GetContext<SessionContext>().maskCollection.GetMaskSOByName("ReplacePosMask");
         syncMask.sprite = data.Sprite;
         SyncPosition();
+        return;
     }
+        var ldata = GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().maskCollection.GetMaskSOByName("ReplacePosMask");
+        mask.sprite = ldata.Sprite;
 }
 
 
@@ -154,15 +158,17 @@ private void OnMsgReplacePos(MsgBase msgBase)
             return;
         }
         MsgShine msg = msgBase as MsgShine;
+        var maskData =
+         GameEntry.Instance.GetSystem<ContextSystem>().
+         GetContext<SessionContext>().maskCollection.GetMaskSOByName("ShineMask");
         if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
         {
+            mask.sprite = maskData.Sprite;
             return;
         }
         Debug.Log("收到闪耀特效消息");
-        syncMask.sprite =
-         GameEntry.Instance.GetSystem<ContextSystem>().
-         GetContext<SessionContext>().maskCollection.GetMaskSOByName
-         ("ShineMask").Sprite;
+        syncMask.sprite =maskData.Sprite;
+
         StartCoroutine(ShineFlashThreeTimes());
     }
     private IEnumerator ShineFlashThreeTimes()
@@ -336,10 +342,7 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         {
             maskEffectDict[maskName].Invoke(id);
         }
-        var maskData =
-         GameEntry.Instance.GetSystem<ContextSystem>().
-         GetContext<SessionContext>().maskCollection.GetMaskSOByName(maskName);
-         mask.sprite = maskData.Sprite;
+         
     }
     
 
