@@ -12,7 +12,7 @@ using UnityEngine.UI;
 
 public class MainGameController : GameBehaviour
 {
-    [SerializeField]private ParticleSystem shineEffect;
+    [SerializeField]private List<ParticleSystem> shineEffect;
     [SerializeField] private ProgressBar bulletBar;
     [SerializeField] private ProgressBar hpBar;
     [SerializeField] private ProgressBar syncHpBar;
@@ -202,21 +202,43 @@ public class MainGameController : GameBehaviour
         GetContext<SessionContext>().SyncPlayer.currentMaskName = "ShineMask";
         StartCoroutine(ShineFlashThreeTimes());
     }
-    private IEnumerator ShineFlashThreeTimes()
-    {
-        int times = 3;        // 闪烁次数
-        float duration = 0.3f; // 每次闪烁持续时间
-        shineEffect.gameObject.SetActive(true);
-        for(int i = 0; i < times; i++)
-        {
-            shineEffect.Play();     // 开始播放
-            yield return new WaitForSeconds(duration);
+private IEnumerator ShineFlashThreeTimes()
+{
+    int times = 3;          // 闪烁次数
+    float duration = 0.3f;  // 每次闪烁持续时间
 
-            shineEffect.Stop();     // 停止播放
-            yield return new WaitForSeconds(duration);
-        }
-        shineEffect.gameObject.SetActive(false);
+    // 激活所有粒子系统对象
+    foreach (var ps in shineEffect)
+    {
+        ps.gameObject.SetActive(true);
     }
+
+    for (int i = 0; i < times; i++)
+    {
+        // 播放所有粒子系统
+        foreach (var ps in shineEffect)
+        {
+            ps.Play();
+        }
+
+        yield return new WaitForSeconds(duration);
+
+        // 停止所有粒子系统
+        foreach (var ps in shineEffect)
+        {
+            ps.Stop();
+        }
+
+        yield return new WaitForSeconds(duration);
+    }
+
+    // 关闭所有粒子系统对象
+    foreach (var ps in shineEffect)
+    {
+        ps.gameObject.SetActive(false);
+    }
+}
+
     private void HpChange(PlayerHpChange change)
     {
         if(change.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
