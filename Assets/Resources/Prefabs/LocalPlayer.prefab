@@ -424,7 +424,7 @@ MonoBehaviour:
   moveSpeed: 10
   MaxBullet: 3
   BulletCount:
-    serializedValue: 10
+    serializedValue: 3
   FirePoint: {fileID: 1663603140847317583}
   MaxHp: 5
   Hp:

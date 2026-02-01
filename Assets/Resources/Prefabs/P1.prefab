@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: Hp.serializedValue
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: -5188286415830579284, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: BulletCount.serializedValue
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 674205419739995934, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Size.y
       value: 14.79

@@ -1712,7 +1712,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55bc0b32107c89d4e9575087201b8be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shineEffect: {fileID: 1130746543}
+  shineEffect:
+  - {fileID: 0}
   bulletBar: {fileID: 610938063}
   hpBar: {fileID: 595687738}
   syncHpBar: {fileID: 103801342}
@@ -2432,7 +2433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.05882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2923,10 +2924,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPercent: 10
+  currentPercent: 3
   speed: 5
   minValue: 0
-  maxValue: 10
+  maxValue: 3
   valueLimit: 100
   loadingBar: {fileID: 2027807092}
   textPercent: {fileID: 1245169028}
@@ -3943,10 +3944,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPercent: 10
+  currentPercent: 3
   speed: 5
   minValue: 0
-  maxValue: 10
+  maxValue: 3
   valueLimit: 100
   loadingBar: {fileID: 823156209}
   textPercent: {fileID: 1836815923}
@@ -4638,11 +4639,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2217436055450977271, guid: 9895bfe532002dc478e23e54c90613f3, type: 3}
   m_PrefabInstance: {fileID: 1087002855}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &1130746543 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 3012006246865919025, guid: cf740db07ec19364f944ec0b9141c8da, type: 3}
-  m_PrefabInstance: {fileID: 143900533}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1145308020
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5263,7 +5259,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
   m_sharedMaterial: {fileID: 21261991626553910, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
@@ -5405,7 +5401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.05882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6136,7 +6132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.05882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6458,7 +6454,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
   m_sharedMaterial: {fileID: 21261991626553910, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
@@ -7155,7 +7151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.05882353}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
