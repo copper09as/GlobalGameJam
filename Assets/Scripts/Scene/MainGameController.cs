@@ -72,8 +72,15 @@ private void OnMsgReplacePos(MsgBase msgBase)
         {
             session.SyncPlayer.transform.position = originPos;
         }
+        var data = GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().maskCollection.GetMaskSOByName("ReplacePosMask");
+        syncMask.sprite = data.Sprite;
         SyncPosition();
+        return;
     }
+        var ldata = GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().maskCollection.GetMaskSOByName("ReplacePosMask");
+        mask.sprite = ldata.Sprite;
 }
 
 
@@ -138,6 +145,8 @@ private void OnMsgReplacePos(MsgBase msgBase)
         NetManager.RemoveListener("MsgBulletChange", OnMsgBulletChange);
         NetManager.RemoveListener("MsgReplacePos", OnMsgReplacePos);
         NetManager.RemoveListener("MsgShine", OnMsgShine);
+        NetManager.RemoveEventListener(NetEvent.Close,OnClose);
+
         GameEntry.Instance.GetSystem<EventSystem>().Unsubscribe<PlayerEvent.UseMaskEffect>(TrigMaskEffect);
         NetManager.RemoveEventListener(NetEvent.Close,OnClose);
     }
@@ -149,11 +158,17 @@ private void OnMsgReplacePos(MsgBase msgBase)
             return;
         }
         MsgShine msg = msgBase as MsgShine;
+        var maskData =
+         GameEntry.Instance.GetSystem<ContextSystem>().
+         GetContext<SessionContext>().maskCollection.GetMaskSOByName("ShineMask");
         if (msg.id == GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
         {
+            mask.sprite = maskData.Sprite;
             return;
         }
         Debug.Log("收到闪耀特效消息");
+        syncMask.sprite =maskData.Sprite;
+
         StartCoroutine(ShineFlashThreeTimes());
     }
     private IEnumerator ShineFlashThreeTimes()
@@ -327,6 +342,7 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         {
             maskEffectDict[maskName].Invoke(id);
         }
+         
     }
     
 
