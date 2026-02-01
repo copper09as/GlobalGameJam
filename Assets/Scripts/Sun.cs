@@ -133,13 +133,12 @@ public class Sun : MonoBehaviour,IBeAttacked
         if(shaketime > 0f)
         {
             shaketime -= deltaTime;
-            if (shaketime > 0.5f)
-            {
-                transform.localPosition += Random.insideUnitSphere * shakeMagnitude;
-                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
 
-                speed = shakedSpeed;
-            }
+            transform.localPosition += Random.insideUnitSphere * shakeMagnitude;
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
+
+            speed = shakedSpeed;
+
             sr.sprite = ShakedSun;
             Debug.Log("Shaking");
         }
