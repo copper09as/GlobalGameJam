@@ -110,11 +110,12 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
             mask.BeUsed(this.gameObject);
             UseMask(mask.Name);
         }
-        if(collision.gameObject.CompareTag("Bullet"))
-        {
-            var bullet = collision.gameObject.GetComponentInParent<Bullet>();
-            OnBeAttacked(bullet, Vector3.zero, Vector3.zero);
-        }
+        //if (collision.gameObject.CompareTag("Bullet"))
+        //{
+        //    var bullet = collision.gameObject.GetComponentInParent<Bullet>();
+        //    OnBeAttacked(bullet, Vector3.zero, Vector3.zero);
+        //    Debug.Log("Plyer里面触发了trigger");
+        //}
     }
     protected override Player GetOwner()
     {

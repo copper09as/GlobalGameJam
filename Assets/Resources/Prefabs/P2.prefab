@@ -9,12 +9,44 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 674205419739995934, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_Size.y
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 674205419739995934, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Offset.x
       value: -0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 674205419739995934, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_Offset.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2365571720684789902, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Mass
       value: 3.5633163
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521288267200324672, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521288267200324672, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521288267200324672, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521288267200324672, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521288267200324672, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6521288267200324672, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6600478827925881394, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Size.x
@@ -82,7 +114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8126605362618385586, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Name
-      value: P2 Variant
+      value: P2
       objectReference: {fileID: 0}
     - target: {fileID: 8281842125142659360, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Sprite

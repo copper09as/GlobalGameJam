@@ -29,17 +29,18 @@ public class Wall : MonoBehaviour, IBeAttacked
     {
         if(Random.Range(1,5) ==1 ) 
         {
-            //var collection =GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().maskCollection;
-            //GreatMask(collection.MaskDataList[Random.Range(0, collection.MaskDataList.Count)]);
+            var collection = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().maskCollection;
+            GreatMask(collection.MaskDataList[Random.Range(0, collection.MaskDataList.Count)]).transform.position = transform.position;
         }
         Destroy(gameObject,0.2f);
     }
 
-    private void GreatMask(MaskSO maskSO)
+    private GameObject GreatMask(MaskSO maskSO)
     {
         var mask = Instantiate(Resources.Load<GameObject>("Prefabs/Mask"));
         mask.GetComponent<Mask>().MaskSO = maskSO;
         mask.transform.position = transform.position;
+        return mask;
     }
 
     private void OnDestroy()
