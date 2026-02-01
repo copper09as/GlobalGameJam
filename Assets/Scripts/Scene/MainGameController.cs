@@ -24,6 +24,7 @@ public class MainGameController : GameBehaviour
         protected override void Awake()
     {
         base.Awake();
+        NetManager.Close();
         maskEffectDict = new();
         maskEffectDict.Add("ShineMask", ShineEffect);
         maskEffectDict.Add("ReplacePosMask", ReplacePosEffect);
@@ -57,7 +58,13 @@ public class MainGameController : GameBehaviour
         player.name = player.playerName;
         InvokeRepeating(nameof(SyncPosition),1f,2f);
     }
-
+    void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.F1))
+        {
+            SceneManager.LoadScene("MainMenuScene");
+        }
+    }
     private void OnMsgEvil(MsgBase msgBase)
     {
         MsgEvil msg = msgBase as MsgEvil;
@@ -175,8 +182,7 @@ public class MainGameController : GameBehaviour
         NetManager.RemoveListener("MsgReplacePos", OnMsgReplacePos);
         NetManager.RemoveListener("MsgShine", OnMsgShine);
         NetManager.RemoveListener("MsgEvil",OnMsgEvil);
-        NetManager.RemoveEventListener(NetEvent.Close,OnClose);
-
+        NetManager.Close();
         GameEntry.Instance.GetSystem<EventSystem>().Unsubscribe<PlayerEvent.UseMaskEffect>(TrigMaskEffect);
         NetManager.RemoveEventListener(NetEvent.Close,OnClose);
     }

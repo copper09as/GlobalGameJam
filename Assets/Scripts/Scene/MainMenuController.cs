@@ -28,7 +28,7 @@ public class MainMenuController : MonoBehaviour
         }
         GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().PlayerName = "Player"+(DateTime.Now.Ticks*31279%10000).ToString();
-        
+        NetManager.Close();
     }
     void OnDestroy()
     {

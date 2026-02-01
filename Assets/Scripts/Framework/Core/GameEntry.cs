@@ -115,7 +115,7 @@ namespace GameFramework
 
             systems.Clear();
             updateSystems.Clear();
-            //instance = null;
+            instance = null;
         }
         void OnApplicationQuit()
         {
