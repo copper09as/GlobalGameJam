@@ -426,9 +426,9 @@ MonoBehaviour:
   BulletCount:
     serializedValue: 10
   FirePoint: {fileID: 1663603140847317583}
-  MaxHp: 3
+  MaxHp: 5
   Hp:
-    serializedValue: 3
+    serializedValue: 5
   startGame: 0
   MoveDirection: {x: 0, y: 0}
   currentMaskName: 

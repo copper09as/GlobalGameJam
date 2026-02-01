@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -5188286415830579284, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: MaxHp
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -5188286415830579284, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: Hp.serializedValue
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 674205419739995934, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Size.y
