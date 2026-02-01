@@ -27,7 +27,7 @@ public class MainGameController : GameBehaviour
         maskEffectDict = new();
         maskEffectDict.Add("ShineMask", ShineEffect);
         maskEffectDict.Add("ReplacePosMask", ReplacePosEffect);
-        NetManager.Connect("192.168.163.13", 7777);
+        NetManager.Connect("139.9.116.94", 7777);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
         NetManager.AddMsgListener("MsgLoadPlayer", OnMsgPlayerLoad);
@@ -177,6 +177,7 @@ private void OnMsgReplacePos(MsgBase msgBase)
         {
             hpBar.maxValue = change.MaxHp;
             hpBar.SetValue(change.hp);
+            return;
         }
         syncHpBar.maxValue = change.MaxHp;
         syncHpBar.SetValue(change.hp);
@@ -214,7 +215,19 @@ private void OnMsgReplacePos(MsgBase msgBase)
         {
             return;
         }
-        GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
+        GameObject playerObj;
+        string path;
+        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().playerType==1)
+        {
+       
+            path = "Prefabs/P1";
+        }
+        else
+        {
+    
+            path = "Prefabs/P2";
+        }
+        playerObj = Instantiate(Resources.Load<GameObject>(path));
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
         player.startGame = true;
@@ -237,11 +250,12 @@ private void OnMsgReplacePos(MsgBase msgBase)
         string path;
         if(msg.playerType==1)
         {
-            
+              GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().playerType = 1;
             path = "Prefabs/P1";
         }
         else
         {
+            GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().playerType = 2;
             path = "Prefabs/P2";
         }
         playerObj = Instantiate(Resources.Load<GameObject>(path));
