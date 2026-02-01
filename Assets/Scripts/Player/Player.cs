@@ -25,8 +25,8 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     [SerializeField]protected float reloadTimeRate = 1;
     public string playerName;
     public float moveSpeed = 5f;
-    public int MaxBullet = 10;
-    public ReactiveInt BulletCount = new ReactiveInt(10);
+    public int MaxBullet = 3;
+    public ReactiveInt BulletCount = new ReactiveInt(3);
     public Transform FirePoint;
     public int MaxHp = 3;
     public ReactiveInt Hp = new ReactiveInt(3);
