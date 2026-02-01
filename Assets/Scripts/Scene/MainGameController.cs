@@ -177,6 +177,7 @@ private void OnMsgReplacePos(MsgBase msgBase)
         {
             hpBar.maxValue = change.MaxHp;
             hpBar.SetValue(change.hp);
+            return;
         }
         syncHpBar.maxValue = change.MaxHp;
         syncHpBar.SetValue(change.hp);
