@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ShineMask
   m_EditorClassIdentifier: 
   MaskName: ShineMask
-  Sprite: {fileID: 21300000, guid: 029e049b7b633af4089920f10dbf69d9, type: 3}
+  Sprite: {fileID: -712920146, guid: 92be8d5c33fc27542b4b0af870f5d8c9, type: 3}
