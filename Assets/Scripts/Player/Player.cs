@@ -177,6 +177,8 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
             {
                 var result = "you lose!";
                 GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("Game Over",result);
+                    NetManager.Close();
+            SceneManager.LoadScene("MainMenuScene");
                 return;
             }
            
