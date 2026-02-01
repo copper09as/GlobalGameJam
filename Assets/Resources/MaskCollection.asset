@@ -14,7 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaskDataList:
   - {fileID: 11400000, guid: 3c4698910b71f0f4fb76785e5f2fb2be, type: 2}
-  - {fileID: 11400000, guid: d29ea963487f68245a159d1b9f8b933f, type: 2}
   - {fileID: 11400000, guid: 4e3a75be94d90a3498a5d9738f353ead, type: 2}
   - {fileID: 11400000, guid: 60d950722b3bc3b479b4d662f26aef3a, type: 2}
-  - {fileID: 11400000, guid: 557e67a46e42c2549aca4217289f26a8, type: 2}
