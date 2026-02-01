@@ -65,6 +65,7 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
             {
                 Debug.Log("子弹碰到玩家本体，销毁子弹");
                 Destroy(gameObject);
+                return;
             }
         }
         var c = collision.gameObject.GetComponentInParent<IBeAttacked>();
