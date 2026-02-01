@@ -1773,6 +1773,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55bc0b32107c89d4e9575087201b8be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shineEffect: {fileID: 1130746543}
   bulletBar: {fileID: 610938063}
   hpBar: {fileID: 595687738}
   syncHpBar: {fileID: 103801342}
@@ -4445,6 +4446,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2217436055450977271, guid: 9895bfe532002dc478e23e54c90613f3, type: 3}
   m_PrefabInstance: {fileID: 1087002855}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1130746543 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 3012006246865919025, guid: cf740db07ec19364f944ec0b9141c8da, type: 3}
+  m_PrefabInstance: {fileID: 143900533}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1145308020
 PrefabInstance:
