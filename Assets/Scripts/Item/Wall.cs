@@ -11,7 +11,7 @@ public class Wall : MonoBehaviour, IBeAttacked
     [SerializeField] int maxHP = 3;
     public SpriteRenderer spriteRenderer;
     public Sprite DamagedWall;
-    int HP
+    public int HP
     {
         get { return hp; }
         set
@@ -26,8 +26,8 @@ public class Wall : MonoBehaviour, IBeAttacked
     }
     public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
     {
-        hp--;
-        if (hp<=0)
+        HP--;
+        if (HP<=0)
         {
             BeDestroyed();
         }
