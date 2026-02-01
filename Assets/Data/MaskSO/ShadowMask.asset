@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: ShadowMask
   m_EditorClassIdentifier: 
   MaskName: ShadowMask
-  Sprite: {fileID: 0}
+  Sprite: {fileID: -712920146, guid: 92be8d5c33fc27542b4b0af870f5d8c9, type: 3}
