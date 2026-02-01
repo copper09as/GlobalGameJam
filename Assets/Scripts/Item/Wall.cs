@@ -8,7 +8,21 @@ public class Wall : MonoBehaviour, IBeAttacked
 {
 
     private int hp = 3;
-
+    [SerializeField] int maxHP = 3;
+    public SpriteRenderer spriteRenderer;
+    public Sprite DamagedWall;
+    int HP
+    {
+        get { return hp; }
+        set
+        {
+            hp = value;
+            if (hp <= maxHP/ 2)
+            {
+                spriteRenderer.sprite = DamagedWall;
+            }
+        }
+    }
     public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
     {
         hp--;
@@ -22,6 +36,7 @@ public class Wall : MonoBehaviour, IBeAttacked
     {
         Debug.Log(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().Walls + "有没有报错");
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().Walls.Add(this);
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     
