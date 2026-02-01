@@ -15,11 +15,13 @@ public class GlobalUiSystem : IGameSystem
     private CanvasGroup canvasGroup;
     private GameObject notificationStacking;
     private GameObject notificationPrefab;
+    private GameObject gameWinNotification;
 
     public void OnInit()
     {
         globalSettingPanel = GameObject.Instantiate
         (Resources.Load<GameObject>("Prefabs/Ui/GlobalSettingPanel"),GameEntry.Instance.transform);
+        gameWinNotification = Resources.Load<GameObject>("Prefabs/Ui/GameWinNotification");
         rect = globalSettingPanel.GetComponent<RectTransform>();
 
         canvasGroup = globalSettingPanel.GetComponent<CanvasGroup>();
@@ -95,7 +97,11 @@ public class GlobalUiSystem : IGameSystem
     public void OnShutdown()
     {
     }
-
+    public void GameWin()
+    {
+        NotificationManager notifManager = GameObject.Instantiate(gameWinNotification, notificationStacking.transform).GetComponent<NotificationManager>();
+        notifManager.Open();
+    }
     public void OnUpdate(float deltaTime)
     {
         if(Input.GetKeyDown(KeyCode.Escape))
