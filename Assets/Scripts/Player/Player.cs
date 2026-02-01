@@ -112,7 +112,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         }
         if(collision.gameObject.CompareTag("Bullet"))
         {
-            var bullet = collision.gameObject.GetComponent<Bullet>();
+            var bullet = collision.gameObject.GetComponentInParent<Bullet>();
             OnBeAttacked(bullet, Vector3.zero, Vector3.zero);
         }
     }
@@ -157,7 +157,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
 
     public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
     {
-        if (bullet.Owner.playerName == playerName) return;
+        if (bullet.Owner == this) return;
         Hp.Value -= 1;
         GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.PlayerHpChange
         {
