@@ -12,6 +12,7 @@ using UnityEngine.UI;
 
 public class MainGameController : GameBehaviour
 {
+    [SerializeField]private ParticleSystem shineEffect;
     [SerializeField] private ProgressBar bulletBar;
     [SerializeField] private ProgressBar hpBar;
     [SerializeField] private ProgressBar syncHpBar;
@@ -34,7 +35,6 @@ public class MainGameController : GameBehaviour
         NetManager.AddMsgListener("MsgPos", OnSyncPosition);
         NetManager.AddMsgListener("MsgHpChange", OnMsgHpChange);
         NetManager.AddMsgListener("MsgBulletChange", OnMsgBulletChange);
-        NetManager.AddMsgListener("MsgGameOver", OnMsgGameOver);
         NetManager.AddMsgListener("MsgReplacePos", OnMsgReplacePos);
         NetManager.AddMsgListener("MsgShine", OnMsgShine);
         GameEntry.Instance.GetSystem<EventSystem>().Subscribe<PlayerEvent.UseMaskEffect>(TrigMaskEffect);
@@ -90,18 +90,6 @@ private void OnMsgReplacePos(MsgBase msgBase)
         NetManager.Send(msg);
     }
 
-    private void OnMsgGameOver(MsgBase msgBase)
-    {
-        MsgGameOver msg = msgBase as MsgGameOver;
-        string result = "你输了！";
-        if(msg.winnerId== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
-        {
-            result = "你赢了！";
-        }
-        GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("游戏结束",result);
-        NetManager.Close();
-        SceneManager.LoadScene("MainMenuScene");
-    }
     private void OnMsgBulletChange(MsgBase msgBase)
     {
         MsgBulletChange msg = msgBase as MsgBulletChange;
@@ -148,7 +136,6 @@ private void OnMsgReplacePos(MsgBase msgBase)
         NetManager.RemoveListener("MsgPos", OnSyncPosition);
         NetManager.RemoveListener("MsgHpChange", OnMsgHpChange);
         NetManager.RemoveListener("MsgBulletChange", OnMsgBulletChange);
-        NetManager.RemoveListener("MsgGameOver", OnMsgGameOver);
         NetManager.RemoveListener("MsgReplacePos", OnMsgReplacePos);
         NetManager.RemoveListener("MsgShine", OnMsgShine);
         GameEntry.Instance.GetSystem<EventSystem>().Unsubscribe<PlayerEvent.UseMaskEffect>(TrigMaskEffect);
@@ -167,8 +154,23 @@ private void OnMsgReplacePos(MsgBase msgBase)
             return;
         }
         Debug.Log("收到闪耀特效消息");
+        StartCoroutine(ShineFlashThreeTimes());
     }
+    private IEnumerator ShineFlashThreeTimes()
+    {
+        int times = 3;        // 闪烁次数
+        float duration = 0.3f; // 每次闪烁持续时间
+        shineEffect.gameObject.SetActive(true);
+        for(int i = 0; i < times; i++)
+        {
+            shineEffect.Play();     // 开始播放
+            yield return new WaitForSeconds(duration);
 
+            shineEffect.Stop();     // 停止播放
+            yield return new WaitForSeconds(duration);
+        }
+        shineEffect.gameObject.SetActive(false);
+    }
     private void HpChange(PlayerHpChange change)
     {
         if(change.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
