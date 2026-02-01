@@ -214,7 +214,19 @@ private void OnMsgReplacePos(MsgBase msgBase)
         {
             return;
         }
-        GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
+        GameObject playerObj;
+        string path;
+        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().playerType==2)
+        {
+       
+            path = "Prefabs/P1";
+        }
+        else
+        {
+    
+            path = "Prefabs/P2";
+        }
+        playerObj = Instantiate(Resources.Load<GameObject>(path));
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
         player.startGame = true;
@@ -237,11 +249,12 @@ private void OnMsgReplacePos(MsgBase msgBase)
         string path;
         if(msg.playerType==1)
         {
-            
+              GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().playerType = 1;
             path = "Prefabs/P1";
         }
         else
         {
+            GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().playerType = 2;
             path = "Prefabs/P2";
         }
         playerObj = Instantiate(Resources.Load<GameObject>(path));

@@ -10,6 +10,8 @@ public class SessionContext : GameContext
     public string PlayerName;
     public Player SyncPlayer;
     public Player LocalPlayer;
+    internal int playerType;
+
     protected override void OnInitialize()
     {
         // 会话初始化逻辑
