@@ -10,20 +10,36 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 674205419739995934, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Size.y
-      value: 14
+      value: 15.62083
       objectReference: {fileID: 0}
     - target: {fileID: 674205419739995934, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Offset.x
-      value: -0.09
+      value: -0.08999974
       objectReference: {fileID: 0}
     - target: {fileID: 674205419739995934, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Offset.y
-      value: 1
+      value: 0.18958466
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663603140847317583, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.17
       objectReference: {fileID: 0}
     - target: {fileID: 2365571720684789902, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Mass
-      value: 1.6204202
+      value: 1.8974749
       objectReference: {fileID: 0}
+    - target: {fileID: 3676399648462269151, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676399648462269151, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292544948622602852, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1853587564, guid: 34bea58c30385f840aa17fe04b0acfa4, type: 3}
     - target: {fileID: 6521288267200324672, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_LocalPosition.y
       value: -6.11
@@ -50,19 +66,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6600478827925881394, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Size.x
-      value: 1
+      value: 2.3002234
       objectReference: {fileID: 0}
     - target: {fileID: 6600478827925881394, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Size.y
-      value: 1
+      value: 3.299636
       objectReference: {fileID: 0}
     - target: {fileID: 6600478827925881394, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Offset.x
-      value: 0
+      value: 0.023459196
       objectReference: {fileID: 0}
     - target: {fileID: 6600478827925881394, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Offset.y
-      value: 0
+      value: -0.08636284
       objectReference: {fileID: 0}
     - target: {fileID: 6803679167418603641, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Sprite
@@ -120,52 +136,8 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b13306a802037e24494144ae349ff467, type: 3}
-    m_RemovedComponents:
-    - {fileID: 6600478827925881394, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7794155217441200415, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1852548253437777993}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
---- !u!1 &6096815955491279291 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7794155217441200415, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
-  m_PrefabInstance: {fileID: 4086553969913677988}
-  m_PrefabAsset: {fileID: 0}
---- !u!70 &1852548253437777993
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6096815955491279291}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.054713964, y: -0.38907957}
-  m_Size: {x: 2.311654, y: 3.3}
-  m_Direction: 0
