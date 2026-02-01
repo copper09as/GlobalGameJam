@@ -216,7 +216,7 @@ private void OnMsgReplacePos(MsgBase msgBase)
         }
         GameObject playerObj;
         string path;
-        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().playerType==2)
+        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().playerType==1)
         {
        
             path = "Prefabs/P1";
