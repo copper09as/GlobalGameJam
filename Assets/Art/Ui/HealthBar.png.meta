@@ -93,6 +93,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -100,10 +113,10 @@ TextureImporter:
       name: HealthBar_0
       rect:
         serializedVersion: 2
-        x: 160
-        y: 1755
-        width: 2114
-        height: 488
+        x: 170
+        y: 2419
+        width: 2119
+        height: 494
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -113,6 +126,27 @@ TextureImporter:
       bones: []
       spriteID: 3ea341343cca45c42a35ed7773e672ba
       internalID: -1681490583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HealthBar_1
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 1753
+        width: 2117
+        height: 493
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 480a0d1284ac99d48a8fd495a6972aef
+      internalID: -717238658
       vertices: []
       indices: 
       edges: []
@@ -129,6 +163,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       HealthBar_0: -1681490583
+      HealthBar_1: -717238658
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
