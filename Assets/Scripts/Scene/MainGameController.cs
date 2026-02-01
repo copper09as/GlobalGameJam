@@ -237,6 +237,7 @@ private void OnMsgReplacePos(MsgBase msgBase)
         string path;
         if(msg.playerType==1)
         {
+            
             path = "Prefabs/P1";
         }
         else
