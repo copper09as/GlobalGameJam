@@ -21,6 +21,7 @@ public class MsgLogin : MsgBase
     }
     public string id = "";
     public int result = 0;
+    public int playerType = 0;
 }
 public class MsgKick : MsgBase
 {

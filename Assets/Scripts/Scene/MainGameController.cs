@@ -232,7 +232,19 @@ private void OnMsgReplacePos(MsgBase msgBase)
         {
             return;
         }
-        GameObject playerObj = Instantiate(Resources.Load<GameObject>("Prefabs/LocalPlayer"));
+
+        GameObject playerObj;
+        string path;
+        if(msg.playerType==1)
+        {
+            
+            path = "Prefabs/P1";
+        }
+        else
+        {
+            path = "Prefabs/P2";
+        }
+        playerObj = Instantiate(Resources.Load<GameObject>(path));
         Player player = playerObj.GetComponent<Player>();
         player.playerName = msg.id;
         player.startGame = true;
