@@ -34,6 +34,7 @@ public class GlobalUiSystem : IGameSystem
         HideGlobalSettingPanel();
 
     }
+    
     public void ToggleGlobalSettingPanel()
     {
         if(globalSettingPanel.activeSelf)
@@ -97,5 +98,9 @@ public class GlobalUiSystem : IGameSystem
 
     public void OnUpdate(float deltaTime)
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleGlobalSettingPanel();
+        }
     }
 }
