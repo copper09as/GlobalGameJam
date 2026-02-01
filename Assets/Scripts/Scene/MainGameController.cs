@@ -61,18 +61,22 @@ public class MainGameController : GameBehaviour
     private void OnMsgEvil(MsgBase msgBase)
     {
         MsgEvil msg = msgBase as MsgEvil;
+        var maskData = GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().maskCollection.GetMaskSOByName("EvilMask");
         if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer == null)
         {
             return;
         }
         if(msg.id== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
         {
+            mask.sprite = maskData.Sprite;
             return;
         }
         syncMask.sprite = GameEntry.Instance.GetSystem<ContextSystem>().
         GetContext<SessionContext>().maskCollection.GetMaskSOByName("EvilMask").Sprite;
         GameEntry.Instance.GetSystem<ContextSystem>().
         GetContext<SessionContext>().SyncPlayer.currentMaskName = "EvilMask";
+        syncMask.sprite = maskData.Sprite;
     }
 
     private void OnMsgReplacePos(MsgBase msgBase)
@@ -367,9 +371,6 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         {
             maskEffectDict[maskName].Invoke(id);
         }
-        GameEntry.Instance.GetSystem<ContextSystem>().
-        GetContext<SessionContext>().LocalPlayer.currentMaskName = maskName;
-         
     }
     
 
