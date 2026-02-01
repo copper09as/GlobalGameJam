@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13e4953ec5007b14cae780c8dd2e8e72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaskSO: {fileID: 11400000, guid: 60d950722b3bc3b479b4d662f26aef3a, type: 2}
+  MaskSO: {fileID: 11400000, guid: 3c4698910b71f0f4fb76785e5f2fb2be, type: 2}
   SpriteRenderer: {fileID: 3687634071095017325}
   PlayerLayer:
     serializedVersion: 2

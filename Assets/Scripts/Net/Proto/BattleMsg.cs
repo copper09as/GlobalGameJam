@@ -66,3 +66,11 @@ public class MsgShine:MsgBase
     }
     public string id;
 }
+public class MsgEvil:MsgBase
+{
+    public MsgEvil()
+    {
+        protoName = "MsgEvil";
+    }
+    public string id;
+}
