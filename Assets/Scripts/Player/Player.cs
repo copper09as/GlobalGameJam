@@ -173,12 +173,14 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         Destroy(bullet.gameObject);
         if (Hp.Value <= 0)
         {
-            string result = "you win!";
             if(playerName== GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.playerName)
             {
-                result = "you lose!";
+                var result = "you lose!";
+                GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("Game Over",result);
+                return;
             }
-            GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("Game Over",result);
+           
+            GameEntry.Instance.GetSystem<GlobalUiSystem>().GameWin();
             NetManager.Close();
             SceneManager.LoadScene("MainMenuScene");
         }

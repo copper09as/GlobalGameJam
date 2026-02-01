@@ -49,7 +49,6 @@ namespace Michsky.MUIP
                 notifications.Clear();
                 currentNotification = 0;
             }
-
             else
             {
                 currentNotification += 1;

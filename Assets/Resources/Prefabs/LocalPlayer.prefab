@@ -426,11 +426,12 @@ MonoBehaviour:
   BulletCount:
     serializedValue: 10
   FirePoint: {fileID: 1663603140847317583}
-  MaxHp: 10
+  MaxHp: 3
   Hp:
-    serializedValue: 10
+    serializedValue: 3
   startGame: 0
   MoveDirection: {x: 0, y: 0}
+  currentMaskName: 
   Animator: {fileID: 7160684933270585211}
   ShadowSR: {fileID: 6803679167418603641}
   beAttackTimer: 0
