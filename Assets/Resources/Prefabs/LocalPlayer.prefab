@@ -419,16 +419,16 @@ MonoBehaviour:
   InReload: 0
   controller: {fileID: 11400000, guid: 55028c8a732ef0345b8ee25ff3746153, type: 2}
   Rb: {fileID: 2365571720684789902}
-  reloadTimeRate: 0
+  reloadTimeRate: 0.3
   playerName: 123
   moveSpeed: 10
-  MaxBullet: 10
+  MaxBullet: 3
   BulletCount:
     serializedValue: 10
   FirePoint: {fileID: 1663603140847317583}
-  MaxHp: 3
+  MaxHp: 5
   Hp:
-    serializedValue: 3
+    serializedValue: 5
   startGame: 0
   MoveDirection: {x: 0, y: 0}
   currentMaskName: 
