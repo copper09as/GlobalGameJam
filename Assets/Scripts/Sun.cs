@@ -96,13 +96,16 @@ public class Sun : MonoBehaviour,IBeAttacked
         ().LocalPlayer.currentMaskName == "EvilMask"||GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>
         ().SyncPlayer.currentMaskName == "EvilMask")
         {
-             Darktimer = 999f;
+             Darktimer = 5f;
+             if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.currentMaskName == "EvilMask")
+             {
+                 GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.currentMaskName = "";
+             }
+             if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.currentMaskName == "EvilMask")
+             {
+                 GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.currentMaskName = "";
+             }
         }
-        else
-        {
-            Darktimer = 0f;
-        }
-
     }
     public void SunStart()
     {
