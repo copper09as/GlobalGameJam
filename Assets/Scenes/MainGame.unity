@@ -1712,7 +1712,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55bc0b32107c89d4e9575087201b8be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shineEffect: {fileID: 1130746543}
+  shineEffect:
+  - {fileID: 1130746543}
   bulletBar: {fileID: 610938063}
   hpBar: {fileID: 595687738}
   syncHpBar: {fileID: 103801342}
@@ -7826,9 +7827,9 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1552370677}
+  - {fileID: 385978444}
   - {fileID: 908141544}
   - {fileID: 1851702567}
-  - {fileID: 385978444}
   - {fileID: 346272585}
   - {fileID: 645299899}
   - {fileID: 996249030}
