@@ -14,8 +14,7 @@ public class SessionContext : GameContext
 
     protected override void OnInitialize()
     {
-        // 会话初始化逻辑
-        Debug.Log("[SessionContext] 会话上下文初始化");
+        maskCollection = Resources.Load<MaskCollection>("MaskCollection");
     }
     protected override void OnDispose()
     {

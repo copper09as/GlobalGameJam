@@ -141,6 +141,8 @@ private void OnMsgReplacePos(MsgBase msgBase)
         NetManager.RemoveListener("MsgBulletChange", OnMsgBulletChange);
         NetManager.RemoveListener("MsgReplacePos", OnMsgReplacePos);
         NetManager.RemoveListener("MsgShine", OnMsgShine);
+        NetManager.RemoveEventListener(NetEvent.Close,OnClose);
+
         GameEntry.Instance.GetSystem<EventSystem>().Unsubscribe<PlayerEvent.UseMaskEffect>(TrigMaskEffect);
         NetManager.RemoveEventListener(NetEvent.Close,OnClose);
     }
