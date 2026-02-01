@@ -34,7 +34,7 @@ public class Wall : MonoBehaviour, IBeAttacked
 
     void Start()
     {
-        Debug.Log(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().Walls + "ÓÐÃ»ÓÐ±¨´í");
+        Debug.Log(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().Walls + "ï¿½ï¿½Ã»ï¿½Ð±ï¿½ï¿½ï¿½");
         GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().Walls.Add(this);
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
@@ -42,7 +42,7 @@ public class Wall : MonoBehaviour, IBeAttacked
     
     void BeDestroyed()
     {
-        if(Random.Range(1,5) ==1 ) 
+        if(Random.Range(1,2) ==1 ) 
         {
             var collection = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().maskCollection;
             GreatMask(collection.MaskDataList[Random.Range(0, collection.MaskDataList.Count)]).transform.position = transform.position;
