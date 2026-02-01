@@ -160,7 +160,7 @@ private void OnMsgReplacePos(MsgBase msgBase)
     {
         int times = 3;        // 闪烁次数
         float duration = 0.3f; // 每次闪烁持续时间
-
+        shineEffect.gameObject.SetActive(true);
         for(int i = 0; i < times; i++)
         {
             shineEffect.Play();     // 开始播放
@@ -169,6 +169,7 @@ private void OnMsgReplacePos(MsgBase msgBase)
             shineEffect.Stop();     // 停止播放
             yield return new WaitForSeconds(duration);
         }
+        shineEffect.gameObject.SetActive(false);
     }
     private void HpChange(PlayerHpChange change)
     {
