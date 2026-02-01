@@ -33,7 +33,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
 
     public bool startGame   = false;
     public Vector2 MoveDirection;
-
+    public string currentMaskName;
     public Animator Animator;
 
     public SpriteRenderer ShadowSR;//阴影渲染器

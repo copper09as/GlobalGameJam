@@ -27,6 +27,7 @@ public class MainGameController : GameBehaviour
         maskEffectDict = new();
         maskEffectDict.Add("ShineMask", ShineEffect);
         maskEffectDict.Add("ReplacePosMask", ReplacePosEffect);
+        maskEffectDict.Add("EvilMask", EvilEffect);
         NetManager.Connect("139.9.116.94", 7777);
         NetManager.AddMsgListener("MsgLogin", OnMsgLogin);
         NetManager.AddMsgListener("MsgMove", OnMsgMove);
@@ -55,7 +56,8 @@ public class MainGameController : GameBehaviour
         InvokeRepeating(nameof(SyncPosition),1f,2f);
     }
 
-private void OnMsgReplacePos(MsgBase msgBase)
+
+    private void OnMsgReplacePos(MsgBase msgBase)
 {
     MsgReplacePos msg = msgBase as MsgReplacePos;
     var session = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>();
@@ -71,11 +73,14 @@ private void OnMsgReplacePos(MsgBase msgBase)
         if(session.SyncPlayer != null)
         {
             session.SyncPlayer.transform.position = originPos;
+            
         }
         var data = GameEntry.Instance.GetSystem<ContextSystem>().
         GetContext<SessionContext>().maskCollection.GetMaskSOByName("ReplacePosMask");
         syncMask.sprite = data.Sprite;
         SyncPosition();
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.currentMaskName = "ReplacePosMask";
         return;
     }
         var ldata = GameEntry.Instance.GetSystem<ContextSystem>().
@@ -168,7 +173,8 @@ private void OnMsgReplacePos(MsgBase msgBase)
         }
         Debug.Log("收到闪耀特效消息");
         syncMask.sprite =maskData.Sprite;
-
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().SyncPlayer.currentMaskName = "ShineMask";
         StartCoroutine(ShineFlashThreeTimes());
     }
     private IEnumerator ShineFlashThreeTimes()
@@ -342,6 +348,8 @@ GetContext<SessionContext>().SyncPlayer.FirePoint.transform.parent.rotation = Qu
         {
             maskEffectDict[maskName].Invoke(id);
         }
+        GameEntry.Instance.GetSystem<ContextSystem>().
+        GetContext<SessionContext>().LocalPlayer.currentMaskName = maskName;
          
     }
     
@@ -378,6 +386,11 @@ private void ReplacePosEffect(string targetId)
         syncPlayer.transform.position = originPos;
     }
 }
+
+    private void EvilEffect(string obj)
+    {
+        throw new NotImplementedException();
+    }
 
     #endregion
 
