@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml;
+using GameFramework;
 using Unity.VisualScripting;
 using UnityEngine;
 using static Bullet;
@@ -85,6 +86,16 @@ public class Sun : MonoBehaviour,IBeAttacked
         {
             Darktimer -= Time.deltaTime;
             sr.sprite = DarkSun;
+        }
+        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>
+        ().LocalPlayer.currentMaskName == "EvilMask"||GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>
+        ().SyncPlayer.currentMaskName == "EvilMask")
+        {
+             Darktimer = 999f;
+        }
+        else
+        {
+            Darktimer = 0f;
         }
 
     }
