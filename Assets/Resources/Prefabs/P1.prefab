@@ -16,6 +16,50 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1663603140847317583, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2365571720684789902, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_Mass
+      value: 1.5379863
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676399648462269151, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676399648462269151, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676399648462269151, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.72837096
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676399648462269151, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676399648462269151, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676399648462269151, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.685183
+      objectReference: {fileID: 0}
+    - target: {fileID: 3676399648462269151, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -273.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5458122503031161638, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.91
+      objectReference: {fileID: 0}
+    - target: {fileID: 6292544948622602852, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6521288267200324672, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.02
@@ -84,8 +128,52 @@ PrefabInstance:
       propertyPath: m_Name
       value: P1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6600478827925881394, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7794155217441200415, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9005926280661109492}
   m_SourcePrefab: {fileID: 100100000, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+--- !u!1 &461687979600425537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7794155217441200415, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+  m_PrefabInstance: {fileID: 7656779234415848286}
+  m_PrefabAsset: {fileID: 0}
+--- !u!70 &9005926280661109492
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461687979600425537}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.4543662, y: -0.73479867}
+  m_Size: {x: 2.1706266, y: 3.3}
+  m_Direction: 0
