@@ -11,7 +11,7 @@ public class Wall : MonoBehaviour, IBeAttacked
     [SerializeField] int maxHP = 3;
     public SpriteRenderer spriteRenderer;
     public Sprite DamagedWall;
-    int HP
+    public int HP
     {
         get { return hp; }
         set
@@ -26,8 +26,8 @@ public class Wall : MonoBehaviour, IBeAttacked
     }
     public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
     {
-        hp--;
-        if (hp<=0)
+        HP--;
+        if (HP<=0)
         {
             BeDestroyed();
         }
@@ -44,7 +44,7 @@ public class Wall : MonoBehaviour, IBeAttacked
     
     void BeDestroyed()
     {
-        if(Random.Range(1,2) ==1 ) 
+        if(Random.Range(1,4) ==1 ) 
         {
             var collection = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().maskCollection;
             GreatMask(collection.MaskDataList[Random.Range(0, collection.MaskDataList.Count)]).transform.position = transform.position;
