@@ -1076,6 +1076,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55bc0b32107c89d4e9575087201b8be6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shineEffect: {fileID: 3012006246865919025, guid: cf740db07ec19364f944ec0b9141c8da, type: 3}
   bulletBar: {fileID: 610938063}
   hpBar: {fileID: 595687738}
   syncHpBar: {fileID: 103801342}
@@ -1109,6 +1110,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 5604130c3074dc3419d6f832ea194715, type: 3}
+    - target: {fileID: 3687634071095017325, guid: ca0d6b68ff1d5274dac1c22aa40a5ec6, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7259783198839506234, guid: ca0d6b68ff1d5274dac1c22aa40a5ec6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.4763305
