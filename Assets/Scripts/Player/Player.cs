@@ -48,8 +48,6 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         Rb.gravityScale = 0f;
         Debug.Log($"Player {playerName} started with {BulletCount.Value} bullets and {Hp.Value} HP.");
     }
-    
-
     public float ReloadTime()=> (MaxBullet-BulletCount.Value) * reloadTimeRate;
     // Update is called once per frame
     protected override void Update()
