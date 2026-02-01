@@ -26,7 +26,7 @@ public class Sun : MonoBehaviour,IBeAttacked
 
     private int target = 0;//Ŀ���
     [SerializeField]
-    private float shakeDuration = 0.5f;//�𶯳���ʱ��
+    private float shakeDuration = 1f;//�𶯳���ʱ��
     [SerializeField]
     private float shakeMagnitude = 0.1f;//�𶯷���
     [SerializeField]
@@ -140,6 +140,7 @@ public class Sun : MonoBehaviour,IBeAttacked
             speed = shakedSpeed;
 
             sr.sprite = ShakedSun;
+            Debug.Log("Shaking");
         }
         else
         {
