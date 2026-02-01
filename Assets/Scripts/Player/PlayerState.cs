@@ -42,11 +42,14 @@ public class IdleState : StateBase<Player>
 [StateBinding(typeof(Player), PlayerState.Move)]
 public class MoveState : StateBase<Player>
 {
+    public float Time = 1f;
+    public float Timer = 0f;
     public override void OnEnter(Player owner)
     {
         UnityEngine.Debug.Log("Enter Move State");
         owner.Animator.Play("Walk");
 
+        
     }
     public override void OnUpdate(Player owner, float deltaTime)
     {
@@ -54,6 +57,15 @@ public class MoveState : StateBase<Player>
         Vector2 moveDir = owner.MoveDirection.normalized;
 
         owner.Rb.velocity = moveDir * owner.moveSpeed;
+        if (Timer <= 0.1f)
+        {
+            GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("½Å²½02");
+            Timer = Time;
+        }
+        else
+        {
+            Time -= deltaTime;
+        }
     }
     public override void OnExit(Player owner)
     {

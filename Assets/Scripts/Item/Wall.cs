@@ -20,6 +20,7 @@ public class Wall : MonoBehaviour, IBeAttacked
             if (hp <= maxHP/ 2)
             {
                 spriteRenderer.sprite = DamagedWall;
+                
             }
         }
     }
@@ -30,6 +31,7 @@ public class Wall : MonoBehaviour, IBeAttacked
         {
             BeDestroyed();
         }
+        GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("木墙受击01");
     }
 
     void Start()
@@ -47,6 +49,7 @@ public class Wall : MonoBehaviour, IBeAttacked
             var collection = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().maskCollection;
             GreatMask(collection.MaskDataList[Random.Range(0, collection.MaskDataList.Count)]).transform.position = transform.position;
         }
+        GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("木墙破碎01");
         Destroy(gameObject,0.2f);
     }
 

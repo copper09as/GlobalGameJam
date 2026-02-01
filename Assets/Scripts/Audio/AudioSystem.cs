@@ -20,7 +20,7 @@ public class AudioSystem : IGameSystem
     private const string AudioMixerPath = "Audio/AudioMixer.asset";
     private const string AudioDataBasePath = "Assets/Audio/AudioDataBase.asset";
     private  AudioDataBase audioDataBase;
-    private const int MaxSfxAudioSourceCount = 5;
+    private const int MaxSfxAudioSourceCount = 10;
     private Dictionary<string, AudioClip> audioClipCache = new Dictionary<string, AudioClip>();
     public void OnInit()
     {

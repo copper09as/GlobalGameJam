@@ -18,19 +18,21 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject, lifeTime);
     }
-public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, bool isSync = false)
-{
-    currentSpeed = isSync ? syncSpeed : speed;
-    Owner = owner;
-    transform.position = initPosition;
+    public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, bool isSync = false)
+    {
+        currentSpeed = isSync ? syncSpeed : speed;
+        Owner = owner;
+        transform.position = initPosition;
 
-    Vector3 targetPos = targetPosition;
-    targetPos.z = initPosition.z; // 保证同一平面
-    Vector2 dir = (targetPos - initPosition).normalized;
-    rb.velocity = dir * currentSpeed;
+        Vector3 targetPos = targetPosition;
+        targetPos.z = initPosition.z; // 保证同一平面
+        Vector2 dir = (targetPos - initPosition).normalized;
+        rb.velocity = dir * currentSpeed;
 
-    var angle = Vector2.SignedAngle(Vector2.right, dir);
+        var angle = Vector2.SignedAngle(Vector2.right, dir);
         transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("发射02");
     }
 
     //void OnCollisionEnter2D(Collision2D collision)

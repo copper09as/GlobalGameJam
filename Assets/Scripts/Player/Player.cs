@@ -42,6 +42,8 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     public Color normalColor = new Color(0,0,0,0.5f);
     public Color beAttackedColor = new Color(1,0,0,0.5f);
     // Start is called before the first frame update
+
+
     protected override void Start()
     {
         base.Start();
@@ -169,6 +171,9 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
 
         //受击反馈
         beAttackTimer = beAttackDuration;
+        GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("角色受击");
+        if(Hp<=0) GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("角色死亡");
+
 
         Destroy(bullet.gameObject);
         if (Hp.Value <= 0)
