@@ -26,7 +26,7 @@ public class Sun : MonoBehaviour,IBeAttacked
 
     private int target = 0;//Ŀ���
     [SerializeField]
-    private float shakeDuration = 0.5f;//�𶯳���ʱ��
+    private float shakeDuration = 1f;//�𶯳���ʱ��
     [SerializeField]
     private float shakeMagnitude = 0.1f;//�𶯷���
     [SerializeField]
@@ -133,13 +133,15 @@ public class Sun : MonoBehaviour,IBeAttacked
         if(shaketime > 0f)
         {
             shaketime -= deltaTime;
+            if (shaketime > 0.5f)
+            {
+                transform.localPosition += Random.insideUnitSphere * shakeMagnitude;
+                transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
 
-            transform.localPosition += Random.insideUnitSphere * shakeMagnitude;
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
-
-            speed = shakedSpeed;
-
+                speed = shakedSpeed;
+            }
             sr.sprite = ShakedSun;
+            Debug.Log("Shaking");
         }
         else
         {
