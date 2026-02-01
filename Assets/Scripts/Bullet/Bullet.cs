@@ -51,7 +51,6 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
     //子弹只有Trigger
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("子弹触发器进入"+ collision.gameObject);
         var p = collision.gameObject.GetComponentInParent<Player>();
         //攻击太阳，阴影，
         if (p!=null)
@@ -63,9 +62,8 @@ public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, boo
             }
             else
             {
-                Debug.Log("子弹碰到玩家本体，销毁子弹");
-                Destroy(gameObject);
-                return;
+                if (!collision.isTrigger) //此时子弹先碰撞到对方本体
+                { Destroy(gameObject); return; }
             }
         }
         var c = collision.gameObject.GetComponentInParent<IBeAttacked>();
