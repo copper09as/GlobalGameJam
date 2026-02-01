@@ -8,15 +8,16 @@ using static Bullet;
 public class Sun : MonoBehaviour,IBeAttacked
 {
     private static Sun instance;
-    public float speed = 10f;//̫����ǰ�����ٶ�
-    public float normalSpeed = 10f;//̫�������ٶ�
-    public float shakedSpeed = 50f;//��ʱ̫���ٶ�
-    public Sprite NormalSun;//ƽ����̫��ͼƬ
-    public Sprite ShakedSun;//������ʱ��̫��ͼƬ
-    public Sprite DarkSun;//�ڰ�̫��ͼƬ
-    public SpriteRenderer sr;//̫��ͼƬ��Ⱦ��
-    private bool isStart = false;//̫���Ƿ�ʼ����
+    public float speed = 10f;
+    public float normalSpeed = 10f;
+    public float shakedSpeed = 50f;
+    public Sprite NormalSun;
+    public Sprite ShakedSun;
+    public Sprite DarkSun;
+    public SpriteRenderer sr;
+    private bool isStart = false;
 
+    private float Darktimer = 0f;
     [SerializeField]
     private SolarOrbit Orbit;//���
 
@@ -76,8 +77,16 @@ public class Sun : MonoBehaviour,IBeAttacked
             
         //}
         if(isStart) Playing(Time.deltaTime);
-        Shake(Time.deltaTime);
-        
+        if(Darktimer <= 0.1f)
+        {
+            Shake(Time.deltaTime);
+        }
+        else
+        {
+            Darktimer -= Time.deltaTime;
+            sr.sprite = DarkSun;
+        }
+
     }
     public void SunStart()
     {
@@ -111,37 +120,31 @@ public class Sun : MonoBehaviour,IBeAttacked
 
             speed = shakedSpeed;
 
-            sr.sprite = ShakedSun;//�л�̫��ͼƬ
+            sr.sprite = ShakedSun;
         }
         else
         {
             speed = normalSpeed;
-            sr.sprite = NormalSun;//�л�̫��ͼƬ
+            sr.sprite = NormalSun;
         }
     }
-    public void SwitchDirection()//�л�����
+    public void SwitchDirection()
     {
         direction = - direction;
     }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    //��ײ�¼���̫���ܻ�
-    //    if (collision.gameObject.CompareTag("Bullet"))
-    //    {
-    //        Bullet bullet = collision.gameObject.GetComponent<Bullet>();
-    //        Vector3 moveDir = bullet.transform.position - transform.position;
-    //        OnBeAttacked(bullet, moveDir);
-    //    }
-    //}
-   
-
     public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
     {
-        Debug.Log("��ʼ��");
         shaketime = shakeDuration;
-        //���ݹ����ķ���
         var a = Vector2.Dot(transform.position-hit, GetDirection(Orbit.points[target]));
         if (a < 0f) SwitchDirection();//�ı䷽��
     }
 
+    /// <summary>
+    /// 更换黑暗太阳精灵并且持续time秒
+    /// </summary>
+    /// <param name="time"></param>
+    public void SwitchDarkSun(float time)
+    {
+        Darktimer = time;
+    }
 }
