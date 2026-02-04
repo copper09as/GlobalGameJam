@@ -1,3 +1,10 @@
+public class MsgBattleReady : MsgBase
+{
+    public MsgBattleReady()
+    {
+        protoName = "MsgBattleReady";
+    }
+}
 public class MsgMove : MsgBase
 {
     public MsgMove()
@@ -73,4 +80,11 @@ public class MsgEvil:MsgBase
         protoName = "MsgEvil";
     }
     public string id;
+}
+public class MsgMatch:MsgBase
+{
+    public MsgMatch()
+    {
+        protoName = "MsgMatch";
+    }
 }

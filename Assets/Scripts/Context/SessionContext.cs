@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class SessionContext : GameContext
 {
-    public List<Wall> Walls = new ();
     public MaskCollection maskCollection;
     public string PlayerName;
-    public Player SyncPlayer;
-    public Player LocalPlayer;
-    internal int playerType;
+    public string RoomId;
+    public List<RoomInfo> AvailableRooms = new ();
 
     protected override void OnInitialize()
     {
@@ -18,7 +16,5 @@ public class SessionContext : GameContext
     }
     protected override void OnDispose()
     {
-        // 会话清理逻辑
-        Debug.Log("[SessionContext] 会话上下文清理");
     }
 }

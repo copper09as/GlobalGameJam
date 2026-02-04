@@ -3,29 +3,30 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Sockets;
+using GameFramework;
 using UnityEngine;
-public static class NetManager
+public class NetSystem:IGameSystem
 {
-	static Socket socket;
-	static ByteArray readBuff;
-	static Queue<ByteArray> writeQueue;
-    static bool isClosing = false;
-	static List<MsgBase> msgList = new List<MsgBase>();
-	static int msgCount = 0;
-	readonly static int MAX_MESSAGE_FIRE = 100;
+	private Socket socket;
+	private ByteArray readBuff;
+	private Queue<ByteArray> writeQueue;
+    private bool isClosing = false;
+	private List<MsgBase> msgList = new List<MsgBase>();
+	private int msgCount = 0;
+	readonly private int MAX_MESSAGE_FIRE = 100;
     public delegate void EventListener(string err);
-    private static Dictionary<NetEvent, EventListener> eventListeners =
+    private  Dictionary<NetEvent, EventListener> eventListeners =
 		new Dictionary<NetEvent, EventListener>();
     public delegate void MsgListener(MsgBase msgBase);
-	private static Dictionary<string, MsgListener> msgListener =
+	private Dictionary<string, MsgListener> msgListener =
 		new Dictionary<string, MsgListener>();
-	public static bool isUsePing = false;
-	public static int pingInterval = 10;
-	public static float lastPongTime = 0;
-    public static float lastPingTime = 0;
+	public bool isUsePing = false;
+	public int pingInterval = 10;
+	public float lastPongTime = 0;
+    public float lastPingTime = 0;
 
 
-    public static void AddMsgListener(string msgName,MsgListener listener)
+    public void AddMsgListener(string msgName,MsgListener listener)
 	{
 		if(msgListener.ContainsKey(msgName))
 		{
@@ -36,7 +37,7 @@ public static class NetManager
 			msgListener[msgName] = listener;
 		}
 	}
-	public static void RemoveListener(string msgName,MsgListener listener)
+	public void RemoveListener(string msgName,MsgListener listener)
 	{
         if (msgListener.ContainsKey(msgName))
         {
@@ -47,14 +48,18 @@ public static class NetManager
 			}
         }
     }
-	private static void FireMsg(string msgName,MsgBase msgBase)
+	private void FireMsg(string msgName, MsgBase msgBase)
 	{
-        if (msgListener.ContainsKey(msgName))
-        {
-            msgListener[msgName](msgBase);
-        }
-    }
-	public static void AddEventListener(NetEvent netEvent,EventListener Listener)
+		RunOnMainThread(() =>
+		{
+			UnityEngine.Debug.Log($"[MainThread] FireMsg: {msgName}");
+			if (msgListener.ContainsKey(msgName))
+			{
+				msgListener[msgName]?.Invoke(msgBase);
+			}
+		});
+	}
+	public void AddEventListener(NetEvent netEvent,EventListener Listener)
 	{
 		if(eventListeners.ContainsKey(netEvent))
 		{
@@ -65,7 +70,7 @@ public static class NetManager
             eventListeners[netEvent] = Listener;
         }
 	}
-	public static void RemoveEventListener(NetEvent netEvent, EventListener Listener)
+	public void RemoveEventListener(NetEvent netEvent, EventListener Listener)
 	{
 		if(eventListeners.ContainsKey(netEvent))
 		{
@@ -77,20 +82,32 @@ public static class NetManager
         }
 
     }
-    private static void FireEvent(NetEvent netEvent,string err)
-    {
-        UnityEngine.Debug.Log($"FireEvent: {netEvent}, Error: {err}");
-        if (eventListeners.ContainsKey(netEvent))
-        {
-			eventListeners[netEvent](err);
-        }
-        else
-        {
-            UnityEngine.Debug.LogWarning($"No listener registered for event: {netEvent}");
-        }
-    }
-	static bool isConnecting = false;
-	public static void Connect(string ip,int port)
+	private readonly Queue<Action> mainThreadActions = new Queue<Action>();
+
+	private void RunOnMainThread(Action action)
+	{
+		lock (mainThreadActions)
+		{
+			mainThreadActions.Enqueue(action);
+		}
+	}
+	private void FireEvent(NetEvent netEvent, string err)
+	{
+		RunOnMainThread(() =>
+		{
+			UnityEngine.Debug.Log($"[MainThread] FireEvent: {netEvent}");
+			if (eventListeners.ContainsKey(netEvent))
+			{
+				eventListeners[netEvent]?.Invoke(err);
+			}
+		});
+	}
+
+	public bool isConnecting = false;
+
+    public int Priority => 0;
+
+    public void Connect(string ip,int port)
 	{
 		if(socket!=null&&socket.Connected)
 		{
@@ -107,7 +124,7 @@ public static class NetManager
 		UnityEngine.Debug.Log("Begin Connect");
 	}
 
-    private static void ConnectCallback(IAsyncResult ar)
+    private void ConnectCallback(IAsyncResult ar)
     {
         try
 		{
@@ -123,7 +140,7 @@ public static class NetManager
 			isConnecting = false;
 		}
     }
-    private static void ReceiveCallback(IAsyncResult ar)
+    private void ReceiveCallback(IAsyncResult ar)
     {
 		try
 		{
@@ -151,12 +168,8 @@ public static class NetManager
 		}
 
     }
-	public static void Update()
-	{
-		MsgUpdate();
-		PingUpdate();
-	}
-    private static void OnReceiveDate()
+
+    private void OnReceiveDate()
     {
 		
         if(readBuff.length<=2)
@@ -194,7 +207,7 @@ public static class NetManager
 			OnReceiveDate();
 		}
     }
-	public static void MsgUpdate()
+	private void MsgUpdate()
 	{
 		if (msgCount == 0)
 		{
@@ -223,7 +236,7 @@ public static class NetManager
 			}
 		}
 	}
-    public static void Close()
+    public void Close()
 	{
         if (socket==null || !socket.Connected)
         {
@@ -243,7 +256,7 @@ public static class NetManager
 			FireEvent(NetEvent.Close, "");
 		}
     }
-	public static void Send(MsgBase msg)
+	public void Send(MsgBase msg)
 	{
         if (socket == null || !socket.Connected)
         {
@@ -278,7 +291,7 @@ public static class NetManager
 		}
     }
 
-    private static void SendCallBack(IAsyncResult ar)
+    private void SendCallBack(IAsyncResult ar)
     {
 		Socket socket = (Socket)ar.AsyncState;
         if (socket == null || !socket.Connected)
@@ -318,7 +331,7 @@ public static class NetManager
 			socket.Close();
 		}
     }
-    private static void PingUpdate()
+    private void PingUpdate()
     {
         if (!isUsePing)
         {
@@ -343,11 +356,11 @@ public static class NetManager
             Close();
         }
     }
-    private static void OnMsgPong(MsgBase msgBase)
+    private void OnMsgPong(MsgBase msgBase)
 	{
 		lastPongTime = Time.time;
 	}
-    private static void InitState()
+    private void InitState()
     {
 		socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 		readBuff = new ByteArray();
@@ -363,6 +376,33 @@ public static class NetManager
 			AddMsgListener("MsgPong", OnMsgPong);
 		}
     }
+
+    public void OnInit()
+	{
+		
+	}
+
+	public void OnUpdate(float deltaTime)
+	{
+		while (mainThreadActions.Count > 0)
+		{
+			Action action;
+			lock (mainThreadActions)
+			{
+				action = mainThreadActions.Dequeue();
+			}
+			action?.Invoke();
+		}
+
+		MsgUpdate();
+		PingUpdate();
+	}
+
+
+    public void OnShutdown()
+	{
+		Close();
+	}
 }
 	
 

@@ -36,8 +36,7 @@ public class Wall : MonoBehaviour, IBeAttacked
 
     void Start()
     {
-        Debug.Log(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().Walls + "��û�б���");
-        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().Walls.Add(this);
+   
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -63,8 +62,8 @@ public class Wall : MonoBehaviour, IBeAttacked
 
     private void OnDestroy()
     {
-        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().Walls.Remove(this);
     }
+       
 
 
 }

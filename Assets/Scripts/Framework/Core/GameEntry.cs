@@ -51,6 +51,7 @@ namespace GameFramework
             RegisterSystemInternal(new ContextSystem());
             RegisterSystemInternal(new AudioSystem());
             RegisterSystemInternal(new GlobalUiSystem());
+            RegisterSystemInternal(new NetSystem());
             // 初始化所有系统
             foreach (var system in updateSystems)
                 system.OnInit();
@@ -101,25 +102,22 @@ namespace GameFramework
             var deltaTime = Time.deltaTime;
             foreach (var system in updateSystems)
                 system.OnUpdate(deltaTime);
-            NetManager.Update();
         }
 
         void OnDestroy()
         {
             if (instance != this) return;
-             NetManager.Close();
             Debug.Log("[GameEntry] 关闭");
 
             foreach (var system in updateSystems)
                 system.OnShutdown();
-
+            
             systems.Clear();
             updateSystems.Clear();
             instance = null;
         }
         void OnApplicationQuit()
         {
-            NetManager.Close();
         }
 
     }

@@ -87,25 +87,7 @@ public class Sun : MonoBehaviour,IBeAttacked
             Darktimer -= Time.deltaTime;
             sr.sprite = DarkSun;
         }
-        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer==null||
-        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer==null)
-        {
-            return;
-        }
-        if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>
-        ().LocalPlayer.currentMaskName == "EvilMask"||GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>
-        ().SyncPlayer.currentMaskName == "EvilMask")
-        {
-             Darktimer = 5f;
-             if(GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.currentMaskName == "EvilMask")
-             {
-                 GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().LocalPlayer.currentMaskName = "";
-             }
-             if (GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.currentMaskName == "EvilMask")
-             {
-                 GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().SyncPlayer.currentMaskName = "";
-             }
-        }
+
     }
     public void SunStart()
     {

@@ -85,7 +85,7 @@ public class LocalPlayerController : ScPlayerController
         msg.id = player.playerName;
         msg.CurrentBullet = player.BulletCount.Value;
         msg.MaxBullet = player.MaxBullet;
-        NetManager.Send(msg);
+        //NetManager.Send(msg);
     }
     void SendMoveMsg(Player player)
     {
@@ -94,7 +94,7 @@ public class LocalPlayerController : ScPlayerController
         msg.y = player.MoveDirection.y;
         msg.id = player.playerName;
         msg.angle = player.FirePoint.transform.parent.rotation.eulerAngles.z;
-        NetManager.Send(msg);
+        //NetManager.Send(msg);
     }
     void SendFireMsg(Player player, Vector3 targetPosition, Vector3 firePosition)
     {
@@ -104,6 +104,6 @@ public class LocalPlayerController : ScPlayerController
         msg.targetY = targetPosition.y;
         msg.fireX = firePosition.x;
         msg.fireY = firePosition.y;
-        NetManager.Send(msg);
+        //NetManager.Send(msg);
     }
 }

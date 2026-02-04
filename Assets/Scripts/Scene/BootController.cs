@@ -6,6 +6,7 @@ using TMPro;
 using DG.Tweening;
 using GameFramework;
 using Michsky.MUIP;
+using System;
 
 namespace BFGGJ
 {
@@ -26,7 +27,13 @@ namespace BFGGJ
         [SerializeField] float logoStayDuration = 1.5f;
         [SerializeField] float titleFadeInDuration = 0.6f;
         [SerializeField] float finalFadeOutDuration = 0.5f;
+    
+        public float connectTimeout = 5f;  // 超时秒数
+        public int maxRetryCount = 3;      // 最大重连次数
 
+        private int currentRetry = 0;
+
+        private NetSystem netSystem;
         void Awake()
         {
             DOTween.Init();
@@ -38,13 +45,31 @@ namespace BFGGJ
         {
             SetupInitialState();
             GameEntry.Instance.GetSystem<AudioSystem>().PlayBGMByName("Test2");
+            netSystem = GameEntry.Instance.GetSystem<NetSystem>();
+            netSystem.AddEventListener(NetEvent.ConnectSucc,OnConnectSucc);
+            netSystem.AddEventListener(NetEvent.ConnectFail,OnConnectFail);
+           
             StartCoroutine(PlayBootSequence());
         }
+
+        private void OnConnectFail(string err)
+        {
+            GameEntry.Instance.GetSystem<GlobalUiSystem>().ShowNotification("connect fail", err);
+        }
+
+
+        private void OnConnectSucc(string err)
+        {
+            var asyncOp = SceneManager.LoadSceneAsync(mainMenuScene);
+            asyncOp.allowSceneActivation = true;
+        }
+
 
         void InitializeSystems()
         {
             // GameEntry.Instance 会自动初始化核心系统
             _ = GameEntry.Instance;
+            
             Debug.Log("[Boot] 系统初始化完成");
         }
 
@@ -103,14 +128,16 @@ namespace BFGGJ
                     yield return fadeCanvas.DOFade(1f, finalFadeOutDuration).WaitForCompletion();
                 }
             }
+            netSystem.Connect("127.0.0.1", 7777);
             // 异步加载场景
-            var asyncOp = SceneManager.LoadSceneAsync(mainMenuScene);
-            asyncOp.allowSceneActivation = true;
+
         }
 
         void OnDestroy()
         {
             DOTween.Kill(transform);
+            netSystem.RemoveEventListener(NetEvent.ConnectSucc, OnConnectSucc);
+            netSystem.RemoveEventListener(NetEvent.ConnectFail, OnConnectFail);
         }
     }
 }

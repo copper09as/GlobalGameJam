@@ -19,9 +19,7 @@ public class MsgLogin : MsgBase
     {
         protoName = "MsgLogin";
     }
-    public string id = "";
-    public int result = 0;
-    public int playerType = 0;
+    public string PlayerName = "";
 }
 public class MsgKick : MsgBase
 {
