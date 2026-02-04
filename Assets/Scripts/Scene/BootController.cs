@@ -129,7 +129,7 @@ namespace BFGGJ
                     yield return fadeCanvas.DOFade(1f, finalFadeOutDuration).WaitForCompletion();
                 }
             }
-            netSystem.Connect("127.0.0.1", 7777);
+            netSystem.Connect("139.9.116.94", 7777);
             // 异步加载场景
 
         }

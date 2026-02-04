@@ -89,7 +89,6 @@ public class MainMenuController : MonoBehaviour
 
     private void OnMsgShowRoomList(MsgBase msgBase)
     {
-        sessionContext.AvailableRooms = ((MsgShowRoomList)msgBase).RoomList;
         roomListView.ShowRoomList(((MsgShowRoomList)msgBase).RoomList);
     }
 

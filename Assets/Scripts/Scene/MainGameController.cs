@@ -19,7 +19,7 @@ public class MainGameController : GameBehaviour
     [SerializeField] private ProgressBar syncBulletBar;
     [SerializeField] private Image mask;
     [SerializeField] private Image syncMask;
-    [SerializeField]private GameObject maskPrefab;
+    [SerializeField] private GameObject maskPrefab;
     private NetSystem netSystem;
     private BattleContext battleContext;
     private SessionContext sessionContext;
@@ -33,10 +33,11 @@ public class MainGameController : GameBehaviour
         netSystem.AddMsgListener("MsgSyncState", OnMsgSyncState);
         netSystem.AddMsgListener("MsgGameWin", OnMsgGameWin);
         netSystem.AddMsgListener("MsgFire", OnMsgFire);
-        netSystem.AddMsgListener("MsgCreateMask",OnMsgCreateMask);
+        netSystem.AddMsgListener("MsgCreateMask", OnMsgCreateMask);
         netSystem.AddMsgListener("MsgGameLose", OnMsgGameLose);
-        netSystem.AddMsgListener("MsgTakeMask",OnMsgTakeMask);
-        netSystem.AddMsgListener("MsgSwapPositionResponse",OnMsgSwapPosition);
+        netSystem.AddMsgListener("MsgTakeMask", OnMsgTakeMask);
+        netSystem.AddMsgListener("MsgShineEffect", OnMsgShineEffect);
+        netSystem.AddMsgListener("MsgSwapPositionResponse", OnMsgSwapPosition);
         eventSystem.Subscribe<PlayerBulletChange>(OnPlayerBulletChange);
         eventSystem.Subscribe<PlayerHpChange>(OnPlayerHpChange);
         sessionContext = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>();
@@ -60,7 +61,7 @@ public class MainGameController : GameBehaviour
         else
         {
             syncBulletBar.maxValue = maxBulletCount;
-            syncBulletBar.SetValue(bulletCount);      
+            syncBulletBar.SetValue(bulletCount);
         }
     }
 
@@ -82,7 +83,7 @@ public class MainGameController : GameBehaviour
         else
         {
             syncHpBar.maxValue = maxHp;
-            syncHpBar.SetValue(hp);      
+            syncHpBar.SetValue(hp);
         }
     }
 
@@ -107,6 +108,7 @@ public class MainGameController : GameBehaviour
         base.Start();
 
     }
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -115,11 +117,17 @@ public class MainGameController : GameBehaviour
         netSystem.RemoveListener("MsgGameWin", OnMsgGameWin);
         netSystem.RemoveListener("MsgFire", OnMsgFire);
         netSystem.RemoveListener("MsgGameLose", OnMsgGameLose);
-        netSystem.RemoveListener("MsgCreateMask",OnMsgCreateMask);
-        netSystem.RemoveListener("MsgTakeMask",OnMsgTakeMask);
-        netSystem.RemoveListener("MsgSwapPositionResponse",OnMsgSwapPosition);
+        netSystem.RemoveListener("MsgCreateMask", OnMsgCreateMask);
+        netSystem.RemoveListener("MsgTakeMask", OnMsgTakeMask);
+        netSystem.RemoveListener("MsgSwapPositionResponse", OnMsgSwapPosition);
+        netSystem.RemoveListener("MsgShineEffect", OnMsgShineEffect);
         eventSystem.Unsubscribe<PlayerBulletChange>(OnPlayerBulletChange);
         eventSystem.Unsubscribe<PlayerHpChange>(OnPlayerHpChange);
+    }
+
+    private void OnMsgShineEffect(MsgBase msgBase)
+    {
+        StartCoroutine(ShineFlashThreeTimes());
     }
 
     private void OnMsgTakeMask(MsgBase msgBase)
@@ -191,4 +199,39 @@ public class MainGameController : GameBehaviour
         battleContext.Players.Add(syncPlayer);
         battleContext.StartBattle();
     }
+    private IEnumerator ShineFlashThreeTimes()
+    {
+        int times = 3;          // 闪烁次数
+        float duration = 0.3f;  // 每次闪烁持续时间
+
+        // 激活所有粒子系统对象
+        foreach (var ps in shineEffect)
+        {
+            ps.gameObject.SetActive(true);
+        }
+
+        for (int i = 0; i < times; i++)
+        {
+            // 播放所有粒子系统
+            foreach (var ps in shineEffect)
+            {
+                ps.Play();
+            }
+            yield return new WaitForSeconds(duration);
+
+            // 停止所有粒子系统
+            foreach (var ps in shineEffect)
+            {
+                ps.Stop();
+            }
+            yield return new WaitForSeconds(duration);
+        }
+
+        // 关闭所有粒子系统对象
+        foreach (var ps in shineEffect)
+        {
+            ps.gameObject.SetActive(false);
+        }
+    }
+
 }

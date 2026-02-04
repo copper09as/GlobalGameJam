@@ -378,7 +378,10 @@ public class NetSystem:IGameSystem
 
     public void OnInit()
 	{
-		
+		AddEventListener(NetEvent.Close, (err) =>
+		{
+			Application.Quit();
+		});
 	}
 
 	public void OnUpdate(float deltaTime)

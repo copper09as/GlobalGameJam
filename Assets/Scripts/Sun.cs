@@ -107,6 +107,7 @@ public class Sun : MonoBehaviour,IBeAttacked
     }
     public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
     {
+        return;
         shaketime = shakeDuration;
         var a = Vector2.Dot(transform.position-hit, GetDirection(Orbit.points[target]));
         if (a < 0f) SwitchDirection();//�ı䷽��

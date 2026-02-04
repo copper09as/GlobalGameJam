@@ -87,3 +87,10 @@ public class MsgSwapPositionResponse : MsgBase
     public float PlayerBX;
     public float PlayerBY;
 }
+public class MsgShineEffect: MsgBase
+{
+    public MsgShineEffect()
+    {
+        protoName = "MsgShineEffect";
+    }
+}

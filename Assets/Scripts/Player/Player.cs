@@ -54,7 +54,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         {
             { "Hp", 5f},
             { "BulletCount", 5f},
-            {"ReloadTimeRate", 0.9f},
+            {"ReloadTimeRate", 1.6f},
             {"MoveSpeed", 5f}
         });
         abilitySystem.GetAttribute("Hp").Watch((value) => OnHpChanged(value));
