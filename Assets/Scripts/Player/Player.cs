@@ -9,70 +9,104 @@ using UnityEngine.SceneManagement;
 using static Bullet;
 public enum PlayerState
 {
-    Idle,
-    Move,
-    Attack,
-    Reload,
-    Die
+    Idle = 0,
+    Move = 1,
+    Attack = 2,
+    Reload = 3
 }
 public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacked
-{   
+{
     public float coldDownTime = 0.2f;
     public float currentColdDownTime = 0f;
     public bool InReload = false;
-    public ScPlayerController controller;
+    public PlayerController controller;
     public Rigidbody2D Rb;
-    [SerializeField]protected float reloadTimeRate = 1;
-    public string playerName;
-    public float moveSpeed = 5f;
-    public int MaxBullet = 3;
-    public ReactiveInt BulletCount = new ReactiveInt(3);
+    public string playerId;
     public Transform FirePoint;
-    public int MaxHp = 3;
-    public ReactiveInt Hp = new ReactiveInt(3);
-
-    public bool startGame   = false;
-    public Vector2 MoveDirection;
+    public bool IsLocalPlayer = false;
+    public bool StartGame = false;
     public string currentMaskName;
     public Animator Animator;
 
     public SpriteRenderer ShadowSR;//阴影渲染器
     public float beAttackTimer;//受击计时器
     public float beAttackDuration = 0.2f;//受击持续时间
-    public Color normalColor = new Color(0,0,0,0.5f);
-    public Color beAttackedColor = new Color(1,0,0,0.5f);
+    public Color normalColor = new Color(0, 0, 0, 0.5f);
+    public Color beAttackedColor = new Color(1, 0, 0, 0.5f);
     // Start is called before the first frame update
+    private AbilitySystemComponent abilitySystem;
+    public AbilitySystemComponent AbilitySystem
+    {
+        get
+        {
+            if (abilitySystem == null)
+            {
+                InitializeAbilitySystem();
+            }
+            return abilitySystem;
+        }
+    }
 
+    private void InitializeAbilitySystem()
+    {
+        abilitySystem = new AbilitySystemComponent();
+        abilitySystem.InitializeFromDictionary(new Dictionary<string, float>
+        {
+            { "Hp", 5f},
+            { "BulletCount", 5f},
+            {"ReloadTimeRate", 0.9f},
+            {"MoveSpeed", 5f}
+        });
+        abilitySystem.GetAttribute("Hp").Watch((value) => OnHpChanged(value));
+        abilitySystem.GetAttribute("BulletCount").Watch((value) => OnBulletCountChanged(value));
+    }
 
+    private void OnBulletCountChanged(float value)
+    {
+        GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.PlayerBulletChange
+        {
+            bulletCount = (int)value,
+            MaxBulletCount = (int)AbilitySystem.GetAttribute("BulletCount").BaseValue,
+            isLocalPlayer = IsLocalPlayer
+        });
+    }
+    private void OnHpChanged(float newHp)
+{
+    GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.PlayerHpChange
+    {
+        MaxHp = (int)abilitySystem.GetAttribute("Hp").BaseValue,
+        hp = (int)newHp,
+        isLocalPlayer = IsLocalPlayer
+    });
+    
+}
     protected override void Start()
     {
         base.Start();
         Rb.gravityScale = 0f;
-        Debug.Log($"Player {playerName} started with {BulletCount.Value} bullets and {Hp.Value} HP.");
     }
-    public float ReloadTime()=> (MaxBullet-BulletCount.Value) * reloadTimeRate;
+    public float ReloadTime() => AbilitySystem.GetAttribute("ReloadTimeRate").Value*
+    (abilitySystem.GetAttribute("ReloadTimeRate").BaseValue- abilitySystem.GetAttribute("ReloadTimeRate").Value + 1);
+
     // Update is called once per frame
     protected override void Update()
     {
-        base.Update(); 
-        if(!startGame) return;
-        controller.ControlMove(this);
-        controller.Rotate(this);
-        controller.Fire(this);
-        controller.Reload(this);
-        controller.Tick(this, Time.deltaTime);
+        base.Update();
+        if (!StartGame) return;
+        if (controller != null)
+            controller.Tick(this, Time.deltaTime);
         ShadowUpdate(Time.deltaTime);
     }
-    public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3),bool isSync = false)
+    public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3))
     {
         GameObject bulletObj = Instantiate(Resources.Load<GameObject>("Prefabs/Bullet"));
         Bullet bullet = bulletObj.GetComponent<Bullet>();
-        if(FirePoint!=null)
+        if (FirePoint != null)
         {
-            bullet.Init(this,FirePoint.transform.position, targetPosition,isSync);
+            bullet.Init(this, FirePoint.transform.position, targetPosition);
             return;
         }
-        bullet.Init(this, firePosition, targetPosition,isSync);
+        bullet.Init(this, firePosition, targetPosition);
     }
     public void StartReload()
     {
@@ -85,15 +119,11 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     private IEnumerator ReloadCoroutine()
     {
         yield return new WaitForSeconds(ReloadTime());
-        BulletCount.Value = MaxBullet;
-        GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.PlayerBulletChange {
-            CurrentBullet = BulletCount.Value,
-            MaxBullet = MaxBullet,
-            id = playerName
-        });
+        
+        AbilitySystem.GetAttribute("BulletCount").ClearModifiers();
         InReload = false;
-        //StateMachine.ChangeState(PlayerState.Idle);
     }
+
     public void StopReload()
     {
         if (reloadCoroutine != null)
@@ -108,9 +138,13 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     {
         if (collision.gameObject.CompareTag("Mask"))
         {
-            Mask mask = collision.gameObject.GetComponent<Mask>();
-            mask.BeUsed(this.gameObject);
-            UseMask(mask.Name);
+                MsgTakeMask msgTakeMask = new MsgTakeMask();
+                msgTakeMask.EntityId = collision.gameObject.GetComponent<Mask>().EntityId;
+                msgTakeMask.PlayerId = this.playerId;
+                Debug.Log($"Player {msgTakeMask.PlayerId} is taking mask {msgTakeMask.EntityId}");
+                GameEntry.Instance.GetSystem<NetSystem>().Send(msgTakeMask);
+                //mask.BeUsed(this.gameObject);
+                //UseMask(mask.Name);
         }
         //if (collision.gameObject.CompareTag("Bullet"))
         //{
@@ -125,63 +159,32 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     }
     protected override PlayerState GetInitialState()
     {
-        return PlayerState.Idle; 
+        return PlayerState.Idle;
     }
     protected override void ConfigureStateMachine()
     {
-        StateMachine.RegisterState(PlayerState.Reload, new ReloadState());
         StateMachine.RegisterState(PlayerState.Move, new MoveState());
         StateMachine.RegisterState(PlayerState.Idle, new IdleState());
-        StateMachine.RegisterState(PlayerState.Attack, new AttackState());
-
-        StateMachine.AddTransition
-        (PlayerState.Idle, PlayerState.Move, (i) => MoveDirection.magnitude > 0.1f);
-        StateMachine.AddTransition
-        (PlayerState.Move, PlayerState.Idle, (i) => MoveDirection.magnitude <= 0.1f);
-    }
-  
-
-    public void UseMask(string maskName)
-    {
-        //触发对应面具的效果
-        //获取面具
-        //切换脸上面具
-
-        GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.UseMaskEffect
-        {
-            id = playerName,
-            MaskName = maskName
-        });
-
     }
 
     public void OnBeAttacked(Bullet bullet, Vector3 moveDir, Vector3 hit)
     {
         if (bullet.Owner == this) return;
-        Hp.Value -= 1;
-        GameEntry.Instance.GetSystem<EventSystem>().Publish(new PlayerEvent.PlayerHpChange
-        {
-            hp = Hp.Value,
-            MaxHp = MaxHp,
-            id = playerName
-        });
-
         //受击反馈
         beAttackTimer = beAttackDuration;
         GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("角色受击");
-        if(Hp<=0) GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("角色死亡");
-
-
-        Destroy(bullet.gameObject);
-        if (Hp.Value <= 0)
+        if (IsLocalPlayer)
         {
+            abilitySystem.GetAttribute("Hp").AddModifier(new AttributeModifier
+            ("Hp", ModifierOp.Add, -1f));
+            
         }
     }
     public void ShadowUpdate(float deltaTime)
     {
-        if(beAttackTimer>=0.1f)
+        if (beAttackTimer >= 0.1f)
         {
-            beAttackTimer-= deltaTime;
+            beAttackTimer -= deltaTime;
             ShadowSR.color = beAttackedColor;
         }
         else

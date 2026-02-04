@@ -27,12 +27,7 @@ namespace BFGGJ
         [SerializeField] float logoStayDuration = 1.5f;
         [SerializeField] float titleFadeInDuration = 0.6f;
         [SerializeField] float finalFadeOutDuration = 0.5f;
-    
-        public float connectTimeout = 5f;  // 超时秒数
-        public int maxRetryCount = 3;      // 最大重连次数
-
-        private int currentRetry = 0;
-
+        SessionContext sessionContext;
         private NetSystem netSystem;
         void Awake()
         {
@@ -48,7 +43,7 @@ namespace BFGGJ
             netSystem = GameEntry.Instance.GetSystem<NetSystem>();
             netSystem.AddEventListener(NetEvent.ConnectSucc,OnConnectSucc);
             netSystem.AddEventListener(NetEvent.ConnectFail,OnConnectFail);
-           
+            netSystem.AddMsgListener("MsgLogin", OnMsgLoginRet);
             StartCoroutine(PlayBootSequence());
         }
 
@@ -60,15 +55,21 @@ namespace BFGGJ
 
         private void OnConnectSucc(string err)
         {
-            var asyncOp = SceneManager.LoadSceneAsync(mainMenuScene);
-            asyncOp.allowSceneActivation = true;
+            MsgLogin msg = new MsgLogin();
+            netSystem.Send(msg);
         }
-
 
         void InitializeSystems()
         {
             // GameEntry.Instance 会自动初始化核心系统
             _ = GameEntry.Instance;
+        sessionContext = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>();
+        if (sessionContext != null)
+        {
+            GameEntry.Instance.GetSystem<ContextSystem>().DisposeContext<SessionContext>();
+        }
+        sessionContext = GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
+        
             
             Debug.Log("[Boot] 系统初始化完成");
         }
@@ -138,6 +139,14 @@ namespace BFGGJ
             DOTween.Kill(transform);
             netSystem.RemoveEventListener(NetEvent.ConnectSucc, OnConnectSucc);
             netSystem.RemoveEventListener(NetEvent.ConnectFail, OnConnectFail);
+            netSystem.RemoveListener("MsgLogin", OnMsgLoginRet);
+        }
+        private void OnMsgLoginRet(MsgBase msgBase)
+        {
+            MsgLogin msg = (MsgLogin)msgBase;
+            sessionContext.PlayeId = msg.PlayerName;
+            var asyncOp = SceneManager.LoadSceneAsync(mainMenuScene);
+            asyncOp.allowSceneActivation = true;
         }
     }
 }

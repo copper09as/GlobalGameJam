@@ -19,23 +19,17 @@ public class MainMenuController : MonoBehaviour
     {
         netSystem = GameEntry.Instance.GetSystem<NetSystem>();
         sessionContext = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>();
-        if (sessionContext != null)
-        {
-            GameEntry.Instance.GetSystem<ContextSystem>().DisposeContext<SessionContext>();
-        }
-        sessionContext = GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<SessionContext>();
-        netSystem.AddMsgListener("MsgLogin", OnMsgLoginRet);
+        
         netSystem.AddMsgListener("MsgCreateRoom", OnMsgCreateRoom);
         netSystem.AddMsgListener("MsgShowRoomList", OnMsgShowRoomList);
         netSystem.AddMsgListener("MsgJoinRoom", OnMsgJoinRoom);
         netSystem.AddMsgListener("MsgRoomInfo", OnMsgRoomInfo);
         netSystem.AddMsgListener("MsgLeaveRoom", OnMsgLeaveRoom);
         netSystem.AddMsgListener("MsgStartGame", OnMsgStartGame);
-        Login();
     }
     void OnDestroy()
     {
-        netSystem.RemoveListener("MsgLogin", OnMsgLoginRet);
+        
         netSystem.RemoveListener("MsgCreateRoom", OnMsgCreateRoom);
         netSystem.RemoveListener("MsgShowRoomList", OnMsgShowRoomList);
         netSystem.RemoveListener("MsgJoinRoom", OnMsgJoinRoom);
@@ -75,6 +69,8 @@ public class MainMenuController : MonoBehaviour
     {
         MsgRoomInfo msgRoomInfo = (MsgRoomInfo)msgBase;
         roomPanel.UpdateRoomInfo(msgRoomInfo.roomInfo);
+        sessionContext.RoomId = msgRoomInfo.roomInfo.roomId;
+        sessionContext.opponentId = msgRoomInfo.roomInfo.playerIdList.Find(id => id != sessionContext.PlayeId);
     }
 
     private void OnMsgJoinRoom(MsgBase msgBase)
@@ -113,20 +109,11 @@ public class MainMenuController : MonoBehaviour
 
     }
 
-    private void OnMsgLoginRet(MsgBase msgBase)
-    {
-        MsgLogin msg = (MsgLogin)msgBase;
-        sessionContext.PlayerName = msg.PlayerName;
-    }
     public void ShowSettingPanel()
     {
         GameEntry.Instance.GetSystem<GlobalUiSystem>().ToggleGlobalSettingPanel();
     }
-    public void Login()
-    {
-        MsgLogin msg = new MsgLogin();
-        netSystem.Send(msg);
-    }
+
     public void StartGame()
     {
         Debug.Log("Start Game");

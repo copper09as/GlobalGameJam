@@ -9,7 +9,6 @@ public class Bullet : MonoBehaviour
     public float speed = 10f;
     public float lifeTime = 5f;
     public Player Owner;
-    public float syncSpeed;
     public float currentSpeed;
     [SerializeField]private Rigidbody2D rb;
     private Vector3 moveDir;
@@ -18,9 +17,9 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject, lifeTime);
     }
-    public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition, bool isSync = false)
+    public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition)
     {
-        currentSpeed = isSync ? syncSpeed : speed;
+        currentSpeed = speed;
         Owner = owner;
         transform.position = initPosition;
 
@@ -71,6 +70,8 @@ public class Bullet : MonoBehaviour
         var c = collision.gameObject.GetComponentInParent<IBeAttacked>();
         c?.OnBeAttacked(this, moveDir,transform.position);//子弹的体积小，中心点约等于碰撞点
         if(c!=null)Destroy(gameObject);
+        UnityEngine.Debug.Log("子弹触发器碰撞到物体：" + collision.gameObject.name);
+        return;
     }
 
     public interface IBeAttacked

@@ -5,86 +5,85 @@ public class MsgBattleReady : MsgBase
         protoName = "MsgBattleReady";
     }
 }
-public class MsgMove : MsgBase
+public class MsgSyncState : MsgBase
 {
-    public MsgMove()
+    public MsgSyncState()
     {
-        protoName = "MsgMove";
+        protoName = "MsgSyncState";
+    }
+        public float posX;
+        public float posY;
+        public float rot;
+        public int hp;         // 服务器权威同步
+        public int actionId;   // 当前动作，其他客户端需要
+        public int bulletCount;
+        public float timestamp;
+}
+public class MsgGameWin:MsgBase
+{
+    public MsgGameWin()
+    {
+        protoName = "MsgGameWin";
+    }
+}
+public class MsgGameLose : MsgBase
+{
+    public MsgGameLose()
+    {
+        protoName = "MsgGameLose";
+    }
+}
+public class MsgFire : MsgBase
+{
+    public MsgFire()
+    {
+        protoName = "MsgFire";
     }
     public string id;
-    public float x = 0;
-    public float y = 0;
-    public float angle = 0;
+    public float targetX;
+    public float targetY;
+    public float fireX;
+    public float fireY;
 }
-public class MsgPos:MsgBase
+public class MsgCreateMask: MsgBase
 {
-    public MsgPos()
+    public MsgCreateMask()
     {
-        protoName = "MsgPos";
+        protoName = "MsgCreateMask";
     }
-    public string id;
-    public float x = 0;
-    public float y = 0;
+    public int MaskId = 0;
+    public int EntityId = 0;
+    public float posX;
+    public float posY;
 }
-public class MsgHpChange : MsgBase
+public class MsgTakeMask : MsgBase
 {
-    public MsgHpChange()
+    public MsgTakeMask()
     {
-        protoName = "MsgHpChange";
+        protoName = "MsgTakeMask";
     }
-    public string id;
-    public int hp = 0;
-    public int MaxHp = 0;
+    public int EntityId = 0;
+    public string PlayerId = "";
 }
-public class MsgBulletChange : MsgBase
+public class MsgSwapPositionRequest : MsgBase
 {
-    public MsgBulletChange()
+    public MsgSwapPositionRequest()
     {
-        protoName = "MsgBulletChange";
+        protoName = "MsgSwapPositionRequest";
     }
-    public string id;
-    public int CurrentBullet = 0;
-    public int MaxBullet = 0;
+    public string TargetPlayerId; // 想交换位置的对象
 }
+public class MsgSwapPositionResponse : MsgBase
+{
+    public MsgSwapPositionResponse()
+    {
+        protoName = "MsgSwapPositionResponse";
+    }
+    public string PlayerAId;
+    public float PlayerAX;
+    public float PlayerAY;
 
-public class MsgGameOver : MsgBase
-{
-    public MsgGameOver()
-    {
-        protoName = "MsgGameOver";
-    }
-    public string winnerId;
-}
-public class MsgReplacePos : MsgBase
-{
-    public MsgReplacePos()
-    {
-        protoName = "MsgReplacePos";
-    }
-    public string id;
-    public float x;
-    public float y;
-}
-public class MsgShine:MsgBase
-{
-    public MsgShine()
-    {
-        protoName = "MsgShine";
-    }
-    public string id;
-}
-public class MsgEvil:MsgBase
-{
-    public MsgEvil()
-    {
-        protoName = "MsgEvil";
-    }
-    public string id;
-}
-public class MsgMatch:MsgBase
-{
-    public MsgMatch()
-    {
-        protoName = "MsgMatch";
-    }
+    public string PlayerBId;
+    public float PlayerBX;
+    public float PlayerBY;
 }

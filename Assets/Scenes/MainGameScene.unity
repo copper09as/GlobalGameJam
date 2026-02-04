@@ -2267,6 +2267,7 @@ MonoBehaviour:
   syncBulletBar: {fileID: 903420799}
   mask: {fileID: 322002627}
   syncMask: {fileID: 613666010}
+  maskPrefab: {fileID: 8129524297799114835, guid: ca0d6b68ff1d5274dac1c22aa40a5ec6, type: 3}
 --- !u!4 &346272585
 Transform:
   m_ObjectHideFlags: 0
@@ -3860,10 +3861,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPercent: 10
+  currentPercent: 5
   speed: 5
   minValue: 0
-  maxValue: 10
+  maxValue: 5
   valueLimit: 100
   loadingBar: {fileID: 2027807092}
   textPercent: {fileID: 1245169028}
@@ -5346,10 +5347,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c6dbf0102c7bc468113ccdd97dad83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentPercent: 10
+  currentPercent: 5
   speed: 5
   minValue: 0
-  maxValue: 10
+  maxValue: 5
   valueLimit: 100
   loadingBar: {fileID: 823156209}
   textPercent: {fileID: 1836815923}
@@ -7044,7 +7045,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
   m_sharedMaterial: {fileID: 21261991626553910, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
@@ -8771,7 +8772,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}
   m_sharedMaterial: {fileID: 21261991626553910, guid: 84dd14695854bbc43a5faa24fcf93d0d, type: 2}

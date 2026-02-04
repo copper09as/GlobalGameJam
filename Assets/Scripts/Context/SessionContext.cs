@@ -6,9 +6,11 @@ using UnityEngine;
 public class SessionContext : GameContext
 {
     public MaskCollection maskCollection;
-    public string PlayerName;
+    public string PlayeId;
+    public string opponentId;
     public string RoomId;
     public List<RoomInfo> AvailableRooms = new ();
+    
 
     protected override void OnInitialize()
     {

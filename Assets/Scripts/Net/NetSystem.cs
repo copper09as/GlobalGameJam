@@ -20,7 +20,7 @@ public class NetSystem:IGameSystem
     public delegate void MsgListener(MsgBase msgBase);
 	private Dictionary<string, MsgListener> msgListener =
 		new Dictionary<string, MsgListener>();
-	public bool isUsePing = false;
+	public bool isUsePing = true;
 	public int pingInterval = 10;
 	public float lastPongTime = 0;
     public float lastPingTime = 0;
@@ -52,7 +52,6 @@ public class NetSystem:IGameSystem
 	{
 		RunOnMainThread(() =>
 		{
-			UnityEngine.Debug.Log($"[MainThread] FireMsg: {msgName}");
 			if (msgListener.ContainsKey(msgName))
 			{
 				msgListener[msgName]?.Invoke(msgBase);

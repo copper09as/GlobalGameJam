@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using GameFramework;
 using UnityEngine;
 
 public class ShadowMove : MonoBehaviour
@@ -21,7 +22,7 @@ public class ShadowMove : MonoBehaviour
     }
     void SetShadow()
     {
-        float angle  = Vector2.SignedAngle(GetDirection(), Sun.Instance.GetDirection(transform));//���������Ƕ�
+        float angle  = Vector2.SignedAngle(GetDirection(), GameEntry.Instance.GetSystem<ContextSystem>().GetContext<BattleContext>().Sun.GetDirection(transform));//���������Ƕ�
         angle = angle - transform.rotation.eulerAngles.z;
         transform.rotation = transform.rotation * Quaternion.Euler(0, 0, angle);//������Ӱ��ת
     }

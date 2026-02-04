@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 204bc9f51d580284587d051513a21729, type: 3}
-  m_Name: New Local Player Controller
+  m_Script: {fileID: 11500000, guid: c52a234a55aeb504eb4ef505fbc71d79, type: 3}
+  m_Name: PlayerController
   m_EditorClassIdentifier: 
   upKey: 119
   downKey: 115

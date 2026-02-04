@@ -17,4 +17,15 @@ public class MaskCollection : ScriptableObject
         }
         return null;
     }
+    public MaskSO GetMaskSOById(int id)
+    {
+        foreach (var mask in MaskDataList)
+        {
+            if (mask.Id == id)
+            {
+                return mask;
+            }
+        }
+        return null;
+    }
 }

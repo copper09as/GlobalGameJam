@@ -16,7 +16,7 @@ public class Sun : MonoBehaviour,IBeAttacked
     public Sprite ShakedSun;
     public Sprite DarkSun;
     public SpriteRenderer sr;
-    private bool isStart = false;
+    public bool StartGame = false;
 
     private float Darktimer = 0f;
     [SerializeField]
@@ -31,43 +31,19 @@ public class Sun : MonoBehaviour,IBeAttacked
     private float shakeMagnitude = 0.1f;//�𶯷���
     [SerializeField]
     private float shaketime = 0f;//�𶯼�ʱ
-    public static Sun Instance//ȫ�ֵ���
-    {
-        get
-        {
-            return instance;
-        }
-        private set
-        {
-            instance = value;
-        }
-    }
-    private void OnDestroy()
-    {
-        if (instance == this)
-        {
-            instance = null;
-        }
-    }
-
     public Vector3 GetDirection(Transform entity)
     {
         return entity.position - transform.position;
     }
-
+    void Awake()
+    {
+        
+    }
     void Start()
     {
-        if(instance == null)
-        {
-            instance = this;
-        }
-        else if(instance != this)
-        {
-            Destroy(gameObject);
-        }
-
         sr = GetComponent<SpriteRenderer>();
         Random.InitState(System.DateTime.Now.Millisecond);
+        GameEntry.Instance.GetSystem<ContextSystem>().GetContext<BattleContext>().Sun = this;
     }
     void Update()
     {
@@ -77,7 +53,7 @@ public class Sun : MonoBehaviour,IBeAttacked
         //    shaketime = shakeDuration;
             
         //}
-        if(isStart) Playing(Time.deltaTime);
+        if(StartGame) Playing(Time.deltaTime);
         if(Darktimer <= 0.1f)
         {
             Shake(Time.deltaTime);
@@ -89,11 +65,6 @@ public class Sun : MonoBehaviour,IBeAttacked
         }
 
     }
-    public void SunStart()
-    {
-        isStart = true;
-    }
-
     public void Playing(float deltaTime)//̫���ڹ����������
     {
         transform.position = Vector3.MoveTowards(transform.position, Orbit.points[target].position, deltaTime * speed);

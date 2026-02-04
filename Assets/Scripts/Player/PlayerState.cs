@@ -8,13 +8,6 @@ public class ReloadState : StateBase<Player>
     {
         
     }
-    public override void OnUpdate(Player owner, float deltaTime)
-    {
-
-        Vector2 moveDir = owner.MoveDirection.normalized;
-
-        owner.Rb.velocity = moveDir * owner.moveSpeed;
-    }
     public override void OnExit(Player owner)
     {
         owner.Rb.velocity = Vector2.zero;
@@ -27,12 +20,7 @@ public class IdleState : StateBase<Player>
 {
     public override void OnEnter(Player owner)
     {
-        UnityEngine.Debug.Log("Enter Idle State");
         owner.Animator.Play("Idle");
-        UnityEngine.Debug.Log("playIdle³É¹¦");
-    }
-    public override void OnUpdate(Player owner, float deltaTime)
-    {
     }
     public override void OnExit(Player owner)
     {
@@ -53,13 +41,9 @@ public class MoveState : StateBase<Player>
     }
     public override void OnUpdate(Player owner, float deltaTime)
     {
-
-        Vector2 moveDir = owner.MoveDirection.normalized;
-
-        owner.Rb.velocity = moveDir * owner.moveSpeed;
         if (Timer <= 0.1f)
         {
-            GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("½Å²½02");
+            GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("ï¿½Å²ï¿½02");
             Timer = Time;
         }
         else

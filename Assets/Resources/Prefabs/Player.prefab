@@ -17,6 +17,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -5188286415830579284, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: controller
+      value: 
+      objectReference: {fileID: 11400000, guid: a4dee79d5bee3154d990a6628776643d, type: 2}
+    - target: {fileID: -5188286415830579284, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+      propertyPath: IsLocalPlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5188286415830579284, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: Hp.serializedValue
       value: 5
       objectReference: {fileID: 0}
@@ -146,7 +154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8126605362618385586, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Name
-      value: P1
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6600478827925881394, guid: 0c46555e010156d49a20f772bf981e18, type: 3}

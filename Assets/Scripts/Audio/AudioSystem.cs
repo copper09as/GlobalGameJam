@@ -119,7 +119,7 @@ public class AudioSystem : IGameSystem
         }
         else
         {
-            Debug.LogError($"[AudioSystem] 未找到名称为{name}的SFX");
+            Debug.Log($"[AudioSystem] 未找到名称为{name}的SFX");
         }
     }
     public void PlayBGM(string clipName)

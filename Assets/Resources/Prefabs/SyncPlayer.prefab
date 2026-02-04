@@ -38,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2365571720684789902, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Mass
-      value: 1.8974749
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3676399648462269151, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_LocalPosition.x
@@ -146,14 +146,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8126605362618385586, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Name
-      value: P2
+      value: SyncPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 8281842125142659360, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: b13306a802037e24494144ae349ff467, type: 3}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 6600478827925881394, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 7794155217441200415, guid: 0c46555e010156d49a20f772bf981e18, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0c46555e010156d49a20f772bf981e18, type: 3}

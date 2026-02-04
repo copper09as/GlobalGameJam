@@ -11,6 +11,14 @@ public class Wall : MonoBehaviour, IBeAttacked
     [SerializeField] int maxHP = 3;
     public SpriteRenderer spriteRenderer;
     public Sprite DamagedWall;
+    private bool isDestroyed = false;
+    private BattleContext battleContext
+    {
+        get
+        {
+            return GameEntry.Instance.GetSystem<ContextSystem>().GetContext<BattleContext>();
+        }
+    }
     public int HP
     {
         get { return hp; }
@@ -43,12 +51,18 @@ public class Wall : MonoBehaviour, IBeAttacked
     
     void BeDestroyed()
     {
-        if(Random.Range(1,4) ==1 ) 
+        /*if(Random.Range(1,4) ==1 ) 
         {
             var collection = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<SessionContext>().maskCollection;
             GreatMask(collection.MaskDataList[Random.Range(0, collection.MaskDataList.Count)]).transform.position = transform.position;
         }
-        GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("木墙破碎01");
+        GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("木墙破碎01");*/
+        if (isDestroyed) return;
+        isDestroyed = true;
+        MsgCreateMask msg = new MsgCreateMask();
+        msg.posX = transform.position.x;
+        msg.posY = transform.position.y;
+        GameEntry.Instance.GetSystem<NetSystem>().Send(msg);
         Destroy(gameObject,0.2f);
     }
 
