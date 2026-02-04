@@ -66,14 +66,6 @@ public class Wall : MonoBehaviour, IBeAttacked
         Destroy(gameObject,0.2f);
     }
 
-    private GameObject GreatMask(MaskSO maskSO)
-    {
-        var mask = Instantiate(Resources.Load<GameObject>("Prefabs/Mask"));
-        mask.GetComponent<Mask>().MaskSO = maskSO;
-        mask.transform.position = transform.position;
-        return mask;
-    }
-
     private void OnDestroy()
     {
     }

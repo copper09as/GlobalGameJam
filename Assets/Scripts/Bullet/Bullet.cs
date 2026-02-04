@@ -6,10 +6,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float speed = 10f;
     public float lifeTime = 5f;
     public Player Owner;
-    public float currentSpeed;
     [SerializeField]private Rigidbody2D rb;
     private Vector3 moveDir;
 
@@ -17,37 +15,21 @@ public class Bullet : MonoBehaviour
     {
         Destroy(gameObject, lifeTime);
     }
-    public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition)
+    public void Init(Player owner, Vector3 initPosition, Vector3 targetPosition,float speed = 10f)
     {
-        currentSpeed = speed;
         Owner = owner;
         transform.position = initPosition;
 
         Vector3 targetPos = targetPosition;
         targetPos.z = initPosition.z; // 保证同一平面
         Vector2 dir = (targetPos - initPosition).normalized;
-        rb.velocity = dir * currentSpeed;
+        rb.velocity = dir * speed;
 
         var angle = Vector2.SignedAngle(Vector2.right, dir);
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
         GameEntry.Instance.GetSystem<AudioSystem>().PlaySFXByName("发射02");
     }
-
-    //void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    var p = collision.gameObject.GetComponentInParent<Player>();
-    //    if (p != null)
-    //    {
-    //        Destroy(gameObject); return;
-    //    }
-    //    //攻击墙壁，与玩家本体触碰
-    //    var c = collision.gameObject.GetComponent<IBeAttacked>();
-    //    c?.OnBeAttacked(this, moveDir, transform.position);//子弹的体积小，中心点约等于碰撞点
-
-    //    Destroy(gameObject);
-    //    return;
-    //}
 
     //子弹只有Trigger
     private void OnTriggerEnter2D(Collider2D collision)

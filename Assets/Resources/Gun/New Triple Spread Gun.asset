@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4168dd3bbf43b4449be2d15137d79b4b, type: 3}
+  m_Name: New Triple Spread Gun
+  m_EditorClassIdentifier: 
+  fireCooldown: 0.5
+  bulletSpeed: 10
+  Price: 0
+  GunName: TripleGun
+  Id: 2
+  bulletCount: 7
+  reloadTime: 3
+  bulletPrefab: {fileID: 7021279964626153217, guid: 8bee6a71e19ec854d867168de121b62a, type: 3}
+  fireSfx: {fileID: 0}
+  spreadAngle: 15

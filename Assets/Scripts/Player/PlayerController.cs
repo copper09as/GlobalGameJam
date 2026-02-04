@@ -72,13 +72,13 @@ public class PlayerController : ScriptableObject
     #region Fire
     public void Fire(Player player)
     {
-        if (Input.GetKeyDown(fireKey) && player.AbilitySystem.GetAttribute("BulletCount").Value > 0)
+        if ((Input.GetKeyDown(fireKey) ||Input.GetMouseButtonDown(0))&& player.AbilitySystem.GetAttribute("BulletCount").Value > 0)
         {
             if (player.currentColdDownTime >= player.AbilitySystem.GetAttribute("FireRate").Value && !player.InReload)
             {
                 Vector3 mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mouseWorldPos.z = 0f;
-                player.CreateBullet(mouseWorldPos);
+                player.Fire(mouseWorldPos);
                 player.currentColdDownTime = 0f;
                 SendFireMsg(player, mouseWorldPos, player.FirePoint.transform.position);
                 player.AbilitySystem.GetAttribute("BulletCount").AddModifier(new AttributeModifier
@@ -133,8 +133,6 @@ public class PlayerController : ScriptableObject
         GameEntry.Instance.GetSystem<NetSystem>().Send(msg);
     }
 
-    private void SendBulletMsg(Player player)
-    {
-    }
+
     #endregion
 }

@@ -37,6 +37,7 @@ public class MainGameController : GameBehaviour
         netSystem.AddMsgListener("MsgGameLose", OnMsgGameLose);
         netSystem.AddMsgListener("MsgTakeMask", OnMsgTakeMask);
         netSystem.AddMsgListener("MsgShineEffect", OnMsgShineEffect);
+        netSystem.AddMsgListener("MsgSyncSun", OnMsgSyncSun);
         netSystem.AddMsgListener("MsgSwapPositionResponse", OnMsgSwapPosition);
         eventSystem.Subscribe<PlayerBulletChange>(OnPlayerBulletChange);
         eventSystem.Subscribe<PlayerHpChange>(OnPlayerHpChange);
@@ -47,6 +48,22 @@ public class MainGameController : GameBehaviour
         }
         battleContext = GameEntry.Instance.GetSystem<ContextSystem>().CreateContext<BattleContext>();
         StartBattle();
+    }
+
+
+
+    private void OnMsgDarkStart(MsgBase msgBase)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void OnMsgSyncSun(MsgBase msgBase)
+    {
+        Sun sun = GameEntry.Instance.GetSystem<ContextSystem>().GetContext<BattleContext>().Sun;
+        MsgSyncSun msg = (MsgSyncSun)msgBase;
+        sun.transform.position = new Vector2(msg.posX, msg.posY);
+        sun.target = msg.target;
+        sun.direction = msg.direction;
     }
 
     private void OnPlayerBulletChange(PlayerBulletChange change)
@@ -121,6 +138,7 @@ public class MainGameController : GameBehaviour
         netSystem.RemoveListener("MsgTakeMask", OnMsgTakeMask);
         netSystem.RemoveListener("MsgSwapPositionResponse", OnMsgSwapPosition);
         netSystem.RemoveListener("MsgShineEffect", OnMsgShineEffect);
+        netSystem.RemoveListener("MsgSyncSun", OnMsgSyncSun);
         eventSystem.Unsubscribe<PlayerBulletChange>(OnPlayerBulletChange);
         eventSystem.Unsubscribe<PlayerHpChange>(OnPlayerHpChange);
     }
@@ -159,8 +177,7 @@ public class MainGameController : GameBehaviour
         GameObject maskObj = Instantiate(maskPrefab);
         var maskData = sessionContext.maskCollection.GetMaskSOById(msg.MaskId);
         var mask = maskObj.GetComponent<Mask>();
-        mask.MaskSO = maskData;
-        mask.EntityId = msg.EntityId;
+        mask.Init(maskData);
         maskObj.transform.position = new Vector3(msg.posX, msg.posY, 0f);
         battleContext.Masks.Add(mask);
     }
@@ -171,7 +188,7 @@ public class MainGameController : GameBehaviour
         if (battleContext.SyncPlayer == null) return;
         Player syncPlayer = battleContext.SyncPlayer;
         Vector3 targetPos = new Vector3(msg.targetX, msg.targetY, 0f);
-        syncPlayer.CreateBullet(targetPos);
+        syncPlayer.Fire(targetPos);
     }
 
     private void OnMsgGameWin(MsgBase msgBase)
@@ -183,6 +200,8 @@ public class MainGameController : GameBehaviour
     public void StartBattle()
     {
         MsgBattleReady msg = new MsgBattleReady();
+        
+        msg.GunId = sessionContext.localGun.Id;
         netSystem.Send(msg);
     }
 
@@ -193,9 +212,11 @@ public class MainGameController : GameBehaviour
         Player player = playerObj.GetComponent<Player>();
         battleContext.Players.Add(player);
         player.playerId = sessionContext.PlayeId;
+        player.Gun = sessionContext.localGun;
         GameObject syncPlayerObj = Instantiate(Resources.Load<GameObject>("Prefabs/SyncPlayer"));
         Player syncPlayer = syncPlayerObj.GetComponent<Player>();
         syncPlayer.playerId = sessionContext.opponentId;
+        syncPlayer.Gun = sessionContext.gunCollection.GetGunById(((MsgBattleReady)msgBase).opponentGunId);
         battleContext.Players.Add(syncPlayer);
         battleContext.StartBattle();
     }

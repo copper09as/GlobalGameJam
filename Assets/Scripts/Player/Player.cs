@@ -16,8 +16,8 @@ public enum PlayerState
 }
 public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacked
 {
-    public float coldDownTime = 0.2f;
-    public float currentColdDownTime = 0f;
+    //public float coldDownTime = 0.2f;
+    public float currentColdDownTime = 10f;
     public bool InReload = false;
     public PlayerController controller;
     public Rigidbody2D Rb;
@@ -27,6 +27,7 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
     public bool StartGame = false;
     public string currentMaskName;
     public Animator Animator;
+    public Gun Gun;
 
     public SpriteRenderer ShadowSR;//阴影渲染器
     public float beAttackTimer;//受击计时器
@@ -52,13 +53,16 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
         abilitySystem = new AbilitySystemComponent();
         abilitySystem.InitializeFromDictionary(new Dictionary<string, float>
         {
-            { "Hp", 5f},
-            { "BulletCount", 5f},
-            {"ReloadTimeRate", 1.6f},
-            {"MoveSpeed", 5f}
+            { "Hp", 10f},
+            { "BulletCount", Gun.bulletCount},
+            {"ReloadTimeRate", Gun.reloadTime},
+            {"MoveSpeed", 5f},
+            {"FireRate", Gun.fireCooldown}
         });
-        abilitySystem.GetAttribute("Hp").Watch((value) => OnHpChanged(value));
-        abilitySystem.GetAttribute("BulletCount").Watch((value) => OnBulletCountChanged(value));
+        abilitySystem.GetAttribute("Hp").WatchImmediate((value) => OnHpChanged(value));
+        abilitySystem.GetAttribute("BulletCount").WatchImmediate((value) => OnBulletCountChanged(value));
+        abilitySystem.GetAttribute("Hp").AddModifier(new AttributeModifier
+        ("Hp", ModifierOp.Add,-5f));
     }
 
     private void OnBulletCountChanged(float value)
@@ -97,16 +101,11 @@ public class Player : GameStateMachineBehaviour<PlayerState, Player>, IBeAttacke
             controller.Tick(this, Time.deltaTime);
         ShadowUpdate(Time.deltaTime);
     }
-    public void CreateBullet(Vector3 targetPosition, Vector3 firePosition = default(Vector3))
+    public void Fire(Vector3 targetPos)
     {
-        GameObject bulletObj = Instantiate(Resources.Load<GameObject>("Prefabs/Bullet"));
-        Bullet bullet = bulletObj.GetComponent<Bullet>();
-        if (FirePoint != null)
-        {
-            bullet.Init(this, FirePoint.transform.position, targetPosition);
-            return;
-        }
-        bullet.Init(this, firePosition, targetPosition);
+        if (Gun == null) return;
+        Gun.Fire(this, targetPos);
+        Debug.Log("Fire");
     }
     public void StartReload()
     {

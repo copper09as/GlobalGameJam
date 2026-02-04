@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b921932c54893344b115a36dc3780e8, type: 3}
   m_Name: EvilMask
   m_EditorClassIdentifier: 
+  Id: 0
   MaskName: EvilMask
   Sprite: {fileID: -848656541, guid: 66064fa09afae0e4183b81cecb3147c2, type: 3}

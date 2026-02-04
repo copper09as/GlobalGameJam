@@ -4,6 +4,8 @@ public class MsgBattleReady : MsgBase
     {
         protoName = "MsgBattleReady";
     }
+    public int GunId;
+    public int opponentGunId;
 }
 public class MsgSyncState : MsgBase
 {
@@ -93,4 +95,18 @@ public class MsgShineEffect: MsgBase
     {
         protoName = "MsgShineEffect";
     }
+}
+
+public class MsgSyncSun : MsgBase
+{
+    public MsgSyncSun()
+    {
+        protoName = "MsgSyncSun";
+    }
+
+    public float posX;
+    public float posY;
+    public int target;
+    public int direction;
+    public float dardDuration;
 }
